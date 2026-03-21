@@ -7,6 +7,11 @@ import { Icon } from "@iconify-icon/react"
 import { BtnOpcion } from "../../../../shared/components/atoms/FR/BtnOpcion"
 import { useProductStore } from "../../common/store/useProductStore"
 
+interface Categoria {
+    id: string
+    name: string
+}
+
 type Producto = {
     id: string
     name: string
@@ -14,7 +19,7 @@ type Producto = {
     precio_compra: string
     precio_mayoreo: string
     categoria_id: string
-    categoria: string
+    categoria: Categoria
     codigo_interno: string
     codigo_barras: string
     activo: boolean

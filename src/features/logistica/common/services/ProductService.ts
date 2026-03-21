@@ -43,10 +43,10 @@ export const addImagenProducto = async (data: any) => {
     return response.data;
 }
 
-export const updateImagenProducto = async ({ formData, id }: { formData: any, id: string }) => {
+export const updateImagenProducto = async (payload: any) => {
     const response = await apiInstancesPanel.post(
-        `/producto/update-image/${id}`,
-        formData,
+        `/producto/update-image/${payload.id}`,
+        payload.formData,
         {
             headers: {
                 'Content-Type': 'multipart/form-data',

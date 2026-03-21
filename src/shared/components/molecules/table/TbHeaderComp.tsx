@@ -4,6 +4,13 @@ import { Icon } from "@iconify-icon/react";
 import { cn } from "../../../../lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "../../../ui";
 import DebouncedInput from "./DebouncedInput";
+import "@tanstack/react-table";
+declare module "@tanstack/react-table" {
+    interface ColumnMeta<TData extends unknown, TValue> {
+        filterVariant?: "text" | "range" | "select";
+    }
+}
+
 
 interface TableHeaderComponentProps {
     table: Table<any>

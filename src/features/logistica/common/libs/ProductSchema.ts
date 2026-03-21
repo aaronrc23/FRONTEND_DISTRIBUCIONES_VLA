@@ -69,13 +69,13 @@ export const productSchema = z.object({
 
 export type ProductSchema = z.infer<typeof productSchema>;
 
-const ImageItemSchema = z.object({
-    id: z.number().optional(),
-    file: z.instanceof(File).optional(),
-    url: z.string().optional(),
-    orden: z.number(),
-    isPrincipal: z.boolean(),
-});
+// const ImageItemSchema = z.object({
+//     id: z.number().optional(),
+//     file: z.instanceof(File).optional(),
+//     url: z.string().optional(),
+//     orden: z.number(),
+//     isPrincipal: z.boolean(),
+// });
 
 
 export const EditProductSchema = z.object({

@@ -5,11 +5,11 @@ import { frvalInv, type FrvalInvValue } from '../../validation/frInv';
 import { Button, Texto } from '../../../../../shared/ui';
 import { FrInput } from '../../../../../shared/components/atoms/FR/FrInput';
 import { FrSelect } from '../../../../../shared/components/atoms/FR/FrSelect';
-import { useAlmacen, useCrudAlmacen } from '../../../common/hooks/useCrudAlmacen';
+import { useAlmacen } from '../../../common/hooks/useCrudAlmacen';
 import InputSearch from '../../../../../shared/components/molecules/InputSearch';
 import CardProd from './CardProd';
 import { SearchProductos } from '../../../common/services/referencialeservice';
-import { useCrudInventario, useInventario } from '../../../common/hooks/useCrudInventario';
+import { useCrudInventario } from '../../../common/hooks/useCrudInventario';
 interface Props {
     onClose: () => void;
     mode?: "Entrada" | "Salida";

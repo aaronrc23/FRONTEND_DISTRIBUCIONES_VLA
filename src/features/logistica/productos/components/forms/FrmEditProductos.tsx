@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form';
 import { EditProductSchema, type EditProdForm } from '../../../common/libs/ProductSchema';
 import { listarRefProd, useProdCrudMut } from '../../../common/hooks/useCrudProd';
@@ -10,6 +10,13 @@ import FrmPrecios from '../plantillas/FrmPrecios';
 import FrDetalle from '../plantillas/FrDetalle';
 import FrmImg from '../plantillas/FrmImg';
 import { Button } from '../../../../../shared/ui';
+
+type ImagenProducto = {
+    id: number;
+    url: string;
+    orden: number;
+    is_principal: boolean;
+};
 
 export default function FrmEditProductos({ onClose, data }: { onClose?: () => void, data: any }) {
     const { data: refprod } = listarRefProd();
@@ -46,7 +53,7 @@ export default function FrmEditProductos({ onClose, data }: { onClose?: () => vo
 
 
     const mappedImages = useMemo(() => {
-        return data?.imagenes?.map(img => ({
+        return data?.imagenes?.map((img: ImagenProducto) => ({
             id: img.id,
             url: img.url,
             orden: img.orden,

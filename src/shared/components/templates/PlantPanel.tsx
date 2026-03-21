@@ -23,7 +23,7 @@ export default function PlantPanel() {
                     <div className="flex items-center gap-4">
                         <Button
                             onClick={() => setOpen(!open)}
-                            size={"icon-lg"}
+                            size={'icon'}
 
                             className="lg:hidden p-2 border-none bg-transparent hover:bg-transparent"
                         >
@@ -34,7 +34,7 @@ export default function PlantPanel() {
 
                     <div className="flex justify-center items-center  gap-3">
                         <ModeToggle />
-                        <Button className="flex items-center gap-3  rounded-xl p-2 cursor-pointer" size={"icon-lg"}>
+                        <Button className="flex items-center gap-3  rounded-xl p-2 cursor-pointer" size={"icon"}>
 
                             <Icon icon="ion:notifications-outline"  className="text-2xl text-secondary-foreground"/>
                         </Button>

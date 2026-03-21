@@ -21,7 +21,7 @@ export const ColumnVisibilityToggle = ({ table }: { table: Table<any> }) => (
                         />
                         <span className={column.getCanHide() ? "text-sm" : "opacity-50 text-sm"}>
                             {typeof column.columnDef.header === "function"
-                                ? flexRender(column.columnDef.header, { column })
+                                ? flexRender(column.columnDef.header, { column  })
                                 : column.columnDef.header}
                         </span>
                     </div>

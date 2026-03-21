@@ -7,7 +7,7 @@ import LytEmpleados from '../features/administracion/empleados/pages/LytEmpleado
 import LytProductos from '../features/logistica/productos/pages/LytProductos'
 import LytAlmacenes from '../features/warehouse/almacenes/page/LytAlmacenes'
 import LytInventario from '../features/warehouse/Inventario/pages/LytInventario'
-import Home from '../features/shop/pages/Home'
+
 
 
 export default function PanelRouter() {

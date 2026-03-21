@@ -6,7 +6,7 @@ import { AccionesEmpl } from "../../../common/hooks/useCrudEmpleados";
 import { empleadosEditSchema, type EmpleadosEditFormValues, type EmpleadosFormValues } from "../../../common/libs/EmpleadosSchema";
 
 
-export default function FrmEditEmpleado({ data, onClose }: { data: any, onClose?: () => void }) {
+export default function FrmEditEmpleado({ data }: { data: any, onClose?: () => void }) {
     const forms = useForm<EmpleadosEditFormValues>({
         resolver: zodResolver(empleadosEditSchema),
         defaultValues: {
@@ -21,7 +21,7 @@ export default function FrmEditEmpleado({ data, onClose }: { data: any, onClose?
             genero: data?.genero || "",
         },
     });
-    const { handleEmpEdit } = AccionesEmpl(onClose);
+    const { handleEmpEdit } = AccionesEmpl();
 
     const onSubmit = (data: EmpleadosFormValues) => {
         handleEmpEdit(data);

@@ -33,7 +33,7 @@ export const SerieEditSchema = z.object({
         .string()
         .optional(),
     tipo_comprobante_id: z.number({
-        required_error: "El tipo de comprobante es obligatorio",
+        error:  "El tipo de comprobante es obligatorio",
     }),
 });
 

@@ -1,4 +1,3 @@
-import { ShoppingCart } from "lucide-react"
 import { useListProdConsult } from "../../common/hooks/useConsultas"
 import { useNavigate } from "react-router-dom";
 

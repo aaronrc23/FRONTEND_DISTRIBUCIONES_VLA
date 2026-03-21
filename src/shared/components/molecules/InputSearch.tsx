@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { Loader2, Search } from "lucide-react";
 import { useFloating, offset, flip, size, autoUpdate } from "@floating-ui/react-dom";
 import { useClickOutside } from "../../hooks/useClickOutside";

@@ -1,12 +1,8 @@
 
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react'
 import { useForm } from 'react-hook-form';
-
 import { Button } from '../../../../../shared/ui';
-import { FrImagePreview } from '../../../../../shared/components/atoms/FR/FrImagePreview';
-import { FrFileInput } from '../../../../../shared/components/atoms/FR/FrmFileInput';
 import { FrSelectAsync } from '../../../../../shared/components/atoms/FR/FrSelectAsync';
 import { FrSelect } from '../../../../../shared/components/atoms/FR/FrSelect';
 import { FrInput } from '../../../../../shared/components/atoms/FR/FrInput';
@@ -37,10 +33,10 @@ export default function FrmAddCategorias() {
 
         AddCatMuttation.mutate(formData);
     };
-    const [fileKey, setFileKey] = useState(0);
+    // const [fileKey, setFileKey] = useState(0);
     const handleCancel = () => {
         forms.reset();
-        setFileKey(prev => prev + 1);
+        // setFileKey(prev => prev + 1);
 
     };
 

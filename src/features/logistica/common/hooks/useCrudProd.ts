@@ -3,6 +3,7 @@ import { showError, showLoading, showSuccess } from "../../../../shared/hooks/us
 import { activarProducto, addProducto, deleteImagenProducto, desactivarProducto, editProducto, listProductos, setPrincipalImagenProducto, updateImagenProducto } from "../services/ProductService";
 import { formatLaravelErrors } from "../../../../shared/helpers/formatLaravelErrors";
 import { listRefProduct } from "../services/ReferencialService";
+import type { ImgItem } from "../../productos/components/plantillas/FrmImg";
 
 
 type Props = {
@@ -141,5 +142,7 @@ export const updImgProd = async (productId: number, images: ImgItem[]) => {
         formData.append(`imagenes[${index}][isPrincipal]`, img.isPrincipal ? "1" : "0");
     });
 
-    return await updImgProdMuttation.mutateAsync({ productId, formData });
+    const payload = { productId, formData };
+
+    return await updImgProdMuttation.mutateAsync(payload);
 };

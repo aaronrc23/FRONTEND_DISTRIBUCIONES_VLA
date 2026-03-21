@@ -20,7 +20,7 @@ export default function FrmEditAlmacen({ onClose, data }: Props) {
     const forms = useForm<AlmacenFormValuesEdit>({
         resolver: zodResolver(almacenFormEdit),
         defaultValues: {
-            name: data?.name || "",
+            nombre: data?.name || "",
             tipo: data?.tipo || "FISICO",
             is_principal: data?.is_principal || false,
         }

@@ -27,7 +27,7 @@ interface CardFooterProps {
     children?: React.ReactNode;
 }
 
-export const Card = React.forwardRef(
+export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     ({ className, variant = "default", ...props }: CardProps, ref) => {
         const variants = {
             default:
@@ -55,12 +55,12 @@ export const Card = React.forwardRef(
 Card.displayName = "Card";
 
 // Subcomponentes
-export const CardHeader = React.forwardRef(({ className, ...props }: CardHeaderProps, ref) => (
+export const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(({ className, ...props }: CardHeaderProps, ref) => (
     <div ref={ref} className={cn("p-4 border-b border-border/20", className)} {...props} />
 ));
 CardHeader.displayName = "CardHeader";
 
-export const CardTitle = React.forwardRef(({ className, ...props }: CardTitleProps, ref) => (
+export const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(({ className, ...props }: CardTitleProps, ref) => (
     <h3
         ref={ref}
         className={cn("text-lg font-semibold leading-none tracking-tight", className)}
@@ -69,12 +69,17 @@ export const CardTitle = React.forwardRef(({ className, ...props }: CardTitlePro
 ));
 CardTitle.displayName = "CardTitle";
 
-export const CardContent = React.forwardRef(({ className, ...props }: CardContentProps, ref) => (
+export const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(({ className, ...props }: CardContentProps, ref) => (
     <div ref={ref} className={cn("p-0", className)} {...props} />
 ));
 CardContent.displayName = "CardContent";
 
-export const CardFooter = React.forwardRef(({ className, ...props }: CardFooterProps, ref) => (
-    <div ref={ref} className={cn("p-4 border-t border-border/20", className)} {...props} />
-));
-CardFooter.displayName = "CardFooter";
+export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
+    ({ className, ...props }, ref) => (
+        <div
+            ref={ref}
+            className={cn("p-4 border-t border-border/20", className)}
+            {...props}
+        />
+    )
+);
