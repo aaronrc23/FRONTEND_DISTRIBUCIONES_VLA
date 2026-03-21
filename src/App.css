@@ -1,0 +1,56 @@
+#root {
+    width: 100dvw;
+    height: 100dvh;
+    padding: 0;
+    margin: 0;
+}
+
+
+select {
+    appearance: base-select;
+    &::picker(select) {
+        appearance: base-select;
+        padding: 4px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--input);
+
+        /* 1. La clave está en transition-behavior: allow-discrete y overlay */
+        transition:
+            opacity 0.4s ease-out,
+            transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            display 0.4s allow-discrete,
+            overlay 0.4s allow-discrete;
+        /* Importante para que no desaparezca de golpe */
+
+        /* 2. ESTADO CERRADO (Hacia donde va cuando se quita) */
+        opacity: 0;
+        /* Cambiamos el -8px por +8px para que "caiga" en lugar de subir */
+        transform: translateY(8px) scale(0.95);
+    }
+
+    /* 3. ESTADO ABIERTO */
+    &:open::picker(select) {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+
+        /* 4. PUNTO DE PARTIDA (Desde donde viene cuando aparece) */
+        @starting-style {
+            opacity: 0;
+            /* Aquí puedes dejarlo en -8px si quieres que entre de arriba, 
+         o en 8px si quieres que todo el movimiento sea hacia abajo */
+            transform: translateY(-8px) scale(0.95);
+        }
+    }
+
+    & option {
+        padding: 4px;
+        border-radius: 8px;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+    }
+}

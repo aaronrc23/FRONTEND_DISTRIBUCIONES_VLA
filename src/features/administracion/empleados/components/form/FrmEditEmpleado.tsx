@@ -1,0 +1,105 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { FrInput } from "../../../../../shared/components/atoms/FR/FrInput";
+import { Button } from "../../../../../shared/ui";
+import { AccionesEmpl } from "../../../common/hooks/useCrudEmpleados";
+import { empleadosEditSchema, type EmpleadosEditFormValues, type EmpleadosFormValues } from "../../../common/libs/EmpleadosSchema";
+
+
+export default function FrmEditEmpleado({ data, onClose }: { data: any, onClose?: () => void }) {
+    const forms = useForm<EmpleadosEditFormValues>({
+        resolver: zodResolver(empleadosEditSchema),
+        defaultValues: {
+            id: data.id || "",
+            email: data.user?.email || "",
+            password: data.user?.password || "",
+            name: data.user?.name || "",
+            apellidos: data.user?.apellidos || "",
+            direccion: data.user?.direccion || "",
+            phone: data?.phone || "",
+            dni: data?.dni || "",
+            genero: data?.genero || "",
+        },
+    });
+    const { handleEmpEdit } = AccionesEmpl(onClose);
+
+    const onSubmit = (data: EmpleadosFormValues) => {
+        handleEmpEdit(data);
+    };
+
+    return (
+        <form
+            onSubmit={forms.handleSubmit(onSubmit)}
+            className="flex flex-col gap-4 py-5 px-1 "
+        >
+
+            {/* Datos personales */}
+            <FrInput
+                label="Nombre"
+                name="name"
+                control={forms.control}
+            />
+
+            <FrInput
+                label="Apellidos"
+                name="apellidos"
+                control={forms.control}
+            />
+
+            <div className="flex flex-col  xs:flex-row gap-4">
+                <FrInput
+                    type="number"
+                    label="DNI"
+                    name="dni"
+                    control={forms.control}
+                />
+
+                <FrInput
+                    type="tel"
+                    label="Teléfono"
+                    name="phone"
+                    control={forms.control}
+                />
+            </div>
+
+
+
+
+            {/* Dirección */}
+            <FrInput
+                label="Dirección"
+                name="direccion"
+                leftIcon="tabler:map-pin"
+                control={forms.control}
+            />
+
+
+            {/* Datos de acceso */}
+            <FrInput
+                label="Correo Electrónico"
+                name="email"
+                type="email"
+                autoComplete="email"
+                leftIcon="eva:email-outline"
+                control={forms.control}
+            />
+
+            <FrInput
+                label="Contraseña"
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                leftIcon="eva:lock-outline"
+                control={forms.control}
+            />
+
+
+            {/* Botón */}
+            <div className="w-full mt-4">
+                <Button type="submit" className="w-full" size="lg">
+                    Guardar empleado
+                </Button>
+            </div>
+        </form>
+    );
+}

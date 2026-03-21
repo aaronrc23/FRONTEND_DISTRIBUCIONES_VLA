@@ -1,0 +1,37 @@
+.swal-custom-text {
+
+    @apply shadow-lg rounded-3xl font-normal p-6 text-foreground text-xs sm:text-sm;
+    background: var(--card);
+
+    border-radius: 15px;
+}
+
+.swal-custom-title {
+    /* Esto evita que las líneas se encimen */
+    line-height: 1.5 !important;
+    padding: 15px 10px 0px 15px !important;
+    font-size: 1.7rem;
+    font-weight: 700;
+    /* Ajusta según prefieras */
+    color: var(--foreground);
+    display: block;
+}
+
+/* en tu CSS global */
+.my-swal-overlay {
+    @apply bg-backdrop;
+    backdrop-filter: blur(2px);
+
+}
+
+.swal-confirm-btn {
+    @apply rounded-xl px-6 py-2 font-medium text-white transition;
+    background-color: #10b981;
+    cursor: pointer;
+    /* emerald-500 */
+}
+
+.swal-confirm-btn:hover {
+    background-color: #059669;
+    /* emerald-600 */
+}

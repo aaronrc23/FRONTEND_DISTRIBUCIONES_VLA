@@ -1,0 +1,18 @@
+import { Moon, Sun } from "lucide-react";
+import { Button } from "../ui/button";
+import useThemeStore from "./themestore";
+
+export function ModeToggle() {
+    const { toggleTheme } = useThemeStore();
+
+    return (
+        <Button
+            variant="ghost"
+            size="icon"
+            className="cursor-pointer "
+            onClick={toggleTheme}>
+            <Sun className="h-[1.3rem] w-[1.3rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute h-[1.3rem] w-[1.3rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+        </Button>
+    );
+}
