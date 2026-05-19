@@ -5,6 +5,9 @@ import useWindowSize from '../../../shared/hooks/useWindowSize';
 import { menusid } from '../../utils/constants/MenuSidebar';
 import { SidebarItem } from '../molecules/SidebarItem';
 import { Power } from 'lucide-react';
+import { Icon } from '@iconify-icon/react';
+import { useAuthStoreSession } from '@/features/auth/store/useAuthStoreSession';
+import { showConfirmation } from '@/shared/hooks/useSwalert';
 
 
 
@@ -20,11 +23,18 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
     const width = useWindowSize();
     const isMobile = width < 1024;
     const isCollapsed = !isMobile && collapsed;
+    const { logout } = useAuthStoreSession();
+    const handleClose = async () => {
+        const showConfirm = await showConfirmation("¿Cerrar sesión?", "¿Estás seguro de que deseas cerrar sesión?", "warning");
+        if (showConfirm) {
+            logout();
+        }
+    }
     return (
         <div> <aside
             className={clsx(
                 "z-40 top-0 left-0 h-screen flex flex-col",
-                "bg-linear-to-bl from-sidebar to-sidebar-500 border-r border-border shadow-2xl",
+                "bg-linear-to-bl from-sidebar to-sidebar-500 border-r border-border shadow-xl",
                 "transition-all duration-500 ease-in-out",
 
                 // ancho base
@@ -70,25 +80,33 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
             {/* ===== FOOTER ===== */}
 
 
-            <div className="p-4">
-                <div className={`bg-slate-700/40 rounded-lg p-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border border-white/5 backdrop-blur-sm transition-all hover:bg-slate-700/60`}>
+            <div className="p-3">
+                <div className={`bg-white/3 rounded-2xl p-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border border-sidebar  backdrop-blur-sm transition-all `}>
                     <div className="flex items-center gap-3">
-                        
+
                         {!isCollapsed && (
-                            <div className="flex flex-col">
-                                <span className="text-sm font-medium text-white tracking-tight">Aaron M.</span>
+                            <div className="flex flex-col px-3">
+                                <span className="text-sm font-semibold text-white tracking-tight">Aaron M.</span>
+                                <span className="text-xs text-slate-400">
+                                    Admin
+                                </span>
                             </div>
                         )}
                     </div>
 
                     {!isCollapsed && (
-                        <button className="w-9 h-9 flex items-center justify-center text-white bg-rose-500  cursor-pointer rounded-xl transition-all">
-                            <Power size={18} />
+                        <button
+                            className="text-sidebar-foreground pr-2 cursor-pointer hover:text-white transition"
+                            onClick={handleClose}
+                        >
+                            <Icon
+                                icon="solar:logout-2-linear"
+                                className="text-lg"
+                            />
                         </button>
                     )}
                 </div>
             </div>
-
         </aside>
 
             {/* Overlay mobile */}

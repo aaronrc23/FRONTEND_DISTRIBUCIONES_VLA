@@ -58,11 +58,10 @@ export default function FrDetalle({ methods }: { methods: any }) {
                     />
                 </div>
             )}
-
             <div className="">
                 <FrTextarea
                     name="description"
-                    label="Descripción"
+                    label="Descripción del Producto"
                     control={methods.control}
                     placeholder="Describe las características del producto..."
                     textareaSize="lg"
@@ -70,6 +69,8 @@ export default function FrDetalle({ methods }: { methods: any }) {
                 />
 
             </div>
+
+
 
         </section>
     )

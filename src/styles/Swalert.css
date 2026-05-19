@@ -10,8 +10,8 @@
     /* Esto evita que las líneas se encimen */
     line-height: 1.5 !important;
     padding: 15px 10px 0px 15px !important;
-    font-size: 1.7rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 600;
     /* Ajusta según prefieras */
     color: var(--foreground);
     display: block;

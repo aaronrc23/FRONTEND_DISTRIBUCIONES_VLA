@@ -26,7 +26,7 @@ const typographyVariants = cva(
         },
         defaultVariants: {
             variant: "ninguno",
-            weight: "light",
+            weight: "normal",
         },
     }
 )

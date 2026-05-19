@@ -29,7 +29,7 @@ export default function FrmEditEmpleado({ data }: { data: any, onClose?: () => v
 
     return (
         <form
-            onSubmit={forms.handleSubmit(onSubmit)}
+            onSubmit={forms.handleSubmit(onSubmit as any)}
             className="flex flex-col gap-4 py-5 px-1 "
         >
 
@@ -96,7 +96,7 @@ export default function FrmEditEmpleado({ data }: { data: any, onClose?: () => v
 
             {/* Botón */}
             <div className="w-full mt-4">
-                <Button type="submit" className="w-full" size="lg">
+                <Button type="submit" variant="primary" className="w-full" size="lg">
                     Guardar empleado
                 </Button>
             </div>

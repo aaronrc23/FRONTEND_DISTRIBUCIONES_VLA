@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { listProductosshop, showIdprod } from "../services/consultaservice"
+import { listProductosshop, showCategorias, showCategorys, showfilterProduct, showIdprod, showMarcas } from "../services/consultaservice"
 
 export const useListProdConsult = () => {
     return useQuery({
@@ -14,5 +14,37 @@ export const useProductoDetalle = (id: string) => {
         queryKey: ["producto", id],
         queryFn: async () => showIdprod(Number(id)),
         enabled: !!id,
+    });
+};
+
+export const uselistCategoria = () => {
+    return useQuery({
+        queryKey: ["listcategoria"],
+        queryFn: async () => showCategorias()
+    });
+}
+export const useViewMarca = () => {
+    return useQuery({
+        queryKey: ["showMarca"],
+        queryFn: async () => showMarcas()
+    });
+}
+
+export const useCategoryShop = () => {
+    return useQuery({
+        queryKey: ["categoryShop"],
+        queryFn: async () => showCategorys()
+    });
+}
+
+
+export const useFilterProduct = (categoriaId?: string, marcaId?: string) => {
+    return useQuery({
+        queryKey: ["products", categoriaId ?? "all", marcaId ?? "all"],
+        queryFn: async () => {
+            if (!categoriaId && !marcaId) return listProductosshop();
+
+            return showfilterProduct(categoriaId, marcaId);
+        },
     });
 };

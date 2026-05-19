@@ -46,7 +46,7 @@ export const useCrudInventario = (props?: Props) => {
         onSettled: () => onSellect()
     })
 
-    const updateInv = useMutation({
+    const movInv = useMutation({
         mutationFn: movInventario,
         onMutate: () => showLoading("Actualizando Almacen..."),
         onSuccess: (data) => success(data),
@@ -66,8 +66,8 @@ export const useCrudInventario = (props?: Props) => {
 
     return {
         addInv,
-        updateInv,
+        movInv,
         deleteInv
-    }
+    }  
 
 }

@@ -1,43 +1,53 @@
 import { Route, Routes } from 'react-router-dom'
-import LoginPanel from '../features/auth/pages/LoginPanel'
 import ProtectedRoutePanel from '../shared/middleware/panel/ProtectedRoutePanel'
-import PlantPanel from '../shared/components/templates/PlantPanel'
-import LytCategorias from '../features/logistica/categorias/pages/LytCategorias'
-import LytEmpleados from '../features/administracion/empleados/pages/LytEmpleados'
-import LytProductos from '../features/logistica/productos/pages/LytProductos'
-import LytAlmacenes from '../features/warehouse/almacenes/page/LytAlmacenes'
-import LytInventario from '../features/warehouse/Inventario/pages/LytInventario'
+import { lazy, Suspense } from "react";
+import LytMarcas from '@/features/logistica/marcas/pages/LytMarcas';
+import LytDashboard from '@/features/administracion/dashboard/pages/LytDashboard';
+import LytHistorialMov from '@/features/warehouse/Inventario/pages/LytHistorialMov';
 
-
+const LoginPanel = lazy(() => import('../features/auth/pages/LoginPanel'));
+const LytCategorias = lazy(() => import('../features/logistica/categorias/pages/LytCategorias'));
+const LytEmpleados = lazy(() => import('../features/administracion/empleados/pages/LytEmpleados'));
+const LytProductos = lazy(() => import('../features/logistica/productos/pages/LytProductos'));
+const LytAlmacenes = lazy(() => import('../features/warehouse/almacenes/page/LytAlmacenes'));
+const LytInventario = lazy(() => import('../features/warehouse/Inventario/pages/LytInventario'));
+const LytAddProductos = lazy(() => import('../features/logistica/productos/pages/LytAddProductos'));
+const PlantPanel = lazy(() => import('../shared/components/templates/PlantPanel'));
 
 export default function PanelRouter() {
     return (
-        <Routes>
-            <Route path="/login" element={<LoginPanel />} />
-            <Route element={<ProtectedRoutePanel />}>
-                <Route element={<PlantPanel />}>
-                    {/* RUTA PRINCIPAL */}
-                    <Route index element={<h1>Dashboard</h1>} />
-                    <Route path="categorias" element={<LytCategorias />} />
+        <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+                <Route path="/login" element={<LoginPanel />} />
+                <Route element={<ProtectedRoutePanel />}>
+                    <Route element={<PlantPanel />}>
+                        {/* RUTA PRINCIPAL */}
+                        <Route index  element={<LytDashboard />} />
+                        <Route  path="dashboard" element={<LytDashboard />} />
+                        <Route path="categorias" element={<LytCategorias />} />
 
-                    {/* RUTAS HIJAS → VAN AL OUTLET */}
-                    <Route path="empleados" element={<LytEmpleados />} />
-                    <Route path="productos" element={<LytProductos />} />
-                    <Route path="almacenes" element={<LytAlmacenes />} />
-                    <Route path="inventario" element={<LytInventario />} />
-                   
-                    {/* <Route path="sucursales" element={<LytSucursal />} />
+                        {/* RUTAS HIJAS → VAN AL OUTLET */}
+                        <Route path="empleados" element={<LytEmpleados />} />
+                        <Route path="productos" element={<LytProductos />} />
+                        <Route path="add-productos" element={<LytAddProductos />} />
+                        <Route path="almacenes" element={<LytAlmacenes />} />
+                        <Route path="historial_movimientos" element={<LytHistorialMov />} />
+                        <Route path="inventario" element={<LytInventario />} />
+                        <Route path="marcas" element={<LytMarcas />} />
+
+                        {/* <Route path="sucursales" element={<LytSucursal />} />
                     <Route path="sucursales/series" element={<LytSeries />} />
                    
                     <Route path="categorias" element={<LytCategorias />} />
                     <Route path="almacenes" element={<LytAlmacenes />} /> */}
-                    {/* <Route path="categorias" element={<LytCategorias />} />
+                        {/* <Route path="categorias" element={<LytCategorias />} />
                     <Route path="productos" element={<LytProductos />} />
                     
                      */}
+                    </Route>
                 </Route>
-            </Route>
-            <Route path="*" element={<h1>404 Panel</h1>} />
-        </Routes >
+                <Route path="*" element={<h1>404 Panel</h1>} />
+            </Routes >
+        </Suspense>
     )
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Button } from '../../../../../shared/ui';
 import { Icon } from '@iconify-icon/react';
 
-const MAX_IMAGES = 7;
+const MAX_IMAGES = 4;
 
 export type ImgItem = ImgBase & {
     id?: number;          // existe en BD
@@ -105,11 +105,11 @@ export default function FrmImg<T extends ImgBase>({ value = [], onChange, onDele
 
     return (
         <section className="space-y-3">
-            <h3 className="text-sm font-semibold">Imágenes</h3>
+          
 
             <div className="grid grid-cols-4 gap-3">
                 {images.map((img, index) => (
-                    <div key={index} className="relative aspect-square border cursor-pointer">
+                    <div key={index} className="relative aspect-square border border-border cursor-pointer">
                         <img
                             src={img.file
                                 ? URL.createObjectURL(img.file)
@@ -137,7 +137,7 @@ export default function FrmImg<T extends ImgBase>({ value = [], onChange, onDele
 
                 {images.length < MAX_IMAGES && (
                     <div onClick={() => inputRef.current?.click()}
-                        className="relative aspect-square border cursor-pointer shadow-xs
+                        className="relative aspect-square border-2 border-dashed  border-border cursor-pointer shadow-xs
                          bg-input flex flex-col gap-2 px-2 font-medium items-center justify-center rounded-lg">
                         <Icon icon="lucide:image-plus" className="text-2xl md:text-4xl text-foreground" />
                         <span className="text-foreground text-xs">Agregar </span>

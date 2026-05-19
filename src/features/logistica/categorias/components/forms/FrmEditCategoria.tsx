@@ -33,7 +33,7 @@ export default function FrmEditCategorias({ info }: { info: EditCategoriaSchema 
             "¿Estás seguro de guardar la categoría?"
         );
         if (!isConfirm) return;
-        const formData = buildCategoriaFormData(data);
+        const formData = buildCategoriaFormData(data as any);
         EditCatMuttation.mutate({ id: info.id, data: formData });
     };
 

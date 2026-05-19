@@ -101,7 +101,7 @@ export default function FrmAddEmpleado() {
 
             {/* Botón */}
             <div className="w-full mt-4">
-                <Button type="submit" className="w-full" size="lg">
+                <Button type="submit" variant="primary" className="w-full" size="lg">
                     Guardar empleado
                 </Button>
             </div>

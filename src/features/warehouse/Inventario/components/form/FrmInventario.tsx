@@ -2,20 +2,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { showConfirmation, showSuccess } from '../../../../../shared/hooks/useSwalert';
 import { frvalInv, type FrvalInvValue } from '../../validation/frInv';
-import { Button, Texto } from '../../../../../shared/ui';
+import { Button, Input, Texto } from '../../../../../shared/ui';
 import { FrInput } from '../../../../../shared/components/atoms/FR/FrInput';
 import { FrSelect } from '../../../../../shared/components/atoms/FR/FrSelect';
 import { useAlmacen } from '../../../common/hooks/useCrudAlmacen';
-import InputSearch from '../../../../../shared/components/molecules/InputSearch';
-import CardProd from './CardProd';
 import { SearchProductos } from '../../../common/services/referencialeservice';
 import { useCrudInventario } from '../../../common/hooks/useCrudInventario';
+import Searchplant from '../plantillas/Searchplant';
 interface Props {
     onClose: () => void;
-    mode?: "Entrada" | "Salida";
+
 }
 
-export default function FrmInventario({ onClose, mode = "Entrada" }: Props) {
+export default function FrmInventario({ onClose, }: Props) {
     const forms = useForm<any>(
         {
             defaultValues: {
@@ -28,50 +27,24 @@ export default function FrmInventario({ onClose, mode = "Entrada" }: Props) {
     const { data } = useAlmacen();
     const { addInv } = useCrudInventario();
     const onSubmit = async (data: FrvalInvValue) => {
-        const ok = await showConfirmation("Confirmación", `¿Estas seguro de registrar ${mode} al inventario?`)
+        const ok = await showConfirmation("Confirmación", `¿Estas seguro de registrar  al inventario?`)
         if (ok) {
-            showSuccess("Exito", `Inventario ${mode} correctamente`);
+            showSuccess("Exito", `Inventario  correctamente`);
             addInv.mutate(data);
             onClose();
         }
     }
 
-    const productoSeleccionado = forms.watch("producto");
-    const errorProducto = forms.formState.errors?.producto;
+
+
     return (
         <div className=" w-full md:min-w-md">
             <form className="flex gap-3 flex-col" onSubmit={forms.handleSubmit(onSubmit)}>
 
-                <div className=" py-1">
-                    <Texto className="text-center font-bold">Registrar {mode}</Texto>
+                <div className=" pb-4">
+                    <Texto className="text-center font-bold text-xl">Registrar Entrada de Stock</Texto>
                 </div>
-                <InputSearch
-                    label="Buscar producto"
-                    fetchOptions={SearchProductos}
-                    onSelect={(prod) =>
-                        forms.setValue("producto", prod, { shouldValidate: true })
-                    }
-
-                />
-                {errorProducto && (
-                    <p className="text-red-500 text-xs -mt-2">
-                        {errorProducto.message as string}
-                    </p>
-                )}
-                {
-                    productoSeleccionado && (
-                        <CardProd producto={productoSeleccionado} />
-                    )
-                }
-
-                <FrInput
-                    type="number"
-                    label="cantidad"
-                    placeholder="Stock del producto"
-                    name="stock"
-                    min={0}
-                    control={forms.control}
-                />
+                <Searchplant forms={forms} SearchProductos={SearchProductos} />
                 <FrInput
                     type="number"
                     label="Min Stock"
@@ -80,6 +53,7 @@ export default function FrmInventario({ onClose, mode = "Entrada" }: Props) {
                     min={0}
                     control={forms.control}
                 />
+ 
                 <FrSelect
                     label="Almacen"
                     placeholder="Seleccione un almacen"

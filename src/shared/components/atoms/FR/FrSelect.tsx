@@ -58,8 +58,8 @@ export function FrSelect({
                 <label
                     htmlFor={name}
                     className={cn(
-                        "text-sm font-normal",
-                        error ? "text-red-500" : "text-foreground"
+                        "text-sm font-medium",
+                        error ? "text-red-500" : "text-gray-600 dark:text-foreground"
                     )}
                 >
                     {label}
@@ -85,7 +85,7 @@ export function FrSelect({
                     {...field}
                     disabled={isLoading}
                     className={cn(
-                        "w-full appearance-none rounded-xl border-2 border-border-input bg-input text-foreground outline-none transition",
+                        "w-full appearance-none rounded-xl border border-border-input bg-input text-foreground outline-none transition",
                         "focus:ring-2 focus:ring-primary",
                         error && "border-red-500 focus:ring-red-500",
                         leftIcon && "pl-9",

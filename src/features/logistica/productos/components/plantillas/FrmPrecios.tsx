@@ -39,7 +39,7 @@ export default function FrmPrecios({ methods }: any) {
 
                     <FrInput
                         name="cantidad_mayoreo"
-                        label="Cantidad mínima para mayoreo"
+                        label="Cantd mín. para mayoreo"
                         control={methods.control}
                         type="number"
                         placeholder="0"

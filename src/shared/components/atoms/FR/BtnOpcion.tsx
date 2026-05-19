@@ -26,11 +26,13 @@ interface OptionButtonProps {
     align?: "start" | "center" | "end"
     icon?: string
     clsicon?: string
+    label?: string
     variant?: ButtonVariant
 }
 
 export const BtnOpcion = ({
     actions,
+    label,
     align = "end",
     icon,
     clsicon,
@@ -48,16 +50,17 @@ export const BtnOpcion = ({
             <PopoverTrigger asChild>
                 <Button
                     variant={variant || "ghost"}
-                    size="icon"
-                    className={cn("h-8 w-8 rounded-md cursor-pointer", variant === "secondary" && "bg-secondary text-secondary-foreground hover:bg-secondary/80")}
+
+                    className={cn("rounded-md cursor-pointer", variant === "secondary" && "bg-secondary text-secondary-foreground hover:bg-secondary/80")}
                 >
                     <Icon icon={icon || "lucide:more-vertical"} width="16" className={clsicon} />
+                    {label}
                 </Button>
             </PopoverTrigger>
 
             <PopoverContent
                 align={align}
-                className="w-auto p-1 rounded-xl border-2  border-border/50 shadow-lg"
+                className="w-auto  min-w-40 p-1 rounded-xl border-2  border-border/50 shadow-lg"
             >
                 <div className="flex flex-col gap-1">
                     {actions.map((action, index) => (
@@ -66,7 +69,7 @@ export const BtnOpcion = ({
                             disabled={action.disabled}
                             onClick={() => handleClick(action)}
                             className={cn(
-                                "flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors",
+                                "flex items-center cursor-pointer gap-2 rounded-md px-2 py-1.5 text-sm transition-colors",
                                 "hover:bg-muted",
                                 action.disabled && "opacity-50 cursor-not-allowed",
                                 action.variant === "destructive" &&
@@ -74,7 +77,7 @@ export const BtnOpcion = ({
                             )}
                         >
                             {action.icon && (
-                                <Icon icon={action.icon} width="14" />
+                                <Icon icon={action.icon} className="text-lg"  />
                             )}
                             {action.label}
                         </button>

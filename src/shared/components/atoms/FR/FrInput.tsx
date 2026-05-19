@@ -8,7 +8,7 @@ import { Input } from "../../../ui/input";
 interface FrInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     name: string;
     control: Control<any>;
-    label: string;
+    label?: string;
     required?: boolean;
     defaultValue?: string; // <-- opcional
     leftIcon?: string;
@@ -42,14 +42,14 @@ export function FrInput({
     });
 
     return (
-        <div>
+        <div className="w-full">
 
             {modo === "floating" ? (
 
                 <FloatingInput
                     {...field}
                     {...props}
-                    label={label}
+                    label={label || ""}
                     icon={leftIcon}
                     inputsize={inputSize}
                     clsLabel={clsLabel}
@@ -69,9 +69,10 @@ export function FrInput({
                     className={cn("w-full", className)}
                     variant="outline"
                     inputSize={inputSize}
-                    clsLabel={cn("font-semibold text-gray-600 dark:text-secondary-foreground", clsLabel)}
+                    clsLabel={cn("font-medium text-foreground/80 dark:text-foreground", clsLabel)}
                     clsInput={clsInput}
                     error={error?.message}
+                   
                 />
 
             )}

@@ -1,0 +1,104 @@
+@theme inline {
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+    --radius-2xl: calc(var(--radius) + 8px);
+    --radius-3xl: calc(var(--radius) + 12px);
+    --radius-4xl: calc(var(--radius) + 16px);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-border-input: var(--border-input);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-card-border: var(--card-border);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-500: var(--sidebar-500);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-hover: var(--sidebar-hover);
+    --color-backdrop: var(--backdrop);
+    --color-modal: var(--modal);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-500: var(--sidebar-500);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+
+    --color-table-bgth: var(--table-bgth);
+    --color-table-bg: var(--table-bg);
+    --color-table-hover: var(--table-hover);
+    --color-table-border: var(--table-border);
+    --color-table-tdcolor: var(--table-tdcolor);
+
+
+
+    --color-shoprimary: var(--shoprimary);
+    --color-bgshop: var(--bgshop);
+    --color-shopcard: var(--shopcard);
+
+    --color-shopforeground: var(--shopforeground);
+    --color-shop-secondary-foreground: var(--shop-secondary-foreground);
+    --color-shopheader: var(--shopheader);
+
+    --color-shadow-card: var(--shadow-card);
+    --color-shadow-hover: var(--shadow-hover);
+
+    --color-success-20: var(--success-20);
+    --color-info-20: var(--info-20);
+    --color-warning-20: var(--warning-20);
+    --color-error-20: var(--error-20);
+    --color-neutral-20: var(--neutral-20);
+    --color-purple-20: var(--purple-20);
+    --color-cyan-20: var(--cyan-20);
+    --color-pink-20: var(--pink-20);
+
+    --color-textsuccess-20: var(--textsuccess-20);
+    --color-textinfo-20: var(--textinfo-20);
+    --color-textwarning-20: var(--textwarning-20);
+    --color-texterror-20: var(--texterror-20);
+    --color-textneutral-20: var(--textneutral-20);
+    --color-textpurple-20: var(--textpurple-20);
+    --color-textcyan-20: var(--textcyan-20);
+    --color-textpink-20: var(--textpink-20);
+}
+
+    
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+
+    body {
+        @apply bg-background text-foreground p-0 m-0;
+    }
+}

@@ -30,7 +30,7 @@ export const productSchema = z.object({
     precio_venta: required.number("El precio de venta es requerido").pipe(z.number().min(0.01, "Debe ser mayor a 0")),
 
     precio_mayoreo: required.number("El precio de mayoreo es requerido").pipe(z.number().min(0.01, "Debe ser mayor a 0")),
-
+    marca_id: z.string(),
     description: z
         .string()
         .optional()
@@ -44,6 +44,45 @@ export const productSchema = z.object({
 
 
     destacar: z.boolean().optional(),
+    caracteristicas: z.array(
+        z.object({
+            descripcion: z.string().min(1, "La característica es requerida").optional(),
+        })
+    ).optional(),
+    presentaciones: z.array(
+        z.object({
+            medida: z.string().optional(),
+
+            unidades_por_caja: z.preprocess(
+                (v) => v === "" ? undefined : Number(v),
+                z.number().min(1, "Debe ser mayor a 0").optional().nullable()
+            ),
+
+            largo: z.preprocess(
+                (v) => v === "" ? undefined : Number(v),
+                z.number().optional().nullable()
+            ),
+
+            ancho: z.preprocess(
+                (v) => v === "" ? undefined : Number(v),
+                z.number().optional().nullable()
+            ),
+
+            alto: z.preprocess(
+                (v) => v === "" ? undefined : Number(v),
+                z.number().optional().nullable()
+            ),
+
+            peso: z.preprocess(
+                (v) => v === "" ? undefined : Number(v),
+                z.number().optional().nullable()
+            ),
+
+
+
+            es_principal: z.boolean().optional(),
+        })
+    ).optional(),
 
     imagenes: z
         .array(
@@ -84,7 +123,11 @@ export const EditProductSchema = z.object({
     unidad_id: z.string().optional(),
     tipo_afectacion_id: z.string().optional(),
     categoria_id: z.string().optional(),
-    cantidad_mayoreo: z.number().optional(),
+    marca_id: z.string().optional(),
+    cantidad_mayoreo: z.preprocess(
+        (v) => (v === "" || v === undefined ? undefined : Number(v)),
+        z.number().optional().nullable()
+    ),
     afecto_icbper: z.coerce.boolean().optional(),
     factor_icbper: z.number().optional(),
     precio_compra: z.coerce.number().optional(),
@@ -92,6 +135,45 @@ export const EditProductSchema = z.object({
     precio_mayoreo: z.coerce.number().optional().nullable(),
     description: z.string().optional(),
     destacado: z.coerce.boolean().optional(),
+    caracteristicas: z.array(
+        z.object({
+            descripcion: z.string().min(1, "La característica es requerida"),
+        })
+    ).optional(),
+    presentaciones: z.array(
+        z.object({
+            medida: z.string().optional(),
+
+            unidades_por_caja: z.preprocess(
+                (v) => v === "" ? undefined : Number(v),
+                z.number().min(1, "Debe ser mayor a 0")
+            ),
+
+            largo: z.preprocess(
+                (v) => v === "" ? undefined : Number(v),
+                z.number().optional().nullable()
+            ),
+
+            ancho: z.preprocess(
+                (v) => v === "" ? undefined : Number(v),
+                z.number().optional().nullable()
+            ),
+
+            alto: z.preprocess(
+                (v) => v === "" ? undefined : Number(v),
+                z.number().optional().nullable()
+            ),
+
+            peso: z.preprocess(
+                (v) => v === "" ? undefined : Number(v),
+                z.number().optional().nullable()
+            ),
+
+            unidad_id: z.string().optional(),
+
+            es_principal: z.boolean().optional(),
+        })
+    ).optional(),
     imagenes: z
         .array(
             z.object({
@@ -102,6 +184,8 @@ export const EditProductSchema = z.object({
         )
         .max(4)
         .optional()
+
+
 
 });
 

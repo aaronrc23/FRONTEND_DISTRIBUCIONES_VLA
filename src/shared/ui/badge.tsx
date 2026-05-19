@@ -7,7 +7,7 @@ import { Icon } from "@iconify-icon/react";
 /**
  * Badge component
  *
- * - visual: "fill" | "flat" | "outline" | "ghost"
+ * - visual: "fill" | "flat" | "outline" | "ghost" ! "purple"
  * - color: primary, success, info, warning, destructive, secondary, default
  * - leftIcon / rightIcon: string (iconify name) or ReactNode
  * - as: tag to render (div, span, button, etc.)
@@ -24,6 +24,7 @@ const base = cva(
                 sm: "text-[10px] px-2 py-0.5 gap-1",
                 md: "text-xs px-2.5 py-0.5 gap-2",
                 lg: "text-sm px-3 py-1 gap-2",
+                xl: "text-base px-4 py-2 gap-3",
             },
             visual: {
                 fill: "", // color handled separately
@@ -40,7 +41,7 @@ const base = cva(
 );
 
 /** color tokens by visual style */
-const colorTokens: Record<string, Record<string, string>> = {
+const colorTokens = {
     fill: {
         primary: "bg-blue-600 text-white",
         success: "bg-emerald-600 text-white",
@@ -48,32 +49,28 @@ const colorTokens: Record<string, Record<string, string>> = {
         warning: "bg-amber-500 text-black",
         destructive: "bg-red-600 text-white",
         secondary: "bg-slate-600 text-white",
-        default: "bg-gray-200 text-gray-800",
+        default: "bg-gray-200/80 text-gray-800",
+        purple: "bg-purple-600 text-white",
     },
     flat: {
-        primary: `bg-blue-100 text-blue-700 border border-blue-200
-                  dark:bg-blue-600/30 dark:text-blue-400 dark:border-blue-700/30`,
-        success: `bg-emerald-100 text-emerald-700 border border-emerald-200
-                  dark:bg-emerald-600/30 dark:text-emerald-400 dark:border-emerald-700/30`,
-        info: `bg-sky-100 text-sky-700 border border-sky-200
-                 dark:bg-sky-600/30 dark:text-sky-400 dark:border-sky-700/30`,
-        warning: `bg-amber-100 text-amber-700 border border-amber-200
-                   dark:bg-amber-600/30 dark:text-amber-400 dark:border-amber-700/30`,
-        destructive: `bg-red-100 text-red-700 border border-red-200
-                    dark:bg-red-600/30 dark:text-red-400 dark:border-red-700/30`,
-        secondary: `bg-slate-100 text-slate-700 border border-slate-200
-                    dark:bg-slate-500/30 dark:text-slate-400 dark:border-slate-700/30`,
-        default: `bg-gray-100 text-gray-800 border border-gray-200
-                   dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700`,
+        primary: "bg-info-20 text-textinfo-20 border border-info-20",
+        success: "bg-success-20 text-textsuccess-20 border border-success-20",
+        info: "bg-info-20 text-textinfo-20 border border-info-20",
+        warning: "bg-warning-20 text-textwarning-20 border border-warning-20",
+        destructive: "bg-error-20 text-texterror-20 ",
+        secondary: "bg-neutral-20 text-textneutral-20 border border-neutral-20",
+        default: "bg-gray-100 text-gray-800 border border-gray-200",
+        purple: "bg-purple-20 text-textpurple-20 ",
     },
     outline: {
-        primary: "bg-transparent border-blue-600 text-blue-600",
-        success: "bg-transparent border-emerald-600 text-emerald-600",
-        info: "bg-transparent border-sky-600 text-sky-600",
-        warning: "bg-transparent border-amber-500 text-amber-500",
-        destructive: "bg-transparent border-red-600 text-red-600",
-        secondary: "bg-transparent border-slate-400 text-slate-700",
+        primary: "bg-transparent border-info-20 text-textinfo-20",
+        success: "bg-transparent border-success-20 text-textsuccess-20",
+        info: "bg-transparent border-info-20 text-textinfo-20",
+        warning: "bg-transparent border-warning-20 text-textwarning-20",
+        destructive: "bg-transparent border-error-20 text-texterror-20",
+        secondary: "bg-transparent border-neutral-20 text-textneutral-20",
         default: "bg-transparent border-border text-foreground",
+        purple: "bg-transparent border-purple-20 text-textpurple-20",
     },
     ghost: {
         primary: "bg-transparent text-blue-600",
@@ -83,19 +80,24 @@ const colorTokens: Record<string, Record<string, string>> = {
         destructive: "bg-transparent text-red-600",
         secondary: "bg-transparent text-slate-700",
         default: "bg-transparent text-gray-800",
+        purple: "bg-transparent text-purple-600",
     },
-};
+} as const;
+type Visual = keyof typeof colorTokens;
+
+
+type Color = keyof typeof colorTokens["fill"];
 
 export interface BadgeProps
     extends React.HTMLAttributes<HTMLElement>,
     VariantProps<typeof base> {
-    color?: keyof (typeof colorTokens)["fill"];
-    visual?: "fill" | "flat" | "outline" | "ghost";
+    color?: Color;
     leftIcon?: React.ReactNode | string;
     rightIcon?: React.ReactNode | string;
     as?: React.ElementType;
     clickable?: boolean;
-    iconClassName?: string; // para pasar clases a los iconos
+    iconClassName?: string;
+    unstyled?: boolean;
 }
 
 export function Badge({
@@ -109,20 +111,23 @@ export function Badge({
     clickable = false,
     iconClassName,
     children,
+    unstyled = false,
     ...props
 }: BadgeProps) {
     // elije las clases de color según visual + color
-    const visualKey = visual in colorTokens ? visual : "flat";
-    const colorClass = (colorTokens as any)[visualKey][color] ?? (colorTokens as any)[visualKey].default;
-
+    const visualKey: Visual = visual ?? "flat";
+    const colorClass =
+        colorTokens[visualKey][color ?? "default"];
     const classes = twMerge(
         clsx(
             base({ size, visual }),
-            colorClass,
+            !unstyled && colorClass,
             clickable ? "cursor-pointer" : undefined,
             className
         )
     );
+
+
 
     const renderIcon = (icon?: React.ReactNode | string) => {
         if (!icon) return null;

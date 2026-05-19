@@ -2,7 +2,7 @@ import { Texto } from '../../../../../shared/ui'
 
 export default function CardProd({ producto }: { producto: any }) {
     return (
-        <div className="border rounded-lg p-3 bg-card" >
+        <div className="border border-border shadow-shadow-card rounded-lg p-3 bg-card" >
             <div className="flex gap-2">
                 <Texto className="text-sm font-semibold">Producto:</Texto>
                 <Texto className="text-sm">{producto.name}</Texto>

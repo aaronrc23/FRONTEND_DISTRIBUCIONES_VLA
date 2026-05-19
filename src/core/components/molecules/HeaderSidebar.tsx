@@ -22,24 +22,24 @@ export default function HeaderSidebar({
                 <div className="flex items-center gap-3">
 
                     {/* Icono con fondo */}
-                    <div className="w-10 h-10 flex items-center justify-center rounded-2xl bg-emerald-500/20 shadow-inner shadow-emerald-900/30">
+                    {/* <div className="w-10 h-10 flex items-center justify-center rounded-2xl bg-emerald-500/20 shadow-inner shadow-emerald-900/30">
                         <Icon
                             icon="solar:shop-2-bold"
                             className="text-xl text-emerald-400"
                         />
-                    </div>
+                    </div> */}
 
                     {/* Nombre empresa */}
                     <div className="flex flex-col leading-tight">
                         <Texto
                             weight="bold"
-                            className="text-white text-sm tracking-wide"
+                            className="text-white text-base tracking-wide"
                         >
                             {nameempresa ?? "Distribucciones VLA"}
                         </Texto>
 
                         {/* Subtexto */}
-                        <span className="text-[11px] text-slate-400">
+                        <span className="text-sm text-sidebar-foreground">
                             Panel de control
                         </span>
                     </div>
@@ -50,7 +50,7 @@ export default function HeaderSidebar({
             <Button
                 onClick={() => setCollapsed(!isCollapsed)}
                 className="hidden lg:flex items-center justify-center w-9 h-9 rounded-xl absolute -right-4 top-6 
-        bg-sidebar-accent hover:bg-emerald-500 transition-all duration-300 shadow-lg border-1 border-white/20 cursor-pointer"
+        bg-emerald-500  transition-all duration-300 shadow-lg border-1 border-white/20 cursor-pointer"
             >
                 <Icon
                     icon={

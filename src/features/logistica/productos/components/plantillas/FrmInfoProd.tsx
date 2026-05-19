@@ -3,10 +3,10 @@ import { FrSelect } from '../../../../../shared/components/atoms/FR/FrSelect';
 
 export default function FrmInfoProd({ methods, data }: any) {
 
-
     const subcategorias = data?.categoria || [];
     const unidades = data?.unidad || [];
     const tipo_afectacion = data?.afectacion || [];
+    const marcas = data?.marcas || [];
     return (
         <section className="flex flex-col gap-6">
             <FrInput
@@ -38,7 +38,7 @@ export default function FrmInfoProd({ methods, data }: any) {
                         label: item.descripcion,
                     }))}
                 />
-                <div className="col-span-1 md:col-span-2">
+                <div className="">
                     <FrSelect
                         name="categoria_id"
                         label="Categoría"
@@ -46,6 +46,18 @@ export default function FrmInfoProd({ methods, data }: any) {
                         options={subcategorias.map((item: any) => ({
                             value: (item.id).toString(),
                             label: item.name,
+                        }))}
+                    />
+                </div>
+
+                <div className="">
+                    <FrSelect
+                        name="marca_id"
+                        label="Marcas"
+                        control={methods.control}
+                        options={marcas.map((item: any) => ({
+                            value: (item.id).toString(),
+                            label: item.nombre,
                         }))}
                     />
                 </div>

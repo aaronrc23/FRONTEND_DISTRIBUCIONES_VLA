@@ -25,8 +25,7 @@ export const setupAxiosInterceptors = (axiosInstance: AxiosInstance) => {
      
 
         const token = Cookies.get("tokenp");
-        console.log("TOKEN:", token);
-        console.log("REQUEST HEADERS:", config.headers);
+    
         if (config.url?.includes("/auth/refresh")) return config;
         if (token) {
             config.headers ??= {};

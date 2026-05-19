@@ -24,10 +24,10 @@ export const SidebarItem = ({
                     <div
                         onClick={() => onToggle(item.label)}
                         className={clsx(
-                            "w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 cursor-pointer group",
+                            "w-full flex items-center justify-between px-3 py-3 rounded-2xl transition-all duration-300 cursor-pointer group",
                             isOpen
-                                ? "bg-emerald-500 text-white shadow-md"
-                                : "text-slate-400 dark:text-slate-300 hover:bg-slate-700/60 dark:hover:bg-accent hover:text-white"
+                                ? "text-sidebar-accent-foreground"
+                                : "text-sidebar-accent-foreground dark:text-slate-300 hover:bg-sidebar-hover dark:hover:bg-accent hover:text-sidebar-foreground"
                         )}
                     >
                         <div className="flex items-center gap-3">
@@ -58,7 +58,7 @@ export const SidebarItem = ({
                             )}
                         >
                             <div className="overflow-hidden">
-                                <div className="ml-6 pl-3 border-l border-sidebar-border space-y-1 py-2">
+                                <div className="ml-6 pl-3  space-y-1 py-2">
                                     {item.children.map((sub: any) => (
                                         <NavLink
                                             key={sub.label}
@@ -67,8 +67,8 @@ export const SidebarItem = ({
                                                 clsx(
                                                     "block text-sm px-3 py-2 transition",
                                                     isActive
-                                                        ? "text-emerald-400 font-semibold"
-                                                        : "text-slate-400 dark:text-slate-300 hover:text-emerald-400"
+                                                        ? "text-sky-400 hover:bg-sidebar-hover  font-semibold  bg-sidebar-accent/20 border border-sky-500  rounded-md"
+                                                        : "text-sidebar-accent-foreground font-medium hover:bg-sidebar-hover "
                                                 )
                                             }
                                         >
@@ -85,10 +85,10 @@ export const SidebarItem = ({
                     to={item.path}
                     className={({ isActive }) =>
                         clsx(
-                            "w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 group",
+                            "w-full flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-300 group",
                             isActive
-                                ? "bg-emerald-500 text-white shadow-md"
-                                : "text-slate-400 dark:text-slate-300 hover:bg-slate-700/60 dark:hover:bg-accent hover:text-white"
+                                ? "bg-sidebar-accent/12 border border-sky-400 text-sky-300 "
+                                : "text-sidebar-accent-foreground dark:text-slate-300 hover:bg-sidebar-hover dark:hover:bg-accent "
                         )
                     }
                 >
