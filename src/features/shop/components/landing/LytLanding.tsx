@@ -1,6 +1,7 @@
 
 
 
+import AboutUs from "./AboutUs";
 import Beneficios from "./Beneficios";
 import Distribudores from "./Distribudores";
 import Hero from "./Hero";
@@ -15,6 +16,7 @@ export default function LytLanding() {
             <Hero />
 
             <Beneficios />
+            <AboutUs />
 
             <NuestrosProductos />
             <Distribudores />

@@ -8,7 +8,7 @@ import { FrInput } from "../../../../../shared/components/atoms/FR/FrInput";
 import { FrSelect } from "../../../../../shared/components/atoms/FR/FrSelect";
 import Msj from "../../../../../shared/components/atoms/Msj";
 import { Button } from "../../../../../shared/ui";
-import { Icon } from "@iconify-icon/react";
+
 import { ToggleCard } from "../../../../../shared/components/molecules/ToogleCard";
 import {  CheckIcon ,XIcon } from "lucide-react";
 

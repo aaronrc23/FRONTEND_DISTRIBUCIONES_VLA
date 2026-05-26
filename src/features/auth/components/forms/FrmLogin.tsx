@@ -6,7 +6,7 @@ import { Texto, Button } from '../../../../shared/ui';
 import { loginSchemaPanel, type LoginFormValuesPanel } from '../../hooks/validation/loginschema';
 import { useAccionAuth } from '../../hooks/useAccionAuth';
 import { FrInput } from '../../../../shared/components/atoms/FR/FrInput';
-import { ModeToggle } from '@/shared/themes/mode-toggle';
+
 
 export default function FrmLogin() {
     const forms = useForm<LoginFormValuesPanel>({

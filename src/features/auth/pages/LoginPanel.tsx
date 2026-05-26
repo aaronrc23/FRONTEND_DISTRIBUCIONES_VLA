@@ -2,13 +2,9 @@ import TapeRoll from '@/shared/components/icons/TapeRoll'
 import { Texto } from '../../../shared/ui'
 import FrmLogin from '../components/forms/FrmLogin'
 import HeaderLogin from '../components/login/HeaderLogin'
-import { Icon } from '@iconify-icon/react'
 
-const FEATURES = [
-    { icon: 'mdi:flash-outline', text: 'Acceso rápido y seguro' },
-    { icon: 'mdi:devices', text: 'Disponible desde cualquier dispositivo' },
-    { icon: 'mdi:shield-check-outline', text: 'Protección para tu información' },
-]
+
+
 export default function LoginPanel() {
     return (
         <div className="relative flex h-full w-full overflow-hidden bg-[#0d1426]">

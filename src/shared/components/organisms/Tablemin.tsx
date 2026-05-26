@@ -32,12 +32,11 @@ interface TableminProps {
     responsiveMode?: "card" | "scroll";
 }
 
-const Tablemin = ({ columns, data, filtrosctn = false, placeholder, clscell, responsiveMode = "card", }: TableminProps) => {
+const Tablemin = ({ columns, data, clscell, responsiveMode = "card", }: TableminProps) => {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [globalFilter, setGlobalFilter] = useState("");
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-    const [filtercol, setFiltercol] = useState(false);
 
     const table = useReactTable({
         data,
@@ -70,7 +69,7 @@ const Tablemin = ({ columns, data, filtrosctn = false, placeholder, clscell, res
                     <div className="overflow-x-auto">
                         <TableUI variant="default" className="min-w-full overflow-x-auto shadow-none border-none">
                             <TableBase>
-                                <TbHeaderComp table={table} showFilterIcon={filtercol} />
+                                <TbHeaderComp table={table} showFilterIcon={false} />
 
                                 <tbody>
                                     {table.getRowModel().rows.length ? (
@@ -113,7 +112,7 @@ const Tablemin = ({ columns, data, filtrosctn = false, placeholder, clscell, res
                         <div className="hidden md:block">
                             <TableUI variant="default" className="shadow-none border-none">
                                 <TableBase>
-                                    <TbHeaderComp table={table} showFilterIcon={filtercol} />
+                                    <TbHeaderComp table={table} showFilterIcon={false} />
 
                                     <tbody>
                                         {table.getRowModel().rows.map((row) => (

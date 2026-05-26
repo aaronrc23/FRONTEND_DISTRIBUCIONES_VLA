@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import Loading from "../../../../shared/ui/loading";
 import { Button, Texto } from "../../../../shared/ui";
+import { useCartStore } from "../../common/store/cartStore";
 
 interface Producto {
     id: number;
@@ -87,6 +88,8 @@ function ProductCard({
     onClick: () => void;
     priority?: boolean;
 }) {
+
+    const addItem = useCartStore((state) => state.addItem);
     return (
         <div className="group relative bg-card rounded-xl shadow-sm overflow-hidden transition-all duration-300 hover:shadow-lg h-80">
             {/* Imagen */}
@@ -125,7 +128,17 @@ function ProductCard({
 
             {/* Botón */}
             <div className="absolute bottom-0 left-0 right-0 px-4 pb-4 opacity-0 transform translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
-                <button className="w-full flex items-center justify-center gap-2 text-sm bg-shoprimary text-white py-2 px-4 rounded-2xl font-medium transition-all duration-300 active:scale-95">
+                <button
+                    onClick={() =>
+                        addItem({
+                            id: product.id,
+                            nombre: product.name,
+                            precio: Number(product.precio),
+                            imagen: product.imagen,
+                            cantidad: 1,
+                        })
+                    }
+                    className="w-full flex items-center justify-center gap-2 text-sm bg-shoprimary text-white py-2 px-4 rounded-2xl font-medium transition-all duration-300 active:scale-95">
                     <ShoppingCart size={16} />
                     AGREGAR
                 </button>

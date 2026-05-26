@@ -138,10 +138,10 @@ export default function LytDashboard() {
 
                             <div className="mt-6 space-y-4">
                                 {productosCriticos.map((item: any) => {
-                                    const porcentaje = Math.min(
-                                        (item.stock_actual / item.stock_minimo) * 100,
-                                        100
-                                    );
+                                    // const porcentaje = Math.min(
+                                    //     (item.stock_actual / item.stock_minimo) * 100,
+                                    //     100
+                                    // );
 
                                     return (
                                         <div

@@ -1,12 +1,12 @@
 import { Icon } from '@iconify-icon/react';
-import {  type Table } from '@tanstack/react-table';
+import { type Table } from '@tanstack/react-table';
 import { Popover, PopoverContent, PopoverTrigger, Button, Checkbox } from '../../../ui';
 
 
 export const ColumnVisibilityToggle = ({ table }: { table: Table<any> }) => (
     <Popover>
         <PopoverTrigger asChild>
-            <Button  className="cursor-pointer font-medium">
+            <Button className="cursor-pointer font-medium">
                 <Icon icon="rivet-icons:filter" className="text-md" />
                 Columnas</Button>
         </PopoverTrigger>
@@ -20,9 +20,9 @@ export const ColumnVisibilityToggle = ({ table }: { table: Table<any> }) => (
                             disabled={!column.getCanHide()}
                         />
                         <span className={column.getCanHide() ? "text-sm" : "opacity-50 text-sm"}>
-                            {typeof column.columnDef.header === "function"
-                                ? flexRender(column.columnDef.header, { column  })
-                                : column.columnDef.header}
+                            {typeof column.columnDef.header === "string"
+                                ? column.columnDef.header
+                                : column.id}
                         </span>
                     </div>
                 ))}

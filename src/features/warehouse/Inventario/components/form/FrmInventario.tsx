@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { showConfirmation, showSuccess } from '../../../../../shared/hooks/useSwalert';
 import { frvalInv, type FrvalInvValue } from '../../validation/frInv';
-import { Button, Input, Texto } from '../../../../../shared/ui';
+import { Button, Texto } from '../../../../../shared/ui';
 import { FrInput } from '../../../../../shared/components/atoms/FR/FrInput';
 import { FrSelect } from '../../../../../shared/components/atoms/FR/FrSelect';
 import { useAlmacen } from '../../../common/hooks/useCrudAlmacen';

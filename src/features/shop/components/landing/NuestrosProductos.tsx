@@ -7,7 +7,7 @@ import Loading from '@/shared/ui/loading';
 
 
 export default function NuestrosProductos() {
-    const { data, isLoading, isError } = useCategoryShop();
+    const { data, isLoading } = useCategoryShop();
 
     if (isLoading) {
         return (

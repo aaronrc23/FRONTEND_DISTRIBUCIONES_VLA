@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { Texto } from "../../../ui";
 import { Icon } from "@iconify-icon/react";
+import { useCartStore } from "@/features/shop/common/store/cartStore";
+import { useModal } from "@/shared/hooks/useModal";
 
 const links = [
     { name: "Inicio", shortName: "Inicio", path: "/", icon: <Icon icon="fluent:home-24-filled" width="24" height="24" /> },
@@ -9,6 +11,16 @@ const links = [
 ];
 
 export default function NavbarBottom() {
+    const items = useCartStore((state) => state.items);
+
+    const total = items.reduce(
+        (acc, item) => acc + item.cantidad,
+        0
+    );
+
+    const modaladd = useModal("md-carrito");
+
+
     return (
         <>
             {/* ── DESKTOP: barra horizontal superior ── */}
@@ -29,14 +41,28 @@ export default function NavbarBottom() {
                                 }`
                             }
                         >
-           
-                                < div className="flex flex-col items-center gap-1" >
-                                    {link.name}
 
-                                </div>
-                       
+                            < div className="flex flex-col items-center gap-1" >
+                                {link.name}
+
+                            </div>
+
                         </NavLink>
                     ))}
+
+                    <button className="relative flex items-center  gap-1.5  px-4 py-1.5  text-sm font-semibold
+                   transition-colors duration-150  rounded-md 
+                   text-white hover:text-shoprimary
+                   "
+                   onClick={modaladd.open}>
+                        <Icon icon="lucide:shopping-cart" width="20" height="20" />
+                        {total > 0 && (
+                            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full px-1.5 py-0.5">
+                                {total}
+                            </span>
+                        )}
+                    </button>
+
                 </nav>
 
             </div>

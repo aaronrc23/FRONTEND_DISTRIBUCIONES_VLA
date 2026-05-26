@@ -20,7 +20,7 @@ export default function Home() {
         isError,
     } = useFilterProduct(categoriaId, marcaId);
 
-    const { data: marcas, isLoading: loadingMarcas } = useViewMarca();
+    const { data: marcas } = useViewMarca();
 
     const categoriaActual = useMemo(() => {
         return categorias?.find(

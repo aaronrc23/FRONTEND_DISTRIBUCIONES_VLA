@@ -4,7 +4,7 @@ import HeaderSidebar from '../molecules/HeaderSidebar';
 import useWindowSize from '../../../shared/hooks/useWindowSize';
 import { menusid } from '../../utils/constants/MenuSidebar';
 import { SidebarItem } from '../molecules/SidebarItem';
-import { Power } from 'lucide-react';
+
 import { Icon } from '@iconify-icon/react';
 import { useAuthStoreSession } from '@/features/auth/store/useAuthStoreSession';
 import { showConfirmation } from '@/shared/hooks/useSwalert';

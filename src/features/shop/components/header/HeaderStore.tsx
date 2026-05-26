@@ -5,6 +5,8 @@ import { Button } from "../../../../shared/ui";
 import { Icon } from "@iconify-icon/react";
 import { lazy, Suspense } from "react";
 
+
+
 const NavbarBottom = lazy(() => import("../../../../shared/components/shop/header/NavbarBotom"));
 
 export default function HeaderStore({ className }: any) {
@@ -34,7 +36,7 @@ export default function HeaderStore({ className }: any) {
                         </Suspense>
                     </div>
 
-                 
+
 
                     {/* Mobile menu */}
                     <Button
@@ -44,8 +46,11 @@ export default function HeaderStore({ className }: any) {
                     >
                         <Icon icon="lucide:menu" className="text-2xl" />
                     </Button>
+
+
                 </div>
             </div>
+           
         </nav>
     );
 }
