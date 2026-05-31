@@ -1,6 +1,7 @@
 import { Icon } from '@iconify-icon/react';
 import { Texto } from '../../../../shared/ui'
 import { useCategoryShop } from '../../common/hooks/useConsultas';
+import { useScrollReveal } from '../../../../shared/hooks/useScrollReveal';
 import Image from '@/shared/ui/image';
 import EmptyState from '@/shared/components/shop/landing/EmptyState';
 import Loading from '@/shared/ui/loading';
@@ -8,6 +9,7 @@ import Loading from '@/shared/ui/loading';
 
 export default function NuestrosProductos() {
     const { data, isLoading } = useCategoryShop();
+    const { ref: sectionRef, isVisible: sectionVisible } = useScrollReveal<HTMLElement>();
 
     if (isLoading) {
         return (
@@ -30,7 +32,9 @@ export default function NuestrosProductos() {
     }
 
     return (
-        <section className="py-16 px-6 bg-white ">
+        <section ref={sectionRef} className={`py-16 px-6 bg-white transition-all duration-700 ease-out ${
+            sectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}>
             <div className='flex flex-col justify-center items-center mb-10 gap-2'>
                 <Texto className="text-3xl sm:text-4xl font-bold text-blue-900 text-center">
                     Nuestros Productos

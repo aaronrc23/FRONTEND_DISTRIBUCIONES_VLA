@@ -7,6 +7,7 @@ import { SidebarItem } from '../molecules/SidebarItem';
 
 import { Icon } from '@iconify-icon/react';
 import { useAuthStoreSession } from '@/features/auth/store/useAuthStoreSession';
+import { usePerfilStore } from '@/features/administracion/perfil/store/PerfilStore';
 import { showConfirmation } from '@/shared/hooks/useSwalert';
 
 
@@ -23,6 +24,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
     const width = useWindowSize();
     const isMobile = width < 1024;
     const isCollapsed = !isMobile && collapsed;
+    const { profile } = usePerfilStore();
     const { logout } = useAuthStoreSession();
     const handleClose = async () => {
         const showConfirm = await showConfirmation("¿Cerrar sesión?", "¿Estás seguro de que deseas cerrar sesión?", "warning");
@@ -84,11 +86,19 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                 <div className={`bg-white/3 rounded-2xl p-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border border-sidebar  backdrop-blur-sm transition-all `}>
                     <div className="flex items-center gap-3">
 
+                        {/* Avatar */}
+                        <img
+                            src={profile.avatar}
+                            alt="avatar"
+                            className="w-9 h-9 rounded-full object-cover ring-2 ring-emerald-500/30 shrink-0"
+                        />
                         {!isCollapsed && (
-                            <div className="flex flex-col px-3">
-                                <span className="text-sm font-semibold text-white tracking-tight">Aaron M.</span>
+                            <div className="flex flex-col">
+                                <span className="text-sm font-semibold text-white tracking-tight">
+                                    {profile.name} {profile.apellidos}
+                                </span>
                                 <span className="text-xs text-slate-400">
-                                    Admin
+                                    {profile.rol}
                                 </span>
                             </div>
                         )}

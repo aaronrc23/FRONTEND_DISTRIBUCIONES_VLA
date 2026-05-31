@@ -12,6 +12,7 @@ const LytProductos = lazy(() => import('../features/logistica/productos/pages/Ly
 const LytAlmacenes = lazy(() => import('../features/warehouse/almacenes/page/LytAlmacenes'));
 const LytInventario = lazy(() => import('../features/warehouse/Inventario/pages/LytInventario'));
 const LytAddProductos = lazy(() => import('../features/logistica/productos/pages/LytAddProductos'));
+const LytProfile = lazy(() => import('../features/administracion/perfil/pages/LytProfile'));
 const PlantPanel = lazy(() => import('../shared/components/templates/PlantPanel'));
 
 export default function PanelRouter() {
@@ -34,6 +35,7 @@ export default function PanelRouter() {
                         <Route path="historial_movimientos" element={<LytHistorialMov />} />
                         <Route path="inventario" element={<LytInventario />} />
                         <Route path="marcas" element={<LytMarcas />} />
+                        <Route path="perfil" element={<LytProfile />} />
 
                         {/* <Route path="sucursales" element={<LytSucursal />} />
                     <Route path="sucursales/series" element={<LytSeries />} />

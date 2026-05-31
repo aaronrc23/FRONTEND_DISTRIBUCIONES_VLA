@@ -1,13 +1,17 @@
-import React from 'react'
+import { useScrollReveal } from "../../../../shared/hooks/useScrollReveal";
 
 export default function AboutUs() {
+    const { ref, isVisible } = useScrollReveal<HTMLElement>();
+
     return (
-        <div><section className="bg-blue-900 text-white py-28 px-6 md:px-12 relative overflow-hidden">
+        <section ref={ref} className={`bg-blue-900 text-white py-28 px-6  md:px-14 relative overflow-hidden transition-all duration-700 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}>
             {/* Línea minimalista de fondo arquitectónica */}
             <div className="absolute inset-x-0 top-0 h-[1px] bg-white/10"></div>
             <div className="absolute inset-x-0 bottom-0 h-[1px] bg-white/10"></div>
 
-            <div className="max-w-6xl mx-auto space-y-32 relative z-10">
+            <div className="max-w-6xl mx-auto relative z-10">
 
                 {/* MISIÓN & VISIÓN: Tipografía Asimétrica y Limpia */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
@@ -47,9 +51,9 @@ export default function AboutUs() {
                     </div>
 
                 </div>
+        
             </div>
-        </section>
 
-        </div>
+        </section>
     )
 }

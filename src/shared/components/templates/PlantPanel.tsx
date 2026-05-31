@@ -2,14 +2,16 @@
 import { Icon } from '@iconify-icon/react';
 import { useState } from 'react'
 
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from '../../../core/components/organisms/Sidebar';
 import { Button } from '../../ui';
 import { ModeToggle } from '../../themes/mode-toggle';
+import { usePerfilStore } from '../../../features/administracion/perfil/store/PerfilStore';
 
 export default function PlantPanel() {
     const [open, setOpen] = useState(false)
-
+    const { profile } = usePerfilStore();
+    const navigate = useNavigate();
 
     return (
         <div className="h-full bg-background text-foreground flex">
@@ -42,10 +44,23 @@ export default function PlantPanel() {
 
                         <div className="h-8 w-[1px] bg-border"></div>
                         <div className="flex items-center gap-3">
-                            <img
-                                src="https://i.pravatar.cc/40"
-                                className="w-9 h-9 rounded-full"
-                            />
+                            <button
+                                onClick={() => navigate('/panel/perfil')}
+                                className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer"
+                                title="Ir a Mi Perfil"
+                            >
+                                <img
+                                    src={profile.avatar}
+                                    className="w-9 h-9 rounded-full object-cover ring-2 ring-blue-500/20"
+                                    alt="avatar"
+                                />
+                                <div className="hidden sm:block text-left">
+                                    <p className="text-sm font-medium text-foreground leading-tight">
+                                        {profile.name} {profile.apellidos}
+                                    </p>
+                                    <p className="text-xs text-muted-foreground">{profile.rol}</p>
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </header>

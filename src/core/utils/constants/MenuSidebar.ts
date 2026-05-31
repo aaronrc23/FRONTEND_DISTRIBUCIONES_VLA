@@ -30,6 +30,7 @@ export const menusid = [
         icon: "tabler:settings",
         children: [
             { label: "Empleados", path: "/panel/empleados" },
+            { label: "Mi Perfil", path: "/panel/perfil" },
         ],
     },
 

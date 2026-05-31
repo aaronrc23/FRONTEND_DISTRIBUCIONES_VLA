@@ -31,7 +31,7 @@ export default function Hero() {
 
             />
 
-            <div className="absolute inset-0 h-full w-full bg-linear-to-r from-blue-900/80 via-blue-900/60 to-blue-900/60" />
+            <div className="absolute inset-0 h-full w-full bg-linear-to-r from-blue-900/40 via-blue-900/50 to-blue-900/50" />
 
             <div className="absolute inset-0 w-full flex flex-col items-center justify-center text-center gap-4 sm:gap-6 px-4">
 

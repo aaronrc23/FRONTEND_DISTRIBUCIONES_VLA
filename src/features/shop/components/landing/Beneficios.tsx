@@ -1,6 +1,7 @@
 import { Icon } from "@iconify-icon/react";
 import { Texto } from "../../../../shared/ui";
 import Image from "@/shared/ui/image";
+import { useScrollReveal } from "@/shared/hooks/useScrollReveal";
 
 const features = [
     {
@@ -27,8 +28,12 @@ const features = [
 ];
 
 export default function Beneficios() {
+    const { ref, isVisible } = useScrollReveal<HTMLElement>();
+
     return (
-        <section className=" py-20 px-6 flex gap-1 justify-center bg-white">
+        <section id="beneficios" ref={ref} className={`py-24 px-6 flex gap-1 justify-center  transition-all duration-700 ease-out ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}>
             <div className=" w-full px-2 sm:px-10 lg:px-0 flex flex-col lg:flex-row gap-12 items-center justify-center ">
                 {/* 🟦 LADO DERECHO → TEXTO */}
                 <div className="flex flex-col items-center lg:w-1/2 2xl:w-1/3">
@@ -72,7 +77,9 @@ export default function Beneficios() {
                     </div>
                 </div>
 
-                <div className="w-full lg:w-1/3">
+                <div className={`w-full lg:w-1/3 transition-all duration-700 delay-150 ease-out ${
+                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                }`}>
                     <Image
                         src="images/landing/sobre-nosotros-800.webp"
                         srcSet="/images/landing/sobre-nosotros-800.webp 800w, /images/landing/sobre-nosotros-800.webp 1600w" // Soporte Retina
