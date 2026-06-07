@@ -22,7 +22,7 @@ export const TbHeaderComp = ({
     showFilterIcon = true
 }: TableHeaderComponentProps) => {
     return (
-        <thead className="bg-table-bgth border-b-2 border-border  dark:bg-slate-700/40 ">
+        <thead className="bg-table-bgth border-b-2 border-border">
             {table.getHeaderGroups().map((headerGroup) => (
                 <tr
                     key={headerGroup.id}

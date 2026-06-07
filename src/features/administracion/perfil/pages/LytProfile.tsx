@@ -63,7 +63,7 @@ export default function LytProfile() {
     ];
 
     return (
-        <div className="h-full w-full space-y-6 px-0 md:px-4 py-0 sm:py-2">
+        <div className="h-full w-full space-y-6 px-2 md:px-4 py-0 sm:py-2">
             {/* Header */}
             <header className="flex items-center justify-between">
                 <div>
@@ -140,7 +140,7 @@ export default function LytProfile() {
                 </div>
 
                 {/* ─── COLUMNA DERECHA: VISTA PREVIA + ACCIONES ─── */}
-                <div className="space-y-6">
+                <div className="space-y-6 pb-4">
                     
 
                     {/* Resumen del perfil */}
@@ -175,7 +175,7 @@ export default function LytProfile() {
                     {/* Cerrar sesión en todos los dispositivos */}
                     <Button
                         variant="outline"
-                        className="w-full border-destructive/30 text-destructive hover:bg-destructive/10 hover:text-destructive"
+                        className="w-full border-destructive/30 bg-destructive/70 text-white dark:bg-error-20 dark:text-texterror-20 hover:bg-destructive/90 "
                         size="lg"
                         onClick={handleCerrarSesionTodos}
                     >

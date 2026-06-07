@@ -83,21 +83,21 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
 
 
             <div className="p-3">
-                <div className={`bg-white/3 rounded-2xl p-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border border-sidebar  backdrop-blur-sm transition-all `}>
+                <div className={`bg-sidebar-accent/20 hover:bg-sidebar-accent/30 rounded-2xl p-3 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} border border-sidebar-border/20 transition-all duration-300`}>
                     <div className="flex items-center gap-3">
 
                         {/* Avatar */}
                         <img
                             src={profile.avatar}
                             alt="avatar"
-                            className="w-9 h-9 rounded-full object-cover ring-2 ring-emerald-500/30 shrink-0"
+                            className="w-9 h-9 rounded-full object-cover ring-2 ring-sidebar-primary/30 ring-offset-2 ring-offset-sidebar shrink-0"
                         />
                         {!isCollapsed && (
                             <div className="flex flex-col">
-                                <span className="text-sm font-semibold text-white tracking-tight">
+                                <span className="text-sm font-semibold text-sidebar-foreground tracking-tight">
                                     {profile.name} {profile.apellidos}
                                 </span>
-                                <span className="text-xs text-slate-400">
+                                <span className="text-xs text-sidebar-accent-foreground/70">
                                     {profile.rol}
                                 </span>
                             </div>
@@ -106,8 +106,9 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
 
                     {!isCollapsed && (
                         <button
-                            className="text-sidebar-foreground pr-2 cursor-pointer hover:text-white transition"
+                            className="text-sidebar-accent-foreground/60 pr-2 cursor-pointer hover:text-sidebar-primary transition-all duration-200 hover:scale-110"
                             onClick={handleClose}
+                            title="Cerrar sesión"
                         >
                             <Icon
                                 icon="solar:logout-2-linear"

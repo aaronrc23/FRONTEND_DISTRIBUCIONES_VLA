@@ -135,7 +135,7 @@ export const Modal = ({
 
     // Estilos del panel blanco
     const panelStyles = cn(
-        "bg-white/99 dark:bg-modal backdrop-blur-xl shadow-xl relative flex flex-col  sm:min-w-[400px] max-h-[95vh]",
+        "bg-modal/99 dark:bg-modal backdrop-blur-xl shadow-xl relative flex flex-col sm:min-w-[400px] max-h-[95vh]",
         {
             "rounded-2xl w-full w-auto": position === "center",
             " rounded-b-2xl sm:rounded-2xl  w-full md:w-auto": position === "top",
@@ -158,7 +158,8 @@ export const Modal = ({
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="absolute inset-0 bg-black/30 backdrop-blur-[2px]"
+                        className="absolute inset-0 backdrop-blur-[2px]"
+                        style={{ backgroundColor: "var(--backdrop)" }}
                         onClick={handleBackdropClick}
                     />
 
@@ -202,7 +203,7 @@ export const Modal = ({
                             {showCloseButton && (
                                 <button
                                     onClick={onClose}
-                                    className="p-2 hover:bg-accent cursor-pointer rounded-full transition-colors absolute top-2 right-2 text-gray-500 hover:text-red-500"
+                                    className="p-2 hover:bg-accent cursor-pointer rounded-full transition-colors absolute top-2 right-2 text-muted-foreground hover:text-destructive"
                                     aria-label="Cerrar"
                                 >
                                     <svg

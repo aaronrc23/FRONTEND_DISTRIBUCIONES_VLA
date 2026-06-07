@@ -47,7 +47,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         // Variantes de Tailwind
         const variantStyles: Record<InputVariant, string> = {
-            outline: "border-none ring-border-input  dark:border-border  bg-white   dark:bg-input focus-within:ring-primary dark:focus-within:ring-blue-500",
+            outline: "border-none ring-border-input dark:border-border bg-input focus-within:ring-primary dark:focus-within:ring-blue-500",
             filled: " bg-gray-100 dark:bg-gray-800 focus-within:bg-white dark:focus-within:bg-gray-900 focus-within:ring-primary ",
             underline: "border-b-2 border-t-0 border-x-0 rounded-none px-0 bg-transparent focus-within:border-blue-500",
             secondary: "bg-secondary/70 border-transparent border-0 font-medium focus-within:border-none focus-within:ring-0"
@@ -62,7 +62,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         const errorStyles = error
             ? "ring-2 ring-destructive/55 focus-within:ring-destructive focus-within:ring-destructive/55"
-            : "ring-2 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary";
+            : "ring-1 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary";
 
 
         const togglePasswordVisibility = () => setShowPassword(!showPassword);

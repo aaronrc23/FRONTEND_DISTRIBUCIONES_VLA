@@ -4,112 +4,120 @@ import { cn } from "../../lib/utils"
 
 
 const baseModernBtn =
-  "px-5 py-2.5 rounded-xl border-none font-medium text-sm flex items-center gap-2 transition-all active:scale-95";
+  "px-5 py-2.5 rounded-xl border-none font-medium text-sm flex items-center gap-2 transition-all duration-200 active:scale-[0.97] cursor-pointer";
 
 // Base para botones estilo Hero (más grandes y con sombra prominente)
 const baseHeroBtn =
-  "px-8 py-4 rounded-2xl flex items-center gap-2 transition-all active:scale-95";
+  "px-8 py-4 rounded-2xl flex items-center gap-2 transition-all duration-200 active:scale-[0.97] cursor-pointer";
 
 // ══════════════════════════════════════════════════════════════
 // 🧩 VARIANTES
 // ══════════════════════════════════════════════════════════════
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center border border-transparent text-sm font-medium whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/btn inline-flex shrink-0 items-center justify-center border border-transparent text-sm font-medium whitespace-nowrap transition-all duration-200 outline-none select-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default:
-          "p-3 bg-secondary  dark:bg-secondary rounded-2xl border border-slate-200 dark:border-none px-5 hover:dark:text-slate-50 hover:text-slate-900 shadow-sm",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-xl px-5 py-2.5 font-medium text-sm active:scale-[0.97]",
+
+        primary: `
+          ${baseModernBtn}
+          bg-primary text-primary-foreground
+          hover:bg-primary/90
+          shadow-lg shadow-primary/25
+        `,
 
         indigo: `
           ${baseModernBtn}
-          bg-indigo-500 hover:bg-indigo-600 text-white
-          dark:shadow-lg dark:shadow-indigo-500/20
-        `,
-        primary: `
-          ${baseModernBtn}
-          bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600
-          dark:shadow-lg dark:shadow-blue-500/20
+          bg-primary text-primary-foreground
+          hover:bg-primary/90
+          shadow-lg shadow-primary/25
         `,
 
         success: `
           ${baseModernBtn}
           bg-emerald-500 hover:bg-emerald-600 text-white
-          dark:shadow-lg dark:shadow-emerald-500/20
+          shadow-lg shadow-emerald-500/25
         `,
 
         warning: `
           ${baseModernBtn}
-          bg-yellow-500 hover:bg-yellow-600 text-white
-          dark:shadow-lg dark:shadow-yellow-500/20
+          bg-amber-500 hover:bg-amber-600 text-white
+          shadow-lg shadow-amber-500/25
         `,
 
         danger: `
           ${baseModernBtn}
           bg-red-500 hover:bg-red-600 text-white
-          dark:shadow-lg dark:shadow-red-500/20
+          shadow-lg shadow-red-500/25
         `,
 
         secondary: `
           ${baseModernBtn}
-          bg-secondary text-secondary-foreground hover:bg-secondary/80
-          dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600
+          bg-secondary text-secondary-foreground
+          hover:bg-secondary/80
         `,
 
-        ghost:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+        ghost: `
+          ${baseModernBtn}
+          bg-transparent hover:bg-accent
+          text-foreground hover:text-accent-foreground
+          shadow-none
+        `,
 
         unstyled: "hover:none px-6",
 
-        outline:
-          "border bg-background hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+        outline: `
+          ${baseModernBtn}
+          border border-border bg-transparent
+          text-foreground hover:bg-accent hover:text-accent-foreground
+        `,
 
         link:
-          "text-primary underline-offset-4 hover:underline",
+          "bg-transparent text-primary underline-offset-4 hover:underline cursor-pointer inline-flex items-center gap-1.5 transition-all duration-200 outline-none select-none disabled:pointer-events-none disabled:opacity-50",
 
-        destructive:
-          "bg-destructive text-white hover:bg-destructive/90",
+        destructive: `
+          ${baseModernBtn}
+          bg-destructive text-white
+          hover:bg-destructive/90
+          shadow-lg shadow-destructive/25
+        `,
 
         // ── 🌟 Variante Brand (estilo Hero) ──────────────────
-        // Botón primario con gradiente amarillo-naranja
         brand: `
           ${baseHeroBtn}
-  bg-gradient-to-r from-orange-500 to-orange-500
-  border border-orange-400/20
-  text-white
-  font-semibold
-  shadow-lg shadow-orange-500/10
-  
-  active:scale-95
-  px-6 py-2 cursor-pointer
+          bg-linear-to-r from-amber-400 to-orange-500
+          text-white font-semibold
+          shadow-lg shadow-orange-500/25
+          hover:shadow-orange-500/45 hover:scale-[1.02]
+          border border-white/10
         `,
 
-        // Botón secundario estilo Hero (fondo translúcido)
         "brand-outline": `
           ${baseHeroBtn}
-          bg-white/10
-          backdrop-blur-sm
+          bg-white/10 backdrop-blur-sm
           border border-white/20
           text-white
-          hover:bg-white/20
-          hover:scale-105
+          hover:bg-white/20 hover:scale-[1.02]
         `,
 
-        // Versión compacta del brand (para usar fuera del Hero)
         "brand-sm": `
           ${baseModernBtn}
-          bg-linear-to-r from-yellow-400 to-orange-500
-          text-white
-          shadow-lg shadow-yellow-500/20
-          hover:shadow-yellow-500/40
-          hover:scale-105
-          hover:brightness-110
+          bg-linear-to-r from-amber-400 to-orange-500
+          text-white font-semibold
+          shadow-lg shadow-orange-500/25
+          hover:shadow-orange-500/45 hover:scale-[1.02]
+          border border-white/10
         `,
-        "shop-primary": `
 
-          bg-shoprimary text-white hover:bg-shoprimary/90 border-none rounded-2xl px-4 py-2 font-medium shadow-sm
-          dark:shadow-lg dark:shadow-orange-500/20 cursor-pointer
+        "shop-primary": `
+          ${baseModernBtn}
+          bg-shoprimary text-white
+          hover:bg-shoprimary/90
+          shadow-lg
+          rounded-2xl
         `,
       },
 

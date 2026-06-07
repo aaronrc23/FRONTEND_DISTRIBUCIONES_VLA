@@ -57,7 +57,7 @@ export const FloatingInput = forwardRef<HTMLInputElement, FloatingInputProps>(
                 <div
                     className={cn(
                         "relative flex items-center rounded-xl border transition-all duration-200",
-                        "bg-white dark:bg-input",
+                        "bg-input",
                         "shadow-sm hover:shadow-md",
                         sizeStyles[inputsize],
 
@@ -82,7 +82,7 @@ export const FloatingInput = forwardRef<HTMLInputElement, FloatingInputProps>(
                     <label
                         className={cn(
                             "absolute left-10 transition-all duration-200 pointer-events-none",
-                            "bg-white dark:bg-input px-1",
+                            "bg-input px-1",
                             isFloating
                                 ? cn(
                                     "-top-2 text-xs font-medium ",

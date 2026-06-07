@@ -3,15 +3,16 @@ import { useState } from "react";
 import { cn } from "../../../../lib/utils";
 
 const variantStyles = {
-    default: "text-gray-500 hover:text-black",
-    underline: "text-gray-500 hover:text-black",
-    pill: "rounded-md text-gray-500  ",
+    default: "text-muted-foreground hover:text-foreground",
+    underline: "text-muted-foreground hover:text-foreground",
+    pill: "text-muted-foreground hover:text-foreground",
 };
 
 const activeVariantStyles = {
-    default: "text-black font-semibold",
-    underline: "text-black border-b-2 border-black",
-    pill: "bg-card text-foreground shadow-sm rounded-xl",
+    default: "text-foreground font-semibold bg-muted/80",
+    underline:
+        "text-foreground font-semibold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-3/4 after:h-0.5 after:bg-primary after:rounded-full after:transition-all",
+    pill: "bg-card text-foreground shadow-sm rounded-lg",
 };
 
 type Tab = {
@@ -31,16 +32,16 @@ export function FrTabs({ tabs, variant = "default" }: TabsProps) {
     const activeContent = tabs.find(tab => tab.id === activeTab);
 
     return (
-        <div className="w-full flex  flex-col items-start ">
+        <div className="w-full flex flex-col items-start">
             {/* Tabs Header */}
-            <div className="flex gap-2 border-b border-border mb-2 bg-accent px-2 py-1 rounded-2xl">
+            <div className="flex gap-1 bg-muted/60 p-1 rounded-xl mb-3">
                 {tabs.map(tab => (
                     <button
                         key={tab.id}
                         type="button"
                         onClick={() => setActiveTab(tab.id)}
                         className={cn(
-                            "px-6 py-2 text-sm font-medium transition-all relative",
+                            "px-5 py-2 text-sm font-medium transition-all duration-200 relative rounded-lg",
                             variantStyles[variant],
                             activeTab === tab.id && activeVariantStyles[variant]
                         )}
@@ -50,15 +51,9 @@ export function FrTabs({ tabs, variant = "default" }: TabsProps) {
                 ))}
             </div>
 
-            {/* Animated Content */}
-            <div className="relative overflow-hidden w-full">
-                <div>
-                    <div
-                        key={activeTab}
-                    >
-                        {activeContent?.content}
-                    </div>
-                </div>
+            {/* Content */}
+            <div className="w-full animate-in fade-in-50 duration-200">
+                {activeContent?.content}
             </div>
         </div>
     );

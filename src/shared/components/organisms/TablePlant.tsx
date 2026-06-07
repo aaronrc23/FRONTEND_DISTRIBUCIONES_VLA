@@ -72,42 +72,34 @@ const TablePlant = ({ columns, data, filtrosctn = false, placeholder, clscell, m
 
     return (
         <>
-            <div
-                className={`flex  flex-col xs:flex-row  ${filtrosctn === false ? "xs:flex-col flex-row" : "md:flex-row"
-                    }  justify-between items-center  mb-4 gap-2`}>
-
-
-                <div
-                    className={`w-full md:w-full flex flex-col gap-3 sm:flex-row justify-between items-center `}>
-                    <div className="flex gap-2 flex-1 max-w-md">
-
+            <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-3">
+                <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-3">
+                    <div className="flex gap-2 flex-1 max-w-md w-full sm:w-auto">
                         <GlobalFilter
                             globalFilter={globalFilter}
                             setGlobalFilter={setGlobalFilter}
                             placeholder={placeholder}
                         />
                         {filtrosctn && (
-                            <div className=" items-center gap-1 hidden md:flex">
+                            <div className="flex items-center gap-1">
                                 <Button
-
                                     className="cursor-pointer font-medium"
-                                    onClick={() => setFiltercol(!filtercol)}>
+                                    onClick={() => setFiltercol(!filtercol)}
+                                >
                                     <Icon icon="majesticons:filter-line" className="text-base" />
-                                    Filtros
+                                    <span className="hidden sm:inline">Filtros</span>
                                 </Button>
                                 <ColumnVisibilityToggle table={table} />
                             </div>
                         )}
                     </div>
                     <SelectPages table={table} />
-
-
                 </div>
             </div>
             <div >
                 {/* Tabla tradicional para pantallas medianas en adelante */}
-                <div className="hidden md:block ">
-                    <div className="border-none shadow-md dark:border-none rounded-md overflow-hidden scrollmainx bg-card dark:bg-transparent">
+                <div className="hidden md:block">
+                    <div className="border-none shadow-md dark:border-none rounded-md overflow-x-auto scrollmainx bg-card dark:bg-transparent">
                         <TableUI variant="default" className="  ">
                             <TableBase>
                                 <TbHeaderComp table={table} showFilterIcon={filtercol} />
@@ -168,11 +160,11 @@ const TablePlant = ({ columns, data, filtrosctn = false, placeholder, clscell, m
                                 )}
                             >
                                 {/* CONTENT */}
-                                <div className="p-4">
+                                <div className="p-6">
                                     <div className="space-y-3">
                                         {row.getVisibleCells()
                                             .filter((cell) =>
-                                                mobileVisibleColumns?.includes(cell.column.id)
+                                                !mobileVisibleColumns || mobileVisibleColumns.includes(cell.column.id)
                                             )
                                             .map((cell) => (
                                                 <div
@@ -180,7 +172,9 @@ const TablePlant = ({ columns, data, filtrosctn = false, placeholder, clscell, m
                                                     className="flex items-start justify-between gap-3 border-b border-border/40 pb-2 last:border-none"
                                                 >
                                                     <span className="text-[11px] uppercase tracking-wide text-muted-foreground font-medium">
-                                                        {cell.column.columnDef.header?.toString()}
+                                                        {typeof cell.column.columnDef.header === "string"
+                                                            ? cell.column.columnDef.header
+                                                            : cell.column.id}
                                                     </span>
 
                                                     <div className="text-sm text-right font-medium">

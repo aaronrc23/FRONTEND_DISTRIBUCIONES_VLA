@@ -101,9 +101,9 @@ export default function LytDashboard() {
                         <Card className="rounded-3xl border border-border/50  p-6  shadow-2xl shadow-black/5 backdrop-blur-xl">
                             <div className="flex items-center justify-between mb-2">
                                 <div>
-                                    <h2 className="text-lg font-semibold text-gray-900">
+                                    <Texto className="text-lg font-semibold ">
                                         Últimos Movimientos
-                                    </h2>
+                                    </Texto>
                                     <p className="mt-1 text-sm text-gray-500">
                                         Entradas y salidas recientes.
                                     </p>
@@ -123,15 +123,15 @@ export default function LytDashboard() {
                         <Card className="p-6  ">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <h2 className="text-lg font-semibold text-gray-900">
+                                     <Texto className="text-lg font-semibold ">
                                         Stock Crítico
-                                    </h2>
+                                    </Texto>
                                     <p className="mt-1 text-sm text-gray-500">
                                         Productos por debajo del mínimo.
                                     </p>
                                 </div>
 
-                                <div className="rounded-2xl bg-red-100 p-2 text-red-600">
+                                <div className="rounded-2xl bg-error-20 text-texterror-20 p-3">
                                     <AlertTriangle size={20} />
                                 </div>
                             </div>
