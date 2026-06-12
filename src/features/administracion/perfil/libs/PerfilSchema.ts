@@ -20,19 +20,24 @@ export type PerfilFormValues = z.infer<typeof perfilSchema>;
 
 export const cambiarPasswordSchema = z
     .object({
-        currentPassword: z
+        password: z
             .string()
             .min(1, "La contraseña actual es obligatoria"),
-        newPassword: z
+        new_password: z
             .string()
             .min(6, "La nueva contraseña debe tener al menos 6 caracteres"),
-        confirmPassword: z
+        new_password_confirmation: z
             .string()
             .min(1, "Debes confirmar la contraseña"),
     })
-    .refine((data) => data.newPassword === data.confirmPassword, {
+    .refine((data) => data.new_password === data.new_password_confirmation, {
         message: "Las contraseñas no coinciden",
-        path: ["confirmPassword"],
+        path: ["new_password_confirmation"],
     });
 
 export type CambiarPasswordFormValues = z.infer<typeof cambiarPasswordSchema>;
+
+
+
+
+

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
     flexRender,
     getCoreRowModel,
@@ -106,10 +106,9 @@ const TablePlant = ({ columns, data, filtrosctn = false, placeholder, clscell, m
 
                                 <tbody>
                                     {table.getRowModel().rows.map((row) => (
-                                        <>
+                                        <React.Fragment key={row.id}>
                                             {/* fila principal */}
                                             <TableRow
-                                                key={row.id}
                                                 onClick={() => row.toggleExpanded()}
                                                 className="group cursor-pointer transition-colors hover:bg-muted/40"
                                             >
@@ -139,7 +138,7 @@ const TablePlant = ({ columns, data, filtrosctn = false, placeholder, clscell, m
                                                     </TableCell>
                                                 </TableRow>
                                             )}
-                                        </>
+                                        </React.Fragment>
                                     ))}
                                 </tbody>
                             </TableBase>

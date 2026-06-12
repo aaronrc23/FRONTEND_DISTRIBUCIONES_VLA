@@ -1,0 +1,140 @@
+/* ═══════════════════════════════════════════════
+   PATRÓN ANIMADO — Fondo del perfil
+   Pattern geométrico con orbes flotantes
+   ═══════════════════════════════════════════════ */
+
+/* ── Contenedor principal del patrón ── */
+.pattern-perfil-bg {
+    position: relative;
+    overflow: hidden;
+
+    /* ── Light mode ── */
+    background-color: var(--primary);
+
+    /* ── Patrón 1: Puntos ── */
+    /* ── Patrón 2: Líneas diagonales ── */
+    /* ── Capa 3: Gradiente de transición hacia abajo ── */
+    background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.12) 1.5px, transparent 1.5px),
+        repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 35px,
+            rgba(255, 255, 255, 0.05) 35px,
+            rgba(255, 255, 255, 0.05) 36px
+        ),
+        linear-gradient(
+            to bottom,
+            transparent 55%,
+            var(--primary) 100%
+        );
+    background-size:
+        24px 24px,
+        50px 50px,
+        100% 100%;
+}
+
+/* ── Dark mode: color más intenso + overlay sutil ── */
+.dark .pattern-perfil-bg {
+    background-color: color-mix(in srgb, var(--primary) 60%, black 40%);
+
+    background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px),
+        repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 35px,
+            rgba(255, 255, 255, 0.03) 35px,
+            rgba(255, 255, 255, 0.03) 36px
+        ),
+        linear-gradient(
+            to bottom,
+            transparent 55%,
+            color-mix(in srgb, var(--primary) 60%, black 40%) 100%
+        );
+    background-size:
+        24px 24px,
+        50px 50px,
+        100% 100%;
+}
+
+/* ── Orb flotante 1 (grande, lento) ── */
+.pattern-perfil-bg::before {
+    content: '';
+    position: absolute;
+    width: clamp(180px, 40vw, 320px);
+    height: clamp(180px, 40vw, 320px);
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0.08) 40%,
+        transparent 70%
+    );
+    border-radius: 50%;
+    top: -60%;
+    right: -10%;
+    pointer-events: none;
+    will-change: transform;
+    animation: orb-drift-1 14s ease-in-out infinite;
+}
+
+.dark .pattern-perfil-bg::before {
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.12) 0%,
+        rgba(255, 255, 255, 0.04) 40%,
+        transparent 70%
+    );
+}
+
+/* ── Orb flotante 2 (mediano, más rápido) ── */
+.pattern-perfil-bg::after {
+    content: '';
+    position: absolute;
+    width: clamp(120px, 25vw, 200px);
+    height: clamp(120px, 25vw, 200px);
+    background: radial-gradient(
+        circle at 70% 70%,
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        transparent 75%
+    );
+    border-radius: 50%;
+    bottom: -35%;
+    left: 15%;
+    pointer-events: none;
+    will-change: transform;
+    animation: orb-drift-2 10s ease-in-out infinite;
+}
+
+.dark .pattern-perfil-bg::after {
+    background: radial-gradient(
+        circle at 70% 70%,
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(255, 255, 255, 0.025) 50%,
+        transparent 75%
+    );
+}
+
+/* ── Utilidad: texto claro sobre el patrón ── */
+.pattern-text {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.pattern-text-muted {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── Keyframes ── */
+@keyframes orb-drift-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(-30px, 35px) scale(1.08); }
+    50% { transform: translate(25px, -15px) scale(0.95); }
+    75% { transform: translate(-15px, -30px) scale(1.04); }
+}
+
+@keyframes orb-drift-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(35px, -25px) scale(1.12); }
+    66% { transform: translate(-20px, 30px) scale(0.9); }
+}

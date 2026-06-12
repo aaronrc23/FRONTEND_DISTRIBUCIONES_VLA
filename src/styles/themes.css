@@ -43,6 +43,8 @@
     --color-sidebar-hover: var(--sidebar-hover);
     --color-backdrop: var(--backdrop);
     --color-modal: var(--modal);
+    --color-scrollbar-bg: var(--scrollbar-bg);
+    --color-scrollbar-thumb: var(--scrollbar-thumb);
 
     --color-sidebar: var(--sidebar);
     --color-sidebar-500: var(--sidebar-500);

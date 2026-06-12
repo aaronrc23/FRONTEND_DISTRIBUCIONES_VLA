@@ -7,9 +7,10 @@ import { SidebarItem } from '../molecules/SidebarItem';
 
 import { Icon } from '@iconify-icon/react';
 import { useAuthStoreSession } from '@/features/auth/store/useAuthStoreSession';
-import { usePerfilStore } from '@/features/administracion/perfil/store/PerfilStore';
-import { showConfirmation } from '@/shared/hooks/useSwalert';
 
+import { Avatar, AvatarImage, AvatarFallback } from '@/shared/ui';
+import { showConfirmation } from '@/shared/hooks/useSwalert';
+import { usePerfilName } from '@/features/administracion/common/hooks/useCrudPerfil';
 
 
 interface SidebarProps {
@@ -24,7 +25,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
     const width = useWindowSize();
     const isMobile = width < 1024;
     const isCollapsed = !isMobile && collapsed;
-    const { profile } = usePerfilStore();
+    const { data: profile } = usePerfilName();
     const { logout } = useAuthStoreSession();
     const handleClose = async () => {
         const showConfirm = await showConfirmation("¿Cerrar sesión?", "¿Estás seguro de que deseas cerrar sesión?", "warning");
@@ -87,18 +88,22 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                     <div className="flex items-center gap-3">
 
                         {/* Avatar */}
-                        <img
-                            src={profile.avatar}
-                            alt="avatar"
-                            className="w-9 h-9 rounded-full object-cover ring-2 ring-sidebar-primary/30 ring-offset-2 ring-offset-sidebar shrink-0"
-                        />
+                        <Avatar size="sm" className="ring-2 ring-sidebar-accent ring-offset-2 ring-offset-sidebar shrink-0">
+                            <AvatarImage
+                                src={profile.avatar || undefined}
+                                alt="avatar"
+                            />
+                            <AvatarFallback size="sm" className="bg-blue-500/20 text-blue-300">
+                                {profile.name?.charAt(0)?.toUpperCase() || "?"}
+                            </AvatarFallback>
+                        </Avatar>
                         {!isCollapsed && (
                             <div className="flex flex-col">
                                 <span className="text-sm font-semibold text-sidebar-foreground tracking-tight">
-                                    {profile.name} {profile.apellidos}
+                                    {profile.name || 'Usuario'}
                                 </span>
                                 <span className="text-xs text-sidebar-accent-foreground/70">
-                                    {profile.rol}
+                                    Administrador
                                 </span>
                             </div>
                         )}

@@ -4,13 +4,13 @@ import { useState } from 'react'
 
 import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from '../../../core/components/organisms/Sidebar';
-import { Button } from '../../ui';
+import { Avatar, AvatarImage, AvatarFallback, Button } from '../../ui';
 import { ModeToggle } from '../../themes/mode-toggle';
-import { usePerfilStore } from '../../../features/administracion/perfil/store/PerfilStore';
+import { usePerfilName } from '../../../features/administracion/common/hooks/useCrudPerfil';
 
 export default function PlantPanel() {
     const [open, setOpen] = useState(false)
-    const { profile } = usePerfilStore();
+    const { data: profile } = usePerfilName();
     const navigate = useNavigate();
 
     return (
@@ -42,23 +42,27 @@ export default function PlantPanel() {
                         </Button>
 
 
-                        <div className="h-8 w-[1px] bg-border"></div>
+                        <div className="h-8 w-px bg-border"></div>
                         <div className="flex items-center gap-3">
                             <button
                                 onClick={() => navigate('/panel/perfil')}
                                 className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer"
                                 title="Ir a Mi Perfil"
                             >
-                                <img
-                                    src={profile.avatar}
-                                    className="w-9 h-9 rounded-full object-cover ring-2 ring-blue-500/20"
-                                    alt="avatar"
-                                />
+                                <Avatar size="sm" className="ring-2 ring-blue-500/20">
+                                    <AvatarImage
+                                        src={profile.avatar || undefined}
+                                        alt="avatar"
+                                    />
+                                    <AvatarFallback size="sm">
+                                        {profile.name?.charAt(0)?.toUpperCase() || "?"}
+                                    </AvatarFallback>
+                                </Avatar>
                                 <div className="hidden sm:block text-left">
                                     <p className="text-sm font-medium text-foreground leading-tight">
-                                        {profile.name} {profile.apellidos}
+                                        {profile.name || 'Usuario'}
                                     </p>
-                                    <p className="text-xs text-muted-foreground">{profile.rol}</p>
+                                    <p className="text-xs text-muted-foreground">Administrador</p>
                                 </div>
                             </button>
                         </div>

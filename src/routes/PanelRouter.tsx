@@ -4,6 +4,7 @@ import { lazy, Suspense } from "react";
 import LytMarcas from '@/features/logistica/marcas/pages/LytMarcas';
 import LytDashboard from '@/features/administracion/dashboard/pages/LytDashboard';
 import LytHistorialMov from '@/features/warehouse/Inventario/pages/LytHistorialMov';
+import LytReport from '@/features/reports/page/LytReport';
 
 const LoginPanel = lazy(() => import('../features/auth/pages/LoginPanel'));
 const LytCategorias = lazy(() => import('../features/logistica/categorias/pages/LytCategorias'));
@@ -23,8 +24,8 @@ export default function PanelRouter() {
                 <Route element={<ProtectedRoutePanel />}>
                     <Route element={<PlantPanel />}>
                         {/* RUTA PRINCIPAL */}
-                        <Route index  element={<LytDashboard />} />
-                        <Route  path="dashboard" element={<LytDashboard />} />
+                        <Route index element={<LytDashboard />} />
+                        <Route path="dashboard" element={<LytDashboard />} />
                         <Route path="categorias" element={<LytCategorias />} />
 
                         {/* RUTAS HIJAS → VAN AL OUTLET */}
@@ -36,6 +37,7 @@ export default function PanelRouter() {
                         <Route path="inventario" element={<LytInventario />} />
                         <Route path="marcas" element={<LytMarcas />} />
                         <Route path="perfil" element={<LytProfile />} />
+                        <Route path="reportes" element={<LytReport />} />
 
                         {/* <Route path="sucursales" element={<LytSucursal />} />
                     <Route path="sucursales/series" element={<LytSeries />} />

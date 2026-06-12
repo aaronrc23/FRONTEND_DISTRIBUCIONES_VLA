@@ -49,10 +49,10 @@ export default function LytDashboard() {
                 {/* Header */}
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <div>
-                        <Texto className="text-3xl font-semibold tracking-tight md:text-4xl">
+                        <Texto className="text-3xl font-semibold tracking-tight  md:text-4xl">
                             Dashboard Inventario
                         </Texto>
-                        <Texto className="mt-1 text-sm text-secondary-foreground ">
+                        <Texto className="mt-1 text-sm  text2 text-secondary-foreground ">
                             Control general del sistema de Distribuciones VLA.
                         </Texto>
                     </div>

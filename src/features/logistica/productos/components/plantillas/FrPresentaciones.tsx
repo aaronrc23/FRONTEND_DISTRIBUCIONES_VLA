@@ -107,9 +107,13 @@ export default function FrPresentaciones() {
                     onClick={() =>
                         append({
                             medida: "",
-                            undCaja: 0,
-                            dimensiones: "",
+                            unidades_por_caja: 0,
+                            largo: 0,
+                            ancho: 0,
+                            alto: 0,
                             peso: 0,
+                            unidad_id: "",
+                            es_principal: false,
                         })
                     }
                 >

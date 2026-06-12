@@ -1,3 +1,4 @@
+import { Texto } from "@/shared/ui";
 
 interface Props {
     table: any;
@@ -6,7 +7,7 @@ interface Props {
 export default function TbPagination({ table }: Props) {
     return (
         <div className="flex flex-col sm:flex-row gap-3 items-center justify-between w-full py-4 sm:py-3">
-            <span className="text-xs font-normal text-foreground/60 order-2 sm:order-1">
+            <Texto className="text-sm font-medium text-foreground/60 order-2 sm:order-1">
                 Mostrando{" "}
                 {table.getState().pagination.pageIndex *
                     table.getState().pagination.pageSize +
@@ -17,7 +18,7 @@ export default function TbPagination({ table }: Props) {
                     table.getFilteredRowModel().rows.length,
                 )}{" "}
                 de {table.getFilteredRowModel().rows.length} registros
-            </span>
+            </Texto>
             <div className="flex gap-1 order-1 sm:order-2">
                 <button
                     className="px-2 py-1.5 sm:px-3 sm:py-2 border border-table-border rounded-lg bg-muted text-table-textcolor text-xs font-medium shadow-sm hover:bg-table-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors"

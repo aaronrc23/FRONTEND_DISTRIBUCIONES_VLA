@@ -33,6 +33,11 @@ export const menusid = [
             { label: "Mi Perfil", path: "/panel/perfil" },
         ],
     },
+    {
+        label: "Reportes",
+        icon: "mdi:report",
+        path: "/panel/reportes",
+    },
 
 
 ]

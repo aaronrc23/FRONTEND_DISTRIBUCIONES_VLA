@@ -3,7 +3,7 @@ import FrmaddProductos from "../components/forms/FrmaddProductos";
 
 export default function LytAddProductos() {
     return (
-        <div className="bg-bgshop w-full min-h-screen flex items-start justify-center p-2 md:p-6">
+        <div className=" w-full min-h-screen flex items-start justify-center p-2 md:p-6">
             <div className="w-full  flex flex-col items-start">
                 
                 <Texto variant={"subtitle"} weight="bold" className="mb-2">

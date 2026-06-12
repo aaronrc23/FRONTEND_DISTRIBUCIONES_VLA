@@ -1,27 +1,43 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FrInput } from "@/shared/components/atoms/FR/FrInput";
 import { Button } from "@/shared/ui";
 import { perfilSchema, type PerfilFormValues } from "../../libs/PerfilSchema";
-import { usePerfilStore } from "../../store/PerfilStore";
+import { usePerfil } from "@/features/administracion/common/hooks/useCrudPerfil";
+import { updatePerfil } from "../../services/PerfilService";
 import { showSuccess, showError, showConfirmation } from "@/shared/hooks/useSwalert";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface FrmInfoPersonalProps {
     onSuccess?: () => void;
 }
 
 export default function FrmInfoPersonal({ onSuccess }: FrmInfoPersonalProps) {
-    const { profile, setProfile } = usePerfilStore();
+    const { data: profile, isLoading } = usePerfil();
+    const queryClient = useQueryClient();
 
     const forms = useForm<PerfilFormValues>({
         resolver: zodResolver(perfilSchema),
         defaultValues: {
-            name: profile.name || "",
-            apellidos: profile.apellidos || "",
-            email: profile.email || "",
-            phone: profile.phone || "",
+            name: "",
+            apellidos: "",
+            email: "",
+            phone: "",
         },
     });
+
+    // Sincronizar datos del perfil cuando se cargan
+    useEffect(() => {
+        if (profile) {
+            forms.reset({
+                name: profile.name || "",
+                apellidos: profile.apellidos || "",
+                email: profile.email || "",
+                phone: profile.phone || "",
+            });
+        }
+    }, [profile]);
 
     const onSubmit = async (data: PerfilFormValues) => {
         const confirm = await showConfirmation(
@@ -31,11 +47,26 @@ export default function FrmInfoPersonal({ onSuccess }: FrmInfoPersonalProps) {
         if (!confirm) return;
 
         try {
-            setProfile(data);
+            const payload: Record<string, any> = {
+                name: data.name,
+                apellidos: data.apellidos,
+                phone: data.phone,
+            };
+
+            if (data.email !== profile?.email) {
+                payload.email = data.email;
+            }
+
+            await updatePerfil(payload);
+            queryClient.invalidateQueries({ queryKey: ["perfil"] });
             showSuccess("Perfil actualizado", "Tus datos se han guardado correctamente.");
             onSuccess?.();
         } catch (error: any) {
-            showError("Error", error?.response?.data?.message || "No se pudieron guardar los cambios.");
+            const message =
+                error?.response?.data?.message ||
+                error?.message ||
+                "No se pudieron guardar los cambios.";
+            showError("Error", message);
         }
     };
 
@@ -85,6 +116,7 @@ export default function FrmInfoPersonal({ onSuccess }: FrmInfoPersonalProps) {
                     variant="primary"
                     className="w-full sm:w-auto"
                     size="lg"
+                    disabled={isLoading}
                 >
                     Guardar cambios
                 </Button>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from '../../../../../shared/ui';
 import { Icon } from '@iconify-icon/react';
 
@@ -34,10 +34,18 @@ type FrmImgProps<T extends ImgBase> = {
 export default function FrmImg<T extends ImgBase>({ value = [], onChange, onDeleteImage, onIsPrincipal }: FrmImgProps<T>) {
     const inputRef = useRef<HTMLInputElement>(null);
     const [images, setImages] = useState<ImgItem[]>(value);
+    const prevBlobUrls = useRef<string[]>([]);
 
     useEffect(() => {
         setImages(value || []);
     }, [value]);
+
+    // Limpiar blob URLs al desmontar
+    useEffect(() => {
+        return () => {
+            prevBlobUrls.current.forEach(url => URL.revokeObjectURL(url));
+        };
+    }, []);
 
 
     const sync = (imgs: ImgItem[]) => {
@@ -45,26 +53,28 @@ export default function FrmImg<T extends ImgBase>({ value = [], onChange, onDele
         onChange?.(imgs as T[]);
     };
 
+    const imageCount = images.filter(i => !i._deleted).length;
+
     // ➕ agregar nuevas
-    const handleSelectImages = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSelectImages = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) return;
 
-        const disponibles = MAX_IMAGES - images.filter(i => !i._deleted).length;
+        const disponibles = MAX_IMAGES - imageCount;
 
         const nuevas: ImgItem[] = Array.from(e.target.files)
             .slice(0, disponibles)
             .map((file, i) => ({
                 file,
                 orden: images.length + i + 1,
-                isPrincipal: images.length === 0 && i === 0,
+                isPrincipal: imageCount === 0 && i === 0,
             }));
 
         sync([...images, ...nuevas]);
         e.target.value = "";
-    };
+    }, [images, imageCount]);
 
     // 🗑 eliminar (soft delete)
-    const removeImage = async (index: number) => {
+    const removeImage = useCallback(async (index: number) => {
         const img = images[index];
 
         // 🔥 Si existe en BD → delegar al padre
@@ -82,10 +92,10 @@ export default function FrmImg<T extends ImgBase>({ value = [], onChange, onDele
             }));
 
         sync(updated);
-    };
+    }, [images, onDeleteImage]);
 
     // ⭐ principal
-    const setPrincipal = async (index: number) => {
+    const setPrincipal = useCallback(async (index: number) => {
         const img = images[index];
 
         // 🔥 si existe en BD → backend
@@ -100,45 +110,61 @@ export default function FrmImg<T extends ImgBase>({ value = [], onChange, onDele
         }));
 
         sync(updated);
-    };
+    }, [images, onIsPrincipal]);
 
+
+    const previewUrls = useMemo(() => {
+        // Revocar blob URLs anteriores antes de crear nuevas
+        prevBlobUrls.current.forEach(url => URL.revokeObjectURL(url));
+
+        const urls = images.map((img) => {
+            if (img.file) {
+                return URL.createObjectURL(img.file);
+            }
+            return img.url;
+        });
+
+        prevBlobUrls.current = urls.filter((u): u is string => typeof u === 'string' && u.startsWith('blob:'));
+        return urls;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [images]);
 
     return (
         <section className="space-y-3">
-          
-
             <div className="grid grid-cols-4 gap-3">
                 {images.map((img, index) => (
-                    <div key={index} className="relative aspect-square border border-border cursor-pointer">
+                    <div key={img.id ?? `new-${index}`} className="relative aspect-square border border-border cursor-pointer group">
                         <img
-                            src={img.file
-                                ? URL.createObjectURL(img.file)
-                                : img.url}
-                            className="w-32 h-32 object-cover"
+                            src={previewUrls[index]}
+                            alt={`Imagen ${index + 1}`}
+                            className="w-32 h-32 object-cover rounded-md"
+                            loading="lazy"
                         />
 
                         {img.isPrincipal && (
-                            <span className="absolute top-1 left-1 bg-green-500 text-white text-xs px-2 py-1 rounded-lg">
+                            <span className="absolute top-1 left-1 bg-green-500 text-white text-[10px] px-1.5 py-0.5 rounded-md font-medium">
                                 Principal
                             </span>
                         )}
 
-                        <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 flex gap-2 items-center justify-center">
-                            <Button type="button" size="icon" onClick={() => setPrincipal(index)}>
-                                <Icon icon="lucide:star" />
+                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex gap-2 items-center justify-center rounded-md">
+                            <Button type="button" size="icon" className="h-8 w-8" onClick={() => setPrincipal(index)}>
+                                <Icon icon="lucide:star" className="text-sm" />
                             </Button>
 
-                            <Button type="button" size="icon" variant="destructive" onClick={() => removeImage(index)}>
-                                <Icon icon="lucide:trash-2" />
+                            <Button type="button" size="icon" variant="destructive" className="h-8 w-8" onClick={() => removeImage(index)}>
+                                <Icon icon="lucide:trash-2" className="text-sm" />
                             </Button>
                         </div>
                     </div>
                 ))}
 
                 {images.length < MAX_IMAGES && (
-                    <div onClick={() => inputRef.current?.click()}
-                        className="relative aspect-square border-2 border-dashed  border-border cursor-pointer shadow-xs
-                         bg-input flex flex-col gap-2 px-2 font-medium items-center justify-center rounded-lg">
+                    <div
+                        onClick={() => inputRef.current?.click()}
+                        className="relative aspect-square border-2 border-dashed border-border cursor-pointer shadow-xs
+                         bg-input flex flex-col gap-2 px-2 font-medium items-center justify-center rounded-lg hover:border-primary/50 hover:bg-accent/50 transition-all duration-200"
+                    >
                         <Icon icon="lucide:image-plus" className="text-2xl md:text-4xl text-foreground" />
                         <span className="text-foreground text-xs">Agregar </span>
                     </div>

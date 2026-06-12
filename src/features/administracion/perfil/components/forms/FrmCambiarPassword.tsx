@@ -6,17 +6,21 @@ import {
     cambiarPasswordSchema,
     type CambiarPasswordFormValues,
 } from "../../libs/PerfilSchema";
+import { cambiarPassword } from "../../services/PerfilService";
 import { showSuccess, showError, showConfirmation } from "@/shared/hooks/useSwalert";
 
 export default function FrmCambiarPassword() {
     const forms = useForm<CambiarPasswordFormValues>({
         resolver: zodResolver(cambiarPasswordSchema),
         defaultValues: {
-            currentPassword: "",
-            newPassword: "",
-            confirmPassword: "",
+            password: "",
+            new_password: "",
+            new_password_confirmation: "",
         },
     });
+
+    
+    
 
     const onSubmit = async (data: CambiarPasswordFormValues) => {
         const confirm = await showConfirmation(
@@ -26,11 +30,11 @@ export default function FrmCambiarPassword() {
         if (!confirm) return;
 
         try {
-            // TODO: conectar con API cuando esté disponible
-            // await cambiarPassword({
-            //     currentPassword: data.currentPassword,
-            //     newPassword: data.newPassword,
-            // });
+            await cambiarPassword({
+                password: data.password,
+                new_password: data.new_password,
+                new_password_confirmation: data.new_password_confirmation,
+            });
 
             showSuccess(
                 "Contraseña actualizada",
@@ -52,7 +56,7 @@ export default function FrmCambiarPassword() {
         >
             <FrInput
                 label="Contraseña actual"
-                name="currentPassword"
+                name="password"
                 type="password"
                 control={forms.control}
                 leftIcon="eva:lock-outline"
@@ -61,7 +65,7 @@ export default function FrmCambiarPassword() {
 
             <FrInput
                 label="Nueva contraseña"
-                name="newPassword"
+                name="new_password"
                 type="password"
                 control={forms.control}
                 leftIcon="eva:lock-outline"
@@ -70,7 +74,7 @@ export default function FrmCambiarPassword() {
 
             <FrInput
                 label="Confirmar nueva contraseña"
-                name="confirmPassword"
+                name="new_password_confirmation"
                 type="password"
                 control={forms.control}
                 leftIcon="eva:lock-outline"

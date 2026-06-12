@@ -1,7 +1,7 @@
 import { apiInstancesPanel } from "@/core/services/ApiInstancePanel";
-
+import type { CambiarPasswordFormValues } from "../libs/PerfilSchema";
 export const getPerfil = async () => {
-    const response = await apiInstancesPanel.get("/perfil");
+    const response = await apiInstancesPanel.get("/empleado/perfil");
     return response.data;
 };
 
@@ -19,10 +19,15 @@ export const updateAvatar = async (file: File) => {
     return response.data;
 };
 
-export const cambiarPassword = async (data: {
-    currentPassword: string;
-    newPassword: string;
-}) => {
-    const response = await apiInstancesPanel.put("/perfil/password", data);
+
+
+
+export const cambiarPassword = async (data: CambiarPasswordFormValues) => {
+    const response = await apiInstancesPanel.put("/empleado/update-password", data);
+    return response.data;
+};
+
+export const cerrarSessionGlobal = async () => {
+    const response = await apiInstancesPanel.post("/empleado/logoutGlobal");
     return response.data;
 };

@@ -1,22 +1,18 @@
-'use client';
-
-import { motion } from 'framer-motion';
-
 interface TapeRollProps {
     size?: 'sm' | 'md' | 'lg' | 'xl';
-    color?: 'orange' | 'blue' | 'red' | 'green' | 'purple' | 'pink';
+    color?: 'orange' | 'blue' | 'red' | 'green' | 'purple' | 'pink' | 'skye';
     animated?: boolean;
     className?: string;
 }
 
-const sizes = {
+const sizes: Record<string, { outer: string; inner: string }> = {
     sm: { outer: 'w-6 h-6', inner: 'w-2.5 h-2.5' },
     md: { outer: 'w-10 h-10', inner: 'w-4 h-4' },
     lg: { outer: 'w-14 h-14', inner: 'w-6 h-6' },
     xl: { outer: 'w-20 h-20', inner: 'w-8 h-8' },
 };
 
-const colors = {
+const colors: Record<string, { bg: string; glow: string }> = {
     orange: { bg: 'bg-orange-500', glow: '#f97316' },
     blue: { bg: 'bg-blue-500', glow: '#3b82f6' },
     red: { bg: 'bg-red-500', glow: '#ef4444' },
@@ -36,45 +32,45 @@ export default function TapeRoll({
     const { bg, glow } = colors[color];
 
     return (
-        <motion.div
-            className={`relative ${outer} ${bg} rounded-full flex items-center justify-center ${className}`}
-            // Entra desde la izquierda como si rodara hacia el navbar
-            initial={{ x: -40, opacity: 0, rotate: -180 }}
-            animate={{ x: 0, opacity: 1, rotate: 0 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 18, delay: 0.1 }}
-            whileHover={{
-                scale: 1.08,
-                y: -1,
-                rotate: 25,
-                boxShadow: `0 0 18px ${glow}`,
-                transition: { type: 'spring', stiffness: 260, damping: 18 },
+        <div
+            className={`
+                relative ${outer} ${bg} rounded-full flex items-center justify-center ${className}
+                animate-[tape-roll-in_0.5s_cubic-bezier(0.34,1.56,0.64,1)_0.1s_both]
+                transition-all duration-200 ease-out cursor-pointer
+                hover:scale-105 hover:-translate-y-0.5 hover:rotate-[25deg]
+                active:scale-[0.85] active:-rotate-[15deg]
+                group
+            `}
+            style={{
+                boxShadow: '0 0 0px transparent',
+                transitionProperty: 'transform, box-shadow',
             }}
-            whileTap={{ scale: 0.85, rotate: -15 }}
+            onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = `0 0 18px ${glow}`;
+            }}
+            onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '0 0 0px transparent';
+            }}
         >
-            {/* Aro interior con spin propio al hacer hover */}
-            <motion.div
-                className={`${inner} rounded-full border-[2.5px] border-white/80`}
-                animate={animated ? { rotate: [0, 360] } : {}}
-                transition={animated
-                    ? { duration: 4, ease: 'linear', repeat: Infinity, repeatType: 'loop', }
-                    : {}
-                }
+            {/* Aro interior */}
+            <div
+                className={`
+                    ${inner} rounded-full border-[2.5px] border-white/80
+                    ${animated ? 'animate-[spin-slow_4s_linear_infinite]' : ''}
+                    transition-transform duration-300
+                    group-hover:rotate-90
+                `}
             />
 
             {/* Reflejo fijo */}
             <div className="absolute top-1 left-1.5 w-1.5 h-1.5 bg-white/30 rounded-full blur-[1px]" />
 
-            {/* Ping sutil — solo cuando animated=true */}
+            {/* Ping sutil */}
             {animated && (
-                <motion.div
-                    className={`absolute inset-0 rounded-full ${bg} opacity-30`}
-                    animate={{
-                        scale: [1, 1.5, 1],
-                        opacity: [0.15, 0.05, 0.15],
-                    }}
-                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                <div
+                    className={`absolute inset-0 rounded-full ${bg} opacity-30 animate-[ping-soft_3s_ease-in-out_infinite]`}
                 />
             )}
-        </motion.div>
+        </div>
     );
 }

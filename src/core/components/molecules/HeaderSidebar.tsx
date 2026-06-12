@@ -49,12 +49,12 @@ export default function HeaderSidebar({
             {/* BOTÓN COLAPSAR */}
             <Button
                 onClick={() => setCollapsed(!isCollapsed)}
-                className="hidden lg:flex items-center justify-center w-8 h-8 rounded-lg absolute -right-4 top-6 
-            bg-sidebar-accent hover:bg-sidebar-primary transition-all duration-300 shadow-lg border border-sidebar-border/30 cursor-pointer group"
+                className="hidden lg:flex items-center justify-center w-10 h-10 rounded-xl absolute -right-4 top-6 
+            bg-indigo-500 hover:bg-indigo-600 border-none shadow-indigo-500/50 drop-shadow-2xl transition-all duration-300 shadow-lg  cursor-pointer group"
             >
                 <Icon
                     icon={collapsed ? "solar:arrow-right-linear" : "solar:arrow-left-linear"}
-                    className="text-base text-sidebar-foreground group-hover:text-white transition-colors duration-300"
+                    className="text-white group-hover:text-white text-xl  transition-colors duration-300"
                 />
             </Button>
         </div>

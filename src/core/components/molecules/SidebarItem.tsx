@@ -24,10 +24,10 @@ export const SidebarItem = ({
                     <div
                         onClick={() => onToggle(item.label)}
                         className={clsx(
-                            "w-full flex items-center justify-between px-3 py-2.5 rounded-r-lg transition-all duration-300 cursor-pointer group border-l-[3px]",
+                            "w-full flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-300 cursor-pointer group ",
                             isOpen
-                                ? "bg-sidebar-hover text-sidebar-primary dark:text-white border-l-sidebar-primary"
-                                : "text-sidebar-accent-foreground border-l-transparent hover:border-sidebar-primary  hover:bg-sidebar-hover/40 hover:text-sidebar-foreground hover:border-l-sidebar-accent"
+                                ? "bg-sidebar-hover text-sidebar-primary dark:text-white "
+                                : "text-sidebar-accent-foreground  hover:bg-sidebar-hover/40 hover:text-sidebar-foreground "
                         )}
                     >
                         <div className="flex items-center gap-3">
@@ -58,17 +58,17 @@ export const SidebarItem = ({
                             )}
                         >
                             <div className="overflow-hidden">
-                                <div className="ml-7 pl-4 border-l-2 border-sidebar-border/20 space-y-0.5 py-1.5">
+                                <div className="   space-y-0.5 py-1.5">
                                     {item.children.map((sub: any) => (
                                         <NavLink
                                             key={sub.label}
                                             to={sub.path}
                                             className={({ isActive }) =>
                                                 clsx(
-                                                    "block text-sm px-3 py-2 transition-all duration-200 rounded-r-lg border-l-[3px]",
+                                                    "block text-sm px-3 py-2 pl-8 transition-all duration-200 rounded-lg ",
                                                     isActive
-                                                        ? "bg-sidebar-accent/70 border-l-sidebar-primary text-sidebar-primary font-semibold"
-                                                        : "text-sidebar-accent-foreground/80 border-l-transparent font-medium hover:bg-sidebar-hover hover:text-sidebar-foreground hover:border-l-sidebar-accent"
+                                                        ? "bg-sidebar-accent/70  text-sidebar-primary font-semibold"
+                                                        : "text-sidebar-accent-foreground/80 border-none font-medium hover:bg-sidebar-hover hover:text-sidebar-foreground hover:border-l-sidebar-accent"
                                                 )
                                             }
                                         >
@@ -85,10 +85,10 @@ export const SidebarItem = ({
                     to={item.path}
                     className={({ isActive }) =>
                         clsx(
-                            "w-full flex items-center justify-between px-4 py-2.5 transition-all duration-300 group rounded-r-lg border-l-[3px]",
+                            "w-full flex items-center justify-between px-4 py-2.5 transition-all duration-300 group rounded-lg ",
                             isActive
-                                ? "bg-sidebar-accent/70 border-l-sidebar-primary text-sidebar-primary"
-                                : "text-sidebar-accent-foreground border-l-transparent hover:bg-sidebar-hover hover:text-sidebar-foreground hover:border-l-sidebar-accent"
+                                ? "bg-sidebar-accent/70 text-sidebar-primary"
+                                : "text-sidebar-accent-foreground border-l-transparent hover:bg-sidebar-hover hover:text-sidebar-foreground "
                         )
                     }
                 >
