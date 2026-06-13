@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Texto } from "../../../ui";
+
 import { Icon } from "@iconify-icon/react";
 import { useCartStore } from "@/features/shop/common/store/cartStore";
 import { useModal } from "@/shared/hooks/useModal";
@@ -68,7 +68,7 @@ export default function NavbarBottom() {
             </div>
 
             {/* ── MOBILE: barra inferior fija ── */}
-            <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 shadow-xl drop-shadow-2xl
+            {/* <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 shadow-xl drop-shadow-2xl
                       bg-card border-t border-border
                       flex justify-around items-end
                       py-4 px-2 safe-area-inset-bottom">
@@ -87,7 +87,7 @@ export default function NavbarBottom() {
                         )}
                     </NavLink>
                 ))}
-            </nav >
+            </nav > */}
 
         </>
     );

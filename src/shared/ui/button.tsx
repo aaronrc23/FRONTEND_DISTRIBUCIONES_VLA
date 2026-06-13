@@ -88,7 +88,7 @@ const buttonVariants = cva(
         // ── 🌟 Variante Brand (estilo Hero) ──────────────────
         brand: `
           ${baseHeroBtn}
-          bg-linear-to-r from-amber-400 to-orange-500
+          bg-linear-to-r from-amber-500 to-orange-500/95
           text-white font-semibold
           shadow-lg shadow-orange-500/25
           hover:shadow-orange-500/45 hover:scale-[1.02]

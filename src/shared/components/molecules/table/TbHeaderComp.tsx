@@ -22,7 +22,7 @@ export const TbHeaderComp = ({
     showFilterIcon = true
 }: TableHeaderComponentProps) => {
     return (
-        <thead className="bg-table-bgth border-b-2 border-border">
+        <thead className="bg-table-bgth text2">
             {table.getHeaderGroups().map((headerGroup) => (
                 <tr
                     key={headerGroup.id}
@@ -37,7 +37,7 @@ export const TbHeaderComp = ({
                         return (
                             <th
                                 key={header.id}
-                                className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-foreground"
+                                className="px-4 py-3 text-left text-sm font-semibold  tracking-wide text-foreground"
                             >
                                 <div className="flex items-center gap-2 group">
 

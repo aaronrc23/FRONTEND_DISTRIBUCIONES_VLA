@@ -20,13 +20,13 @@ export function Logo({ onClick }: LogoProps) {
 
 
             <div className="flex flex-col leading-tight">
-                <span className="text-xl font-extrabold text-yellow-300">
+                <span className="text-base md:text-xl font-extrabold text-yellow-300">
                     DISTRIBUCIONES
                 </span>
 
-                <div className="flex gap-2 items-center">
-                    <span className="text-lg font-bold text-yellow-50">VLA</span>
-                    <span className="text-lg font-bold text-white">E.I.R.L</span>
+                <div className="flex gap-2 text-md items-center">
+                    <span className=" font-bold text-yellow-50">VLA</span>
+                    <span className=" font-bold text-white">E.I.R.L</span>
                 </div>
             </div>
         </a>

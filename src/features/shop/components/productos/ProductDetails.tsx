@@ -3,6 +3,8 @@ import { useProductoDetalle } from "../../common/hooks/useConsultas";
 import { useMemo, useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import { Badge, Button, Card, Texto } from "../../../../shared/ui";
+import { useCartStore } from "../../common/store/cartStore";
+import { showToastSuccess } from "@/shared/hooks/useSwalert";
 
 export default function ProductDetail() {
     const { id } = useParams();
@@ -10,6 +12,8 @@ export default function ProductDetail() {
 
     const [activeImg, setActiveImg] = useState<string | null>(null);
     const [quantity, setQuantity] = useState(1);
+
+    const addItem = useCartStore((state) => state.addItem);
 
     // ✅ hooks siempre se ejecutan (aunque data sea undefined)
     const product = data?.producto;
@@ -142,7 +146,23 @@ export default function ProductDetail() {
                                 </div>
 
                                 {/* Botón */}
-                                <Button variant="brand" className="w-full py-3" size="lg">
+                                <Button
+                                    variant="brand"
+                                    className="w-full py-3"
+                                    size="lg"
+                                    onClick={() => {
+                                        addItem({
+                                            id: product.id,
+                                            nombre: product.name,
+                                            precio: Number(product.precio),
+                                            imagen: product.imagen,
+                                            cantidad: quantity,
+                                        });
+                                        showToastSuccess(
+                                            `${product.name} agregado al carrito`
+                                        );
+                                    }}
+                                >
                                     <ShoppingCart size={18} />
                                     Agregar al carrito
                                 </Button>

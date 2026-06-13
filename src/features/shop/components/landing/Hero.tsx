@@ -35,28 +35,19 @@ export default function Hero() {
 
             <div className="absolute inset-0 w-full flex flex-col items-center justify-center text-center gap-4 sm:gap-6 px-4">
 
-                <div className="inline-flex items-center space-x-2 bg-orange-500/20 border border-orange-500/30 px-4 py-2 rounded-full backdrop-blur-md">
-                    <span className="relative flex h-3 w-3">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
-                    </span>
-                    <span className="text-orange-100 text-xs font-bold uppercase tracking-widest">
-                        Distribución Segura y Puntual en Todo el Perú
-                    </span>
-                </div>
-
-                <Texto className="hidden sm:block text-2xl sm:text-4xl lg:text-6xl font-extrabold text-white leading-tight">
+                
+                <Texto className=" text-3xl sm:text-4xl  md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
                     Distribuciones
-                    <span className="ml-4 text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">
+                    <span className="ml-4 text2 ">
                         VLA EIRL
                     </span>
                 </Texto>
 
-                <Texto className="text-lg md:text-xl text-white/80 leading-relaxed max-w-xl">
+                <Texto className="text-sm text2 md:text-lg lg:text-xl text-white/80 leading-relaxed max-w-xl">
                     Especialistas en cintas de empaque y materiales logísticos. Protege tus envíos con nuestra calidad superior y asegura que tu negocio nunca se detenga.
                 </Texto>
 
-                <Button onClick={handleProductos} size="lg" variant="brand">
+                <Button onClick={handleProductos} size="lg" variant="brand" className="px-6 rounded-full">
                     Explorar Productos
                 </Button>
 

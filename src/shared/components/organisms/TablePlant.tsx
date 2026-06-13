@@ -36,9 +36,10 @@ interface TablePlantProps {
     clscell?: string;
     mobileVisibleColumns?: string[];
     renderExpandedRow?: (row: any) => React.ReactNode;
+    withCard?: boolean;
 }
 
-const TablePlant = ({ columns, data, filtrosctn = false, placeholder, clscell, mobileVisibleColumns, renderExpandedRow }: TablePlantProps) => {
+const TablePlant = ({ columns, data, filtrosctn = false, placeholder, clscell, mobileVisibleColumns, renderExpandedRow, withCard = true }: TablePlantProps) => {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [globalFilter, setGlobalFilter] = useState("");
@@ -70,7 +71,7 @@ const TablePlant = ({ columns, data, filtrosctn = false, placeholder, clscell, m
 
     });
 
-    return (
+    const tableContent = (
         <>
             <div className="flex flex-col md:flex-row justify-between items-center mb-4 gap-3">
                 <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-3">
@@ -99,7 +100,7 @@ const TablePlant = ({ columns, data, filtrosctn = false, placeholder, clscell, m
             <div >
                 {/* Tabla tradicional para pantallas medianas en adelante */}
                 <div className="hidden md:block">
-                    <div className="border-none shadow-md dark:border-none rounded-md overflow-x-auto scrollmainx bg-card dark:bg-transparent">
+                    <div className="border-none  dark:border-none rounded-md overflow-x-auto scrollmainx bg-card dark:bg-transparent">
                         <TableUI variant="default" className="  ">
                             <TableBase>
                                 <TbHeaderComp table={table} showFilterIcon={filtercol} />
@@ -236,6 +237,16 @@ const TablePlant = ({ columns, data, filtrosctn = false, placeholder, clscell, m
 
         </>
     );
+
+    if (withCard) {
+        return (
+            <Card className="p-0 md:p-4 bg-transparent md:bg-card border-0 md:border-border/60 shadow-none md:shadow-sm">
+                {tableContent}
+            </Card>
+        );
+    }
+
+    return tableContent;
 };
 
 export default TablePlant;

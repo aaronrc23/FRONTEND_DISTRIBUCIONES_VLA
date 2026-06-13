@@ -1,10 +1,8 @@
 import AboutUs from "./AboutUs";
 import Beneficios from "./Beneficios";
-import Distribudores from "./Distribudores";
 import Hero from "./Hero";
 import Historia from "./Historia";
 import Valores from "./Valores";
-import NuestrosProductos from "./NuestrosProductos";
 
 
 export default function LytLanding() {

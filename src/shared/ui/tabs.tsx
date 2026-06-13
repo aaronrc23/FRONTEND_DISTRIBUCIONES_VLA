@@ -23,12 +23,13 @@ function Tabs({
 }
 
 const tabsListVariants = cva(
-    "group/tabs-list inline-flex w-fit items-center justify-center rounded-xl p-1 text-muted-foreground group-data-[orientation=horizontal]/tabs:h-10 group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col",
+    "group/tabs-list inline-flex w-fit items-center justify-center rounded-xl p-1 text-muted-foreground group-data-[orientation=horizontal]/tabs:h-auto group-data-[orientation=horizontal]/tabs:min-h-9 group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col",
     {
         variants: {
             variant: {
                 default: "bg-muted/70",
                 line: "gap-1 bg-transparent rounded-none",
+                bordered: "gap-0 bg-transparent rounded-xl border border-border/40 p-0 h-auto shadow-sm max-sm:flex max-sm:flex-wrap max-sm:justify-center max-sm:gap-2 max-sm:bg-muted/50 max-sm:p-1.5 max-sm:shadow-none max-sm:border-border/50 max-sm:border max-sm:rounded-2xl",
             },
         },
         defaultVariants: {
@@ -68,6 +69,9 @@ function TabsTrigger({
                 "disabled:pointer-events-none disabled:opacity-50",
                 "group-data-[orientation=vertical]/tabs:w-full group-data-[orientation=vertical]/tabs:justify-start",
                 "group-data-[variant=line]/tabs-list:rounded-none group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent group-data-[variant=line]/tabs-list:data-[state=active]:shadow-none group-data-[variant=line]/tabs-list:data-[state=active]:text-primary",
+                "group-data-[variant=bordered]/tabs-list:rounded-none group-data-[variant=bordered]/tabs-list:bg-transparent group-data-[variant=bordered]/tabs-list:data-[state=active]:bg-accent/50 group-data-[variant=bordered]/tabs-list:data-[state=active]:text-primary group-data-[variant=bordered]/tabs-list:data-[state=active]:shadow-none",
+                "max-sm:group-data-[variant=bordered]/tabs-list:rounded-xl max-sm:group-data-[variant=bordered]/tabs-list:data-[state=active]:rounded-xl max-sm:group-data-[variant=bordered]/tabs-list:data-[state=active]:bg-primary/10 max-sm:group-data-[variant=bordered]/tabs-list:data-[state=active]:text-primary max-sm:group-data-[variant=bordered]/tabs-list:data-[state=active]:shadow-sm max-sm:group-data-[variant=bordered]/tabs-list:data-[state=active]:font-semibold max-sm:group-data-[variant=bordered]/tabs-list:border max-sm:group-data-[variant=bordered]/tabs-list:border-transparent max-sm:group-data-[variant=bordered]/tabs-list:data-[state=active]:border-primary/20",
+                "sm:group-data-[variant=bordered]/tabs-list:border-r sm:group-data-[variant=bordered]/tabs-list:border-border/40 sm:group-data-[variant=bordered]/tabs-list:last:border-r-0",
                 "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
                 className
             )}
@@ -83,7 +87,7 @@ function TabsContent({
     return (
         <TabsPrimitive.Content
             data-slot="tabs-content"
-            className={cn("flex-1 outline-none mt-2 animate-in fade-in-50 duration-200", className)}
+            className={cn("flex-1 outline-none mt-2 animate-in fade-in-50 duration-200 min-w-0", className)}
             {...props}
         />
     )

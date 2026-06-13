@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../../../shared/ui";
 import { Icon } from "@iconify-icon/react";
 import { lazy, Suspense } from "react";
-
+import { useMobileMenuStore } from "../../common/store/menuStore";
+import MobileMenu from "./MobileMenu";
 
 
 const NavbarBottom = lazy(() => import("../../../../shared/components/shop/header/NavbarBotom"));
@@ -12,6 +13,7 @@ const NavbarBottom = lazy(() => import("../../../../shared/components/shop/heade
 export default function HeaderStore({ className }: any) {
     const navigate = useNavigate();
     const handleHome = () => navigate('/');
+    const { toggle, isOpen } = useMobileMenuStore();
 
     return (
         <nav
@@ -43,13 +45,21 @@ export default function HeaderStore({ className }: any) {
                         aria-label="menu"
                         className="md:hidden bg-transparent text-white p-2"
                         variant="outline"
+                        onClick={toggle}
                     >
-                        <Icon icon="lucide:menu" className="text-2xl" />
+                        {isOpen ? (
+                            <Icon icon="lucide:x" className="text-2xl" />
+                        ) : (
+                            <Icon icon="lucide:menu" className="text-2xl" />
+                        )}
                     </Button>
 
 
                 </div>
             </div>
+
+            {/* Mobile menu drawer */}
+            <MobileMenu />
            
         </nav>
     );

@@ -23,7 +23,7 @@ export default function LytInventario() {
                     <Button className="cursor-pointer" onClick={() => modalmov.open()}><Icon icon="mdi:plus" className="text-xl" />Movimiento </Button>
                 </div>} >
 
-                <div className="pt-4 px-4">
+                <div className="pt-4 px-2">
                     {data && <TablePlant columns={ColumnsInventario()} data={data || []} placeholder="Buscar producto... "
                         mobileVisibleColumns={ColumnsVisible}
                         renderExpandedRow={(row) => (
