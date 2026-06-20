@@ -7,11 +7,18 @@
     scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
     /* scrollbar-color: #9393a1 #dadadb; */
 
-    
+
 }
 
-.text2{
+.text2 {
     font-family: 'Inter', sans-serif;
+}
+
+.textlogo {
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+  
 }
 
 /* select {

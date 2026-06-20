@@ -65,12 +65,36 @@
 
 
     --color-shoprimary: var(--shoprimary);
+    --color-shoprimary2: var(--shoprimary2);
+    --color-shopsecondary: var(--shopsecondary);
     --color-bgshop: var(--bgshop);
     --color-shopcard: var(--shopcard);
+    --color-shopborder: var(--shopborder);
 
     --color-shopforeground: var(--shopforeground);
     --color-shop-secondary-foreground: var(--shop-secondary-foreground);
     --color-shopheader: var(--shopheader);
+    --color-shopheader-foreground: var(--shopheader-foreground);
+    --color-shopheader-button: var(--shopheader-button);
+
+    --color-shopabout-bg: var(--shopabout-bg);
+    --color-shopabout-foreground: var(--shopabout-foreground);
+    --color-shopabout-muted: var(--shopabout-muted);
+    --color-shopabout-border: var(--shopabout-border);
+
+    --color-section-title: var(--section-title);
+    --color-section-title-muted: var(--section-title-muted);
+    --color-section-primary: var(--section-primary);
+    --color-section-primary-foreground: var(--section-primary-foreground);
+    --color-section-accent: var(--section-accent);
+
+    --color-footer-bg: var(--footer-bg);
+    --color-footer-foreground: var(--footer-foreground);
+    --color-footer-title: var(--footer-title);
+    --color-footer-muted: var(--footer-muted);
+    --color-footer-border: var(--footer-border);
+    --color-footer-accent: var(--footer-accent);
+    --color-footer-bottom-bg: var(--footer-bottom-bg);
 
     --color-shadow-card: var(--shadow-card);
     --color-shadow-hover: var(--shadow-hover);

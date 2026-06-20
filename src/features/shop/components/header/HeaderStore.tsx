@@ -16,51 +16,52 @@ export default function HeaderStore({ className }: any) {
     const { toggle, isOpen } = useMobileMenuStore();
 
     return (
-        <nav
-            className={`sticky top-0 z-40 
-                bg-shopheader border-b border-none shadow-sm
-                transition-all duration-300 w-full
-                p-3 ${className} `}
-        >
-            <div className="flex items-center lg:container px-2 lg:mx-auto justify-between h-16 w-full">
-                <div>
-                    <Logo onClick={handleHome} />
+        <>
+            <nav
+                className={`sticky top-0 z-40 
+                    bg-shopheader backdrop-blur-md border-b border-shopborder/60 shadow-sm
+                    transition-all duration-300 w-full
+                    p-3 ${className} `}
+            >
+                <div className="flex items-center lg:container px-2 lg:mx-auto justify-between h-16 w-full">
+                    <div>
+                        <Logo onClick={handleHome} dark={true} />
 
-                </div>
-
-                {/* Navegación + acciones */}
-                <div className="flex items-center gap-4 flex-1 justify-end">
-
-                    {/* Navbar (desktop) */}
-                    <div className="">
-                        <Suspense fallback={null}>
-                            <NavbarBottom />
-                        </Suspense>
                     </div>
 
+                    {/* Navegación + acciones */}
+                    <div className="flex items-center gap-4 flex-1 justify-end">
+
+                        {/* Navbar (desktop) */}
+                        <div className="">
+                            <Suspense fallback={null}>
+                                <NavbarBottom dark={true} />
+                            </Suspense>
+                        </div>
 
 
-                    {/* Mobile menu */}
-                    <Button
-                        aria-label="menu"
-                        className="md:hidden bg-transparent text-white p-2"
-                        variant="outline"
-                        onClick={toggle}
-                    >
-                        {isOpen ? (
-                            <Icon icon="lucide:x" className="text-2xl" />
-                        ) : (
-                            <Icon icon="lucide:menu" className="text-2xl" />
-                        )}
-                    </Button>
+
+                        {/* Mobile menu */}
+                        <Button
+                            aria-label="menu"
+                            className="md:hidden p-2 text-shopheader-foreground"
+                            variant="outline"
+                            onClick={toggle}
+                        >
+                            {isOpen ? (
+                                <Icon icon="lucide:x" className="text-2xl" />
+                            ) : (
+                                <Icon icon="lucide:menu" className="text-2xl" />
+                            )}
+                        </Button>
 
 
+                    </div>
                 </div>
-            </div>
+            </nav>
 
-            {/* Mobile menu drawer */}
+            {/* Mobile menu drawer - fuera del nav para evitar problemas con el overlay */}
             <MobileMenu />
-           
-        </nav>
+        </>
     );
 }

@@ -123,6 +123,20 @@ export const showErrorWithCancel = (title = 'Error', text = '') => {
     });
 };
 
+export const showWarning = (title = 'Advertencia', text = '') => {
+    return Swal.fire({
+        title,
+        text,
+        icon: 'warning',
+        confirmButtonColor: '#f59e0b',
+        confirmButtonText: 'Aceptar',
+        backdrop: "var(--backdrop)",
+        customClass: {
+            popup: "swal-custom-text",
+        }
+    });
+}
+
 
 // 🔔 Toast opcional
 export const showToast = (title = '', icon: SweetAlertIcon = 'success') => {
@@ -141,6 +155,7 @@ export const showToast = (title = '', icon: SweetAlertIcon = 'success') => {
         }
     });
 };
+
 
 export const showToastError = (title = '', icon: SweetAlertIcon = 'error') => {
     showToast(title, icon);

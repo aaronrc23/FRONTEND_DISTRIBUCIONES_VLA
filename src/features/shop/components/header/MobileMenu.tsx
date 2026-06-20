@@ -1,10 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { Icon } from "@iconify-icon/react";
-import { Drawer } from "@/shared/ui/drawer";
+import ShopDrawer from "@/shared/ui/shopdrawer";
 import { useMobileMenuStore } from "../../common/store/menuStore";
-import { useCartStore } from "../../common/store/cartStore";
-import { useModal } from "@/shared/hooks/useModal";
-import TapeRoll from "@/shared/components/icons/TapeRoll";
+
 
 interface LinkItem {
   name: string;
@@ -32,121 +30,87 @@ const links: LinkItem[] = [
 
 export default function MobileMenu() {
   const { isOpen, close } = useMobileMenuStore();
-  const items = useCartStore((state) => state.items);
 
-  const modalCart = useModal("md-carrito");
-
- 
   return (
-    <Drawer
+    <ShopDrawer
       open={isOpen}
       onClose={close}
-      position="right"
-      width="320px"
-      showOverlay
-      closeOnOverlayClick
-      clscontent=" px-0"
-      className="
-        backdrop-blur-3xl
-        border-l
-        border-border/10
-        shadow-2xl
-      "
+      title="Menú"
+      icon="mdi:menu"
     >
       <div className="flex h-full flex-col">
-        {/* HEADER */}
-
         {/* NAV */}
-        <div className="pt-18">
-
-
-          <nav className="space-y-0">
-            {links.map((link) => (
-              <NavLink
-                key={link.path}
-                to={link.path}
-                end={link.path === "/"}
-                onClick={close}
-                className={({ isActive }) =>
-                  `
-                  flex items-center
-                  gap-4
-                  px-6
-                  py-4
-                  transition-all
-                  duration-300
-
-                  ${isActive
-                    ? "bg-primary text-primary-foreground shadow-lg"
-                    : "hover:bg-accent text-foreground"
-                  }
+        <nav className="space-y-1 px-4 pt-4">
+          {links.map((link) => (
+            <NavLink
+              key={link.path}
+              to={link.path}
+              end={link.path === "/"}
+              onClick={close}
+              className={({ isActive }) =>
                 `
+                flex items-center
+                gap-4
+                px-4
+                py-3.5
+                rounded-xl
+                transition-all
+                duration-200
+                ${isActive
+                  ? "bg-blue-900 text-white shadow-md"
+                  : "text-slate-700 hover:bg-blue-50 hover:text-blue-900"
                 }
-              >
-                {({ isActive }) => (
-                  <>
-                    <Icon
-                      icon={link.icon}
-                      className={`text-xl ${isActive
-                        ? "text-primary-foreground"
-                        : "text-primary"
-                        }`}
-                    />
+              `
+              }
+            >
+              <Icon
+                icon={link.icon}
+                className="text-xl"
+              />
 
-                    <span className="flex-1  font-medium">
-                      {link.name}
-                    </span>
+              <span className="flex-1 font-semibold text-sm">
+                {link.name}
+              </span>
 
-                   
-                  </>
-                )}
-              </NavLink>
-            ))}
-          </nav>
-        </div>
+              <Icon
+                icon="mdi:chevron-right"
+                className="text-slate-300 text-lg"
+              />
+            </NavLink>
+          ))}
+        </nav>
+
         {/* FOOTER */}
         <div className="mt-auto px-6 py-6">
-          <div className="border-t border-border/10 pt-5">
-            <p className="text-center text-lg font-bold mb-4">
+          <div className="border-t border-slate-100 pt-6">
+            <p className="text-center text-sm font-bold text-slate-800 mb-4">
               Síguenos
             </p>
 
             <div className="flex justify-center gap-5">
-              <a href="#">
-                <Icon
-                  icon="ri:facebook-fill"
-                  className="text-2xl hover:scale-110 transition"
-                />
+              <a href="#" className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center hover:bg-blue-900 hover:text-white transition-all duration-200">
+                <Icon icon="ri:facebook-fill" className="text-lg" />
               </a>
 
-              <a href="#">
-                <Icon
-                  icon="ri:instagram-line"
-                  className="text-2xl hover:scale-110 transition"
-                />
+              <a href="#" className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center hover:bg-blue-900 hover:text-white transition-all duration-200">
+                <Icon icon="ri:instagram-line" className="text-lg" />
               </a>
 
-              <a href="#">
-                <Icon
-                  icon="ri:tiktok-fill"
-                  className="text-2xl hover:scale-110 transition"
-                />
+              <a href="#" className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center hover:bg-blue-900 hover:text-white transition-all duration-200">
+                <Icon icon="ri:tiktok-fill" className="text-lg" />
               </a>
 
-              <a href="#">
-                <Icon
-                  icon="ri:whatsapp-fill"
-                  className="text-2xl hover:scale-110 transition"
-                />
+              <a href="#" className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center hover:bg-blue-900 hover:text-white transition-all duration-200">
+                <Icon icon="ri:whatsapp-fill" className="text-lg" />
               </a>
             </div>
 
-            <p className="text-center text-xs text-muted-foreground mt-5">
+            <p className="text-center text-xs text-slate-400 mt-6">
               © {new Date().getFullYear()} VLA E.I.R.L
             </p>
           </div>
         </div>
       </div>
-    </Drawer>
+    </ShopDrawer>
   );
 }

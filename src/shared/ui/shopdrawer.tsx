@@ -74,7 +74,7 @@ export default function ShopDrawer({
             {/* Overlay */}
             <div
                 className={`
-                    fixed inset-0 z-40 bg-black/30 backdrop-blur-sm
+                    fixed inset-0 z-[100] bg-black/40
                     transition-opacity duration-[250ms] ease-out will-change-opacity
                     ${visible ? "opacity-100" : "opacity-0"}
                 `}
@@ -85,7 +85,7 @@ export default function ShopDrawer({
             <aside
                 style={{ width }}
                 className={`
-                    fixed right-0 top-0 z-50 h-screen bg-modal shadow-2xl flex flex-col
+                    fixed right-0 top-0 z-[110] h-screen bg-modal shadow-2xl flex flex-col
                     transition-all duration-[250ms] ease-out will-change-transform
                     ${visible ? "translate-x-0" : "translate-x-full"}
                 `}

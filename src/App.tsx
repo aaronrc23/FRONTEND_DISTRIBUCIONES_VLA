@@ -9,7 +9,7 @@ import "@fontsource/inter/700.css";
 
 function App() {
   return (
-    <div className='w-full h-full'>
+    <div className="w-full h-full">
       <Rutas />
     </div>
   )

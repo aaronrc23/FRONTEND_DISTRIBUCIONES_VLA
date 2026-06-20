@@ -91,7 +91,7 @@ export default function Historia() {
             <div className="max-w-4xl mx-auto relative z-10">
                 {/* ─── HEADER ─── */}
                 <div className="mb-10 text-center">
-                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-blue-900 leading-[1.1] tracking-tight">
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-section-title leading-[1.1] tracking-tight">
                         Nuestra historia
                     </h2>
                 </div>
@@ -103,8 +103,8 @@ export default function Historia() {
                             key={year}
                             onClick={() => handleYearSelect(year)}
                             className={`relative px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 shrink-0 ${currentChapter?.year === year
-                                    ? "bg-blue-900 text-white shadow-[0_2px_8px_rgba(30,58,138,0.2)] scale-105"
-                                    : "bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-700"
+                                    ? "bg-section-primary text-section-primary-foreground shadow-[0_2px_8px_rgba(30,58,138,0.2)] scale-105"
+                                    : "bg-muted text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                                 }`}
                         >
                             {year}
@@ -126,24 +126,24 @@ export default function Historia() {
                         {story.map((chapter) => (
                             <CarouselItem key={chapter.year}>
                                 <div className="px-0 md:px-2">
-                                    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 md:p-10 select-none">
+                                    <div className="bg-shopcard rounded-2xl border border-shopborder shadow-sm p-6 md:p-10 select-none">
                                         {/* ─── AÑO + ETIQUETA ─── */}
                                         <div className="flex items-center gap-3 mb-6">
-                                            <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-900/5 text-blue-700 text-sm font-bold">
+                                            <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-section-primary/5 text-section-primary-foreground text-sm font-bold">
                                                 {chapter.year}
                                             </span>
                                             <div>
-                                                <span className="text-xs font-medium text-slate-400 uppercase tracking-widest">
+                                                <span className="text-xs font-medium text-section-title-muted uppercase tracking-widest">
                                                     Capítulo {story.indexOf(chapter) + 1}
                                                 </span>
-                                                <h3 className="text-base font-semibold text-blue-900 leading-snug">
+                                                <h3 className="text-base font-semibold text-section-title leading-snug">
                                                     {chapter.label}
                                                 </h3>
                                             </div>
                                         </div>
 
                                         {/* ─── LÍNEA DECORATIVA ─── */}
-                                        <div className="w-10 h-[2px] bg-blue-200 rounded-full mb-6" />
+                                        <div className="w-10 h-[2px] bg-section-accent rounded-full mb-6" />
 
                                         {/* ─── PÁRRAFOS ─── */}
                                         <div className="space-y-4">
@@ -166,8 +166,8 @@ export default function Historia() {
                     </CarouselContent>
 
                     {/* ─── FLECHAS DE NAVEGACIÓN (solo desktop) ─── */}
-                    <CarouselPrevious className="hidden md:flex -left-3 lg:-left-6 h-12 w-12 bg-white border-slate-200 text-slate-400 hover:bg-white hover:text-blue-900 shadow-sm hover:shadow-md transition-all" />
-                    <CarouselNext className="hidden md:flex -right-3 lg:-right-6 h-12 w-12 bg-white border-slate-200 text-slate-400 hover:bg-white hover:text-blue-900 shadow-sm hover:shadow-md transition-all" />
+                    <CarouselPrevious className="hidden md:flex -left-3 lg:-left-6 h-12 w-12 bg-shopcard border-shopborder text-section-title-muted hover:bg-shopcard hover:text-section-title shadow-sm hover:shadow-md transition-all" />
+                    <CarouselNext className="hidden md:flex -right-3 lg:-right-6 h-12 w-12 bg-shopcard border-shopborder text-section-title-muted hover:bg-shopcard hover:text-section-title shadow-sm hover:shadow-md transition-all" />
                 </Carousel>
 
                 {/* ─── INDICADORES (dots) ─── */}
@@ -181,8 +181,8 @@ export default function Historia() {
                         >
                             <div
                                 className={`rounded-full transition-all duration-500 ease-out ${i === current
-                                        ? "bg-blue-900 w-6 h-2"
-                                        : "bg-slate-300 hover:bg-slate-400 w-2 h-2 group-hover:scale-125"
+                                        ? "bg-section-primary w-6 h-2"
+                                        : "bg-section-title-muted/50 hover:bg-section-title-muted w-2 h-2 group-hover:scale-125"
                                     }`}
                             />
                         </button>

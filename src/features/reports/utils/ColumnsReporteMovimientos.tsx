@@ -50,7 +50,16 @@ export const ColumnsReporteMovimientos = () => {
       header: "Tipo",
       cell: ({ row }: any) => {
         const tipo = row.original.tipo;
-        const color = tipoColors[tipo] || "default";
+        const color = (tipoColors[tipo] || "default") as
+          | "default"
+          | "success"
+          | "destructive"
+          | "warning"
+          | "info"
+          | "primary"
+          | "secondary"
+          | "purple"
+          | undefined;
         return <Badge visual="flat" color={color}>{tipo}</Badge>;
       },
     },

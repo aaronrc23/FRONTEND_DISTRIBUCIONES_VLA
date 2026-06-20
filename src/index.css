@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
 @import "./styles/themes.css";
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -6,6 +7,7 @@
 @import "./styles/Swalert.css";
 @import "./styles/animaciones.css";
 @import "./styles/pattern-perfil.css";
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -96,13 +98,37 @@
 
 
 
-    --shoprimary: oklch(64.6% 0.222 41.116);
+    --shoprimary: #f06440;
+    --shoprimary2: #f35d37;
+    --shopsecondary: #e5e5e5;
+
     --bgshop: oklch(96.7% 0.003 264.542);
     --shopcard: oklch(100% 0.00011 271.152);
     --shopforeground: oklch(44.6% 0.043 257.281);
     --shop-secondary-foreground: oklch(44.6% 0.03 256.802);
-    --shopheader: oklch(37.808% 0.14829 265.535);
+    --shopheader: #133775;
+    --shopheader-button: #254d94;
+    --shopheader-foreground: #ffffff;
+    --shopborder: oklch(88.904% 0.00867 84.505 / 0.35);
 
+    --shopabout-bg: #1e3a8a;
+    --shopabout-foreground: #ffffff;
+    --shopabout-muted: #bfdbfe;
+    --shopabout-border: rgba(255, 255, 255, 0.1);
+
+    --section-title: #1e3a8a;
+    --section-title-muted: #94a3b8;
+    --section-primary: #1e3a8a;
+    --section-primary-foreground: #ffffff;
+    --section-accent: #bfdbfe;
+
+    --footer-bg: #f5fcf3;
+    --footer-foreground: #475569;
+    --footer-title: #1e293b;
+    --footer-muted: #94a3b8;
+    --footer-border: #e2e8f0;
+    --footer-accent: #f06440;
+    --footer-bottom-bg: #f1f5f9;
 
 }
 
@@ -159,11 +185,35 @@
     --textsucces: oklch(68% 0.15 163);
 
     --shoprimary: oklch(58% 0.22 270);
+    --shoprimary2: oklch(60% 0.17 162.48);
+    --shopsecondary: oklch(65% 0.18 70);
     --bgshop: oklch(19% 0.022 262);
     --shopcard: oklch(27% 0.028 262);
     --shopforeground: oklch(84% 0.015 260);
     --shop-secondary-foreground: oklch(72% 0.015 260);
     --shopheader: oklch(90% 0.012 260);
+    --shopheader-foreground: oklch(26% 0.03 260);
+    --shopborder: oklch(48% 0.03 262 / 20%);
+
+    --shopabout-bg: oklch(22% 0.045 260);
+    --shopabout-foreground: oklch(92% 0.012 262);
+    --shopabout-muted: oklch(72% 0.025 240);
+    --shopabout-border: rgba(255, 255, 255, 0.08);
+
+    --section-title: oklch(88% 0.015 260);
+    --section-title-muted: oklch(60% 0.02 260);
+    --section-primary: oklch(55% 0.18 270);
+    --section-primary-foreground: oklch(95% 0.005 260);
+    --section-accent: oklch(40% 0.06 260);
+    --shopheader-button: oklch(58% 0.22 270);
+
+    --footer-bg: oklch(18% 0.02 260);
+    --footer-foreground: oklch(70% 0.015 260);
+    --footer-title: oklch(90% 0.012 260);
+    --footer-muted: oklch(55% 0.02 260);
+    --footer-border: oklch(30% 0.025 262);
+    --footer-accent: oklch(58% 0.22 270);
+    --footer-bottom-bg: oklch(15% 0.02 260);
 
     --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.45), 0 1px 4px rgba(0, 0, 0, 0.35);
     --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.55);

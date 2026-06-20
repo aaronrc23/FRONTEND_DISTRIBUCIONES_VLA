@@ -2,8 +2,7 @@ import { Outlet } from "react-router-dom";
 import HeaderStore from "../components/header/HeaderStore";
 import Footer from "./landing/Footer";
 import MdShop from "../common/modales/MdShop";
-
-
+import WhatsAppFloatButton from "../common/components/WhatsAppFloatButton";
 
 
 export default function StoreLayout() {
@@ -16,6 +15,7 @@ export default function StoreLayout() {
             </main>
             <Footer />
             <MdShop />
+            <WhatsAppFloatButton />
         </section>
     );
 }

@@ -3,6 +3,7 @@ interface TapeRollProps {
     color?: 'orange' | 'blue' | 'red' | 'green' | 'purple' | 'pink' | 'skye';
     animated?: boolean;
     className?: string;
+    dark?: boolean;
 }
 
 const sizes: Record<string, { outer: string; inner: string }> = {

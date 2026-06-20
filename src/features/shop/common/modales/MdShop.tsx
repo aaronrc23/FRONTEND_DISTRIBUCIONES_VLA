@@ -3,12 +3,12 @@ import { useModal } from "@/shared/hooks/useModal";
 import ShopDrawer from "@/shared/ui/shopdrawer";
 import { useCartStore } from "../store/cartStore";
 import CardCarrito from "../../components/carrito/CardCarrito";
-
-const WHATSAPP_NUMBER = import.meta.env.VITE_REACT_APP_WHATSAPP_NUMBER || "51999888777";
+import { useWhatsappNumber } from "../hooks/useWhatsappNumber";
 
 export default function MdShop() {
     const modaladd = useModal("md-carrito");
     const items = useCartStore((state) => state.items);
+    const whatsappNumber = useWhatsappNumber();
 
     const total = items.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
 
@@ -31,7 +31,7 @@ export default function MdShop() {
         mensaje += `*TOTAL: S/ ${total.toFixed(2)}*\n\n`;
         mensaje += "¡Gracias por tu pedido! 🙌";
 
-        const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
+        const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensaje)}`;
         window.open(url, "_blank");
     };
 

@@ -28,6 +28,20 @@ const buttonVariants = cva(
           hover:bg-primary/90
           shadow-lg shadow-primary/25
         `,
+        shopPrimary: `
+          ${baseModernBtn}
+          bg-shoprimary text-white
+          hover:bg-shoprimary/90
+          shadow-lg
+          rounded-2xl
+        `,
+        shopSecondary: `
+          ${baseModernBtn}
+          bg-shopsecondary 
+          hover:bg-shopsecondary/90
+     
+          rounded-2xl
+        `,
 
         indigo: `
           ${baseModernBtn}
@@ -88,9 +102,9 @@ const buttonVariants = cva(
         // ── 🌟 Variante Brand (estilo Hero) ──────────────────
         brand: `
           ${baseHeroBtn}
-          bg-linear-to-r from-amber-500 to-orange-500/95
+          bg-linear-to-r from-shoprimary2 to-shoprimary opacity-90
           text-white font-semibold
-          shadow-lg shadow-orange-500/25
+        
           hover:shadow-orange-500/45 hover:scale-[1.02]
           border border-white/10
         `,

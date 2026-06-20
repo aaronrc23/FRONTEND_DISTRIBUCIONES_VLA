@@ -105,7 +105,7 @@ function FilterSelect({
 }) {
   const isActive = value !== "";
   return (
-    <Select value={value} onValueChange={onValueChange}>
+    <Select value={value} onValueChange={(value) => onValueChange(value ?? "")}> 
       <SelectTrigger
         className={cn(
           "w-full sm:w-[175px] h-9 text-sm rounded-lg border transition-all duration-200",
@@ -259,11 +259,11 @@ export default function LytReport() {
   const resumen = dashboardData?.data?.resumen;
 
   /* ── Valores únicos para filtros ── */
-  const categorias = useMemo(() => uniqueValues(productos, (p) => p.categoria?.name), [productos]);
-  const marcas = useMemo(() => uniqueValues(productos, (p) => p.marca?.name), [productos]);
-  const tiposMov = useMemo(() => uniqueValues(movimientos, (m) => m.tipo), [movimientos]);
+  const categorias = useMemo(() => uniqueValues(productos, (p: any) => p.categoria?.name), [productos]);
+  const marcas = useMemo(() => uniqueValues(productos, (p: any) => p.marca?.name), [productos]);
+  const tiposMov = useMemo(() => uniqueValues(movimientos, (m :any) => m.tipo), [movimientos]);
   const almacenesMov = useMemo(
-    () => uniqueValues(movimientos, (m) => m.inventario?.almacen?.nombre || m.almacen_nombre),
+    () => uniqueValues(movimientos, (m: any) => m.inventario?.almacen?.nombre || m.almacen_nombre),
     [movimientos]
   );
 

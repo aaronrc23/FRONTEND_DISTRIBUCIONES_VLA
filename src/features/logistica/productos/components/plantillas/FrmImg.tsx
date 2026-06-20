@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Button } from '../../../../../shared/ui';
 import { Icon } from '@iconify-icon/react';
 
@@ -34,18 +34,31 @@ type FrmImgProps<T extends ImgBase> = {
 export default function FrmImg<T extends ImgBase>({ value = [], onChange, onDeleteImage, onIsPrincipal }: FrmImgProps<T>) {
     const inputRef = useRef<HTMLInputElement>(null);
     const [images, setImages] = useState<ImgItem[]>(value);
-    const prevBlobUrls = useRef<string[]>([]);
+    const [previewUrls, setPreviewUrls] = useState<(string | undefined)[]>([]);
 
+    // Sincronizar images con value (para edit mode)
     useEffect(() => {
         setImages(value || []);
     }, [value]);
 
-    // Limpiar blob URLs al desmontar
+    // Generar URLs de previsualización con efecto (igual que useFilePreview)
     useEffect(() => {
+        const urls = images.map((img) => {
+            if (img.file) {
+                return URL.createObjectURL(img.file);
+            }
+            return img.url;
+        });
+
+        const blobUrls = urls.filter((u): u is string => typeof u === 'string' && u.startsWith('blob:'));
+
+        setPreviewUrls(urls);
+
+        // Cleanup: revocar blob URLs al salir o al cambiar images
         return () => {
-            prevBlobUrls.current.forEach(url => URL.revokeObjectURL(url));
+            blobUrls.forEach(url => URL.revokeObjectURL(url));
         };
-    }, []);
+    }, [images]);
 
 
     const sync = (imgs: ImgItem[]) => {
@@ -113,33 +126,22 @@ export default function FrmImg<T extends ImgBase>({ value = [], onChange, onDele
     }, [images, onIsPrincipal]);
 
 
-    const previewUrls = useMemo(() => {
-        // Revocar blob URLs anteriores antes de crear nuevas
-        prevBlobUrls.current.forEach(url => URL.revokeObjectURL(url));
-
-        const urls = images.map((img) => {
-            if (img.file) {
-                return URL.createObjectURL(img.file);
-            }
-            return img.url;
-        });
-
-        prevBlobUrls.current = urls.filter((u): u is string => typeof u === 'string' && u.startsWith('blob:'));
-        return urls;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [images]);
-
     return (
         <section className="space-y-3">
             <div className="grid grid-cols-4 gap-3">
                 {images.map((img, index) => (
-                    <div key={img.id ?? `new-${index}`} className="relative aspect-square border border-border cursor-pointer group">
-                        <img
-                            src={previewUrls[index]}
-                            alt={`Imagen ${index + 1}`}
-                            className="w-32 h-32 object-cover rounded-md"
-                            loading="lazy"
-                        />
+                    <div key={img.id ?? `new-${index}`} className="relative aspect-square border border-border cursor-pointer group overflow-hidden">
+                        {previewUrls[index] ? (
+                            <img
+                                src={previewUrls[index]}
+                                alt={`Imagen ${index + 1}`}
+                                className="w-full h-full object-cover rounded-md"
+                            />
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center bg-muted text-muted-foreground text-xs">
+                                Sin imagen
+                            </div>
+                        )}
 
                         {img.isPrincipal && (
                             <span className="absolute top-1 left-1 bg-green-500 text-white text-[10px] px-1.5 py-0.5 rounded-md font-medium">
@@ -163,7 +165,7 @@ export default function FrmImg<T extends ImgBase>({ value = [], onChange, onDele
                     <div
                         onClick={() => inputRef.current?.click()}
                         className="relative aspect-square border-2 border-dashed border-border cursor-pointer shadow-xs
-                         bg-input flex flex-col gap-2 px-2 font-medium items-center justify-center rounded-lg hover:border-primary/50 hover:bg-accent/50 transition-all duration-200"
+                         bg-input flex flex-col gap-2 px-2 font-medium items-center justify-center rounded-lg hover:border-primary/50 hover:bg-accent/50 transition-all duration-200 overflow-hidden"
                     >
                         <Icon icon="lucide:image-plus" className="text-2xl md:text-4xl text-foreground" />
                         <span className="text-foreground text-xs">Agregar </span>

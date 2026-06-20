@@ -47,7 +47,7 @@ export default function Valores() {
     return (
         <section
             ref={ref}
-            className={`pb-20 md:pb-28 px-6 relative transition-all duration-700 ease-out ${
+            className={`pt-16 pb-20 md:pb-28 px-6 relative transition-all duration-700 ease-out ${
                 isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
@@ -56,10 +56,10 @@ export default function Valores() {
             <div className="max-w-5xl mx-auto relative z-10">
                 {/* ─── HEADER ─── */}
                 <div className="mb-12 text-center">
-                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-blue-900 leading-[1.1] tracking-tight">
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-section-title leading-[1.1] tracking-tight">
                         Nuestros valores
                     </h2>
-                    <p className="mt-4 text-sm md:text-base font-medium text-slate-400 max-w-lg mx-auto">
+                    <p className="mt-4 text-sm md:text-base font-medium text-section-title-muted max-w-lg mx-auto">
                         Lo que nos define como empresa y como personas
                     </p>
                 </div>
@@ -69,10 +69,10 @@ export default function Valores() {
                     {valores.map((v) => (
                         <div
                             key={v.title}
-                            className="group bg-card flex flex-col justify-center items-center  rounded-2xl border border-slate-100 shadow-sm p-6 md:p-7 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                            className="group bg-card flex flex-col justify-center items-center  rounded-2xl border border-shopborder shadow-sm p-6 md:p-7 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
                         >
                             {/* ─── ICONO ─── */}
-                            <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-5 group-hover:bg-blue-900/10 transition-colors duration-300">
+                            <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-5 group-hover:bg-section-primary/10 transition-colors duration-300">
                                 <Icon icon={v.icon} className="text-shopforeground text-4xl" />
                             </div>
 

@@ -1,6 +1,7 @@
 import { Badge } from "@/shared/ui";
 import type { ExportColumn } from "./exportExcel";
 
+
 export const ColumnsReporteStockCritico = () => {
   return [
     {
@@ -44,8 +45,8 @@ export const ColumnsReporteStockCritico = () => {
 };
 
 export const exportStockCriticoColumns: ExportColumn[] = [
-  { header: "Producto", accessor: (row) => row.producto?.nombre || "—" },
-  { header: "Almacén", accessor: (row) => row.almacen?.nombre || "—" },
+  { header: "Producto", accessor: (row :any) => row.producto?.nombre || "—" },
+  { header: "Almacén", accessor: (row :any) => row.almacen?.nombre || "—" },
   { header: "Stock Actual", accessor: "stock_actual" },
   { header: "Estado", accessor: () => "Crítico" },
 ];

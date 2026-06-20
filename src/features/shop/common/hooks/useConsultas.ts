@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { listProductosshop, showCategorias, showCategorys, showfilterProduct, showIdprod, showMarcas } from "../services/consultaservice"
+import { listProductosshop, showCategorias, showCategorys, showfilterProduct, showIdprod, showMarcas, getActiveBanners } from "../services/consultaservice"
 
 export const useListProdConsult = () => {
     return useQuery({
@@ -34,6 +34,15 @@ export const useCategoryShop = () => {
     return useQuery({
         queryKey: ["categoryShop"],
         queryFn: async () => showCategorys()
+    });
+}
+
+
+export const useActiveBanners = () => {
+    return useQuery({
+        queryKey: ["activeBanners"],
+        queryFn: async () => getActiveBanners(),
+        refetchOnWindowFocus: false,
     });
 }
 

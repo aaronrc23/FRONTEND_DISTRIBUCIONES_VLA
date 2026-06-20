@@ -175,6 +175,18 @@
     }
 }
 
+/* ── WhatsApp Float Button ── */
+@keyframes whatsapp-wave {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(2.2);
+        opacity: 0;
+    }
+}
+
 @keyframes banner-slide-up {
     from {
         transform: translateY(0);
@@ -185,6 +197,48 @@
         transform: translateY(-40px);
         opacity: 0;
     }
+}
+
+/* ───────────────────────────────────────────────
+   CARRUSEL / BANNER ANIMATIONS (CSS puro, GPU)
+   ─────────────────────────────────────────────── */
+
+/* ── Ken Burns ──
+   Zoom lento y fluido en la imagen activa del carrusel.
+   Usamos linear + una transición suave para un movimiento
+   constante sin aceleraciones bruscas.
+   scale(1) → scale(1.08) con un leve translateX para efecto cine. */
+@keyframes ken-burns {
+    0%   { transform: scale(1)     translateX(0); }
+    100% { transform: scale(1.08)  translateX(-1.5%); }
+}
+
+.carousel-image-ken {
+    animation: ken-burns 35s linear;
+    animation-fill-mode: forwards;
+    will-change: transform;
+}
+
+/* Transición suave entre slides (fade + scale ligero) */
+.carousel-slide-enter {
+    animation: carousel-fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes carousel-fade-in {
+    from {
+        opacity: 0;
+        transform: scale(1.02);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Línea decorativa */
+.carousel-line {
+    animation: carousel-line 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    transform-origin: left center;
 }
 
 /* ── Stepper paso a paso ── */

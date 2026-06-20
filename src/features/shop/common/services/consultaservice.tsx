@@ -26,6 +26,12 @@ export const showCategorys = async () => {
 }
 
 
+export const getActiveBanners = async () => {
+    const response = await axios.get(`${appiUrl}/api/banners/active`)
+    return response.data
+}
+
+
 export const showfilterProduct = async (
     categoriaId?: string,
     marcaId?: string

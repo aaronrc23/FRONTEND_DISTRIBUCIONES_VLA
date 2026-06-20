@@ -5,13 +5,13 @@ import { useScrollReveal } from "@/shared/hooks/useScrollReveal";
 
 const features = [
     {
-        icon: <Icon icon="heroicons-solid:light-bulb" className="text-blue-800" />,
+        icon: <Icon icon="heroicons-solid:light-bulb" className="text-section-primary" />,
         bgColor: "bg-orange-500",
         title: "Calidad Garantizada",
         description: "Adhesivos resistentes que no fallan."
     },
     {
-        icon: <Icon icon="lucide:tag" className="text-blue-800" />,
+        icon: <Icon icon="lucide:tag" className="text-section-primary" />,
         bgColor: "bg-blue-500",
         title: "Precios Directos",
         description: "Sin intermediarios, mejor precio.",
@@ -19,7 +19,7 @@ const features = [
     },
 
     {
-        icon: <Icon icon="lucide:headphones" className="text-blue-800" />,
+        icon: <Icon icon="lucide:headphones" className="text-section-primary" />,
         bgColor: "bg-indigo-500",
         title: "Asesoría Real",
         description: "Te ayudamos a elegir bien.",
@@ -38,11 +38,11 @@ export default function Beneficios() {
                 {/* 🟦 LADO DERECHO → TEXTO */}
                 <div className="flex flex-col items-center lg:w-1/2 2xl:w-1/3">
                     <div className="w-full  text-center lg:text-left">
-                        <Texto className="text-3xl sm:text-4xl font-bold text-blue-900 mb-4">
+                        <Texto className="text-3xl sm:text-4xl font-bold text-section-title mb-4">
                             Sobre Distribuciones Vla
                         </Texto>
 
-                        <div className="w-12 h-1 bg-cyan-500 mb-6 mx-auto lg:mx-0"></div>
+                        <div className="w-12 h-1 bg-section-accent mb-6 mx-auto lg:mx-0"></div>
 
                         <Texto className="text-shop-secondary-foreground mb-4 leading-relaxed ">
                             Somos una empresa especializada en la distribución de cintas adhesivas de alta calidad,
@@ -66,7 +66,7 @@ export default function Beneficios() {
                             >
                                 <div className="text-5xl  ">{feature.icon}</div>
                                 <div className="flex flex-col ">
-                                    <strong className="text-blue-900 mb-2">{feature.title}</strong>
+                                    <strong className="text-section-title mb-2">{feature.title}</strong>
                                     <Texto className="text-shop-secondary-foreground leading-relaxed">
                                         {feature.description}
                                     </Texto>

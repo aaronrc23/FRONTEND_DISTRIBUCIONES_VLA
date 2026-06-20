@@ -10,7 +10,11 @@ const links = [
     { name: "Quienes Somos", shortName: "Nosotros", path: "/nosotros", icon: <Icon icon="lucide:users" width="24" height="24" /> },
 ];
 
-export default function NavbarBottom() {
+interface NavbarBottomProps {
+    dark?: boolean;
+}
+
+export default function NavbarBottom({ dark = false }: NavbarBottomProps) {
     const items = useCartStore((state) => state.items);
 
     const total = items.reduce(
@@ -33,11 +37,15 @@ export default function NavbarBottom() {
                             to={link.path}
                             end={link.path === "/"}
                             className={({ isActive }) =>
-                                `relative flex items-center  gap-1.5  px-4 py-1.5  text-sm font-semibold
-                   transition-colors duration-150  rounded-md 
+                                `relative flex items-center  gap-1.5  px-5 py-2  text-sm font-medium
+                   transition-colors duration-150  rounded-xl 
                    ${isActive
-                                    ? "text-white bg-white/10 "
-                                    : "text-white hover:text-shoprimary  "
+                                    ? dark
+                                        ? "text-blue-100 bg-shopheader-button"
+                                        : "text-white bg-white/10"
+                                    : dark
+                                        ? "text-shopheader-foreground"
+                                        : "text-white hover:text-shoprimary"
                                 }`
                             }
                         >
@@ -50,10 +58,10 @@ export default function NavbarBottom() {
                         </NavLink>
                     ))}
 
-                    <button className="relative flex items-center  gap-1.5  px-4 py-1.5  text-sm font-semibold
-                   transition-colors duration-150  rounded-md 
-                   text-white hover:text-shoprimary
-                   "
+                    <button className={`relative flex items-center  gap-1.5  px-4 py-1.5  text-sm font-semibold
+                   transition-colors duration-150  rounded-xl
+                   ${dark ? "text-shopheader-foreground" : "text-white hover:text-shoprimary"}
+                   `}
                    onClick={modaladd.open}>
                         <Icon icon="lucide:shopping-cart" width="20" height="20" />
                         {total > 0 && (

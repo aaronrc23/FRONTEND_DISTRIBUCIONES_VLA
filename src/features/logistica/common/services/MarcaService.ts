@@ -7,7 +7,7 @@ export const listMarcas = async () => {
 
 
 export const addMarcas = async (data: any) => {
-    const response = await apiInstancesPanel.post("/marcas/", data);
+    const response = await apiInstancesPanel.post("/marcas/create", data);
     return response.data;
 }
 

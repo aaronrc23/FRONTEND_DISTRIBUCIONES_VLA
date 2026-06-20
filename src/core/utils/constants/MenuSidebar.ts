@@ -30,7 +30,16 @@ export const menusid = [
         icon: "tabler:settings",
         children: [
             { label: "Empleados", path: "/panel/empleados" },
+            { label: "Empresa", path: "/panel/empresa" },
             { label: "Mi Perfil", path: "/panel/perfil" },
+        ],
+    },
+    {
+        label: "Marketing",
+        icon: "mdi:bullhorn",
+        children: [
+            { label: "Banners Inicio", path: "/panel/banners" },
+            { label: "Footer", path: "/panel/footer" },
         ],
     },
     {
