@@ -1,3 +1,4 @@
+import { v } from "@/styles/variables";
 import TapeRoll from "../../../../shared/components/icons/TapeRoll";
 
 
@@ -11,26 +12,35 @@ export function Logo({ onClick, dark = false }: LogoProps) {
     return (
         <a
             href="#hero"
-            onClick={(e) => { e.preventDefault(); onClick(); }}
-            className="flex items-center gap-3 group shrink-0 select-none"
+            onClick={(e) => {
+                e.preventDefault();
+                onClick();
+            }}
+            className="flex items-center gap-2 shrink-0"
             aria-label="Ir al inicio"
         >
-            <div className="hidden sm:block">
-                <TapeRoll animated={true} dark={dark} />
+            {/* TapeRoll */}
+            <div className="hidden sm:flex shrink-0 items-center justify-center">
+                <TapeRoll animated dark={dark} />
             </div>
 
+            {/* Logo + texto */}
+            <div className="flex flex-col justify-center leading-none">
+                <img
+                    src={v.logo}
+                    alt="Logo"
+                    className="h-8 w-auto object-contain shrink-0"
+                />
 
-            <div className="flex flex-col leading-tight">
-                <span className={`font-bold  text-xl  ${dark ? "text-shopheader-foreground" : "text-yellow-300"}`}>
-                    DISTRIBUCCIONES
+                <span
+                    className={`text-sm font-medium ${dark
+                            ? "text-shopheader-foreground"
+                            : "text-white"
+                        }`}
+                >
+                    Distribuciones
                 </span>
-
-                <div className="flex gap-2 font-bold text-xl items-center leading-tight">
-                    <span className={` ${dark ? "text-[#F18F01]" : "text-yellow-50"}`}>VLA</span>
-                    <span className={` ${dark ? "text-shopheader-foreground " : "text-white"}`}>E.I.R.L</span>
-                </div>
             </div>
         </a>
     );
 }
-

@@ -3,7 +3,7 @@ import { Logo } from "./Subcomponents";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../../shared/ui";
 import { Icon } from "@iconify-icon/react";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { useMobileMenuStore } from "../../common/store/menuStore";
 import MobileMenu from "./MobileMenu";
 
@@ -14,14 +14,23 @@ export default function HeaderStore({ className }: any) {
     const navigate = useNavigate();
     const handleHome = () => navigate('/');
     const { toggle, isOpen } = useMobileMenuStore();
+    const [scrolled, setScrolled] = useState(() => window.scrollY > 10);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 10);
+        };
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
         <>
             <nav
                 className={`sticky top-0 z-40 
-                    bg-shopheader backdrop-blur-md border-b border-shopborder/60 shadow-sm
+                        bg-shopheader backdrop-blur-md border-b border-shopborder/60
                     transition-all duration-300 w-full
-                    p-3 ${className} `}
+                    p-3 ${scrolled ? "shadow-xl" : "shadow-xs"} ${className} `}
             >
                 <div className="flex items-center lg:container px-2 lg:mx-auto justify-between h-16 w-full">
                     <div>

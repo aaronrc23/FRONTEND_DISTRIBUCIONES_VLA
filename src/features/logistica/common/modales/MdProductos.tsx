@@ -20,6 +20,7 @@ export default function MdProductos() {
             <Drawer
                 title='Editar Producto'
                 open={modaledit.isOpen}
+                className='w-auto sm:w-175'
                 onClose={() => modaledit.close()}>
                 <FrmEditProductos onClose={() => modaledit.close()} data={data} />
             </Drawer>

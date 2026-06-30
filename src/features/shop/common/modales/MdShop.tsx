@@ -1,7 +1,7 @@
 import { Icon } from "@iconify-icon/react";
 import { useModal } from "@/shared/hooks/useModal";
 import ShopDrawer from "@/shared/ui/shopdrawer";
-import { useCartStore } from "../store/cartStore";
+import { useCartStore, getPrecioEfectivo } from "../store/cartStore";
 import CardCarrito from "../../components/carrito/CardCarrito";
 import { useWhatsappNumber } from "../hooks/useWhatsappNumber";
 
@@ -10,7 +10,7 @@ export default function MdShop() {
     const items = useCartStore((state) => state.items);
     const whatsappNumber = useWhatsappNumber();
 
-    const total = items.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
+    const total = items.reduce((sum, item) => sum + getPrecioEfectivo(item) * item.cantidad, 0);
 
     const enviarPedidoWhatsApp = () => {
         let mensaje = "🛒 *Nuevo Pedido - Distribuciones VLA*\n\n";
@@ -18,9 +18,13 @@ export default function MdShop() {
         mensaje += "─────────────────────\n\n";
 
         items.forEach((item, index) => {
-            const subtotal = item.precio * item.cantidad;
+            const efectivo = getPrecioEfectivo(item);
+            const subtotal = efectivo * item.cantidad;
             mensaje += `${index + 1}. *${item.nombre}*\n`;
-            mensaje += `   Cantidad: ${item.cantidad} | Precio: S/ ${item.precio.toFixed(2)}\n`;
+            const precioLabel = efectivo !== Number(item.precio)
+                ? `S/ ${efectivo.toFixed(2)} (mayoreo)`
+                : `S/ ${item.precio.toFixed(2)}`;
+            mensaje += `   Cantidad: ${item.cantidad} | Precio: ${precioLabel}\n`;
             if (item.presentacion) {
                 mensaje += `   Presentación: ${item.presentacion.medida}\n`;
             }

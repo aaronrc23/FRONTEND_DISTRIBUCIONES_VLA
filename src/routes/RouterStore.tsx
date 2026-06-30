@@ -13,7 +13,7 @@ export default function RouterStore() {
                 <Route path="/" element={<LytHome />} />
                 <Route path="/nosotros" element={<LytLanding />} />
                 <Route path="/catalogo" element={<Home />} />
-                <Route path="/producto/:id" element={<ProductDetail />} />
+                <Route path="/producto/:slug" element={<ProductDetail />} />
                 <Route path='/*' element={<LytHome />} />
             </Route>
         </Routes>

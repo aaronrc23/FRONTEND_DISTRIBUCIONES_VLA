@@ -5,6 +5,8 @@ interface CartItem {
     id: number;
     nombre: string;
     precio: number;
+    precio_mayoreo?: number;
+    cantidad_mayoreo?: number;
     imagen?: string;
     cantidad: number;
 
@@ -35,6 +37,17 @@ interface CartStore {
     ) => void;
 
     clearCart: () => void;
+}
+
+export function getPrecioEfectivo(item: CartItem): number {
+    if (item.cantidad_mayoreo && item.precio_mayoreo && item.cantidad >= item.cantidad_mayoreo) {
+        return Number(item.precio_mayoreo);
+    }
+    return Number(item.precio);
+}
+
+export function esMayoreo(item: CartItem): boolean {
+    return !!(item.cantidad_mayoreo && item.precio_mayoreo && item.cantidad >= item.cantidad_mayoreo);
 }
 
 export const useCartStore = create<CartStore>()(

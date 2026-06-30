@@ -44,7 +44,7 @@
     --accent: oklch(90% 0.012 85);
     --accent-foreground: oklch(30% 0.025 260);
     --destructive: oklch(55% 0.23 25);
-    --border: oklch(0.84 0.02 85 / 45%);
+    --border: oklch(92% 0.004 286.32);
     --border-input: oklch(77.333% 0.03164 260.733 / 0.5);
     --input: #FFFFFF;
     --ring: oklch(0.55 0.15 275);
@@ -98,31 +98,31 @@
 
 
 
-    --shoprimary: #f06440;
+    --shoprimary: #f76e38;
     --shoprimary2: #f35d37;
     --shopsecondary: #e5e5e5;
 
-    --bgshop: oklch(96.7% 0.003 264.542);
+    --bgshop: #F8F8F8;
     --shopcard: oklch(100% 0.00011 271.152);
     --shopforeground: oklch(44.6% 0.043 257.281);
     --shop-secondary-foreground: oklch(44.6% 0.03 256.802);
-    --shopheader: #133775;
-    --shopheader-button: #254d94;
-    --shopheader-foreground: #ffffff;
-    --shopborder: oklch(88.904% 0.00867 84.505 / 0.35);
+    --shopheader: #ffffff;
+    --shopheader-button: #efeff1;
+    --shopheader-foreground: #333333;
+    --shopborder: oklch(92.8% 0.006 264.531);
 
     --shopabout-bg: #1e3a8a;
     --shopabout-foreground: #ffffff;
     --shopabout-muted: #bfdbfe;
     --shopabout-border: rgba(255, 255, 255, 0.1);
 
-    --section-title: #1e3a8a;
+    --section-title: #203f94;
     --section-title-muted: #94a3b8;
     --section-primary: #1e3a8a;
     --section-primary-foreground: #ffffff;
     --section-accent: #bfdbfe;
 
-    --footer-bg: #f5fcf3;
+    --footer-bg: #F2F2F2;
     --footer-foreground: #475569;
     --footer-title: #1e293b;
     --footer-muted: #94a3b8;

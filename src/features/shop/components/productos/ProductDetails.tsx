@@ -7,8 +7,8 @@ import { useCartStore } from "../../common/store/cartStore";
 import { showToastSuccess } from "@/shared/hooks/useSwalert";
 
 export default function ProductDetail() {
-    const { id } = useParams();
-    const { data, isLoading, isError } = useProductoDetalle(id!);
+    const { slug } = useParams();
+    const { data, isLoading, isError } = useProductoDetalle(slug!);
 
     const [activeImg, setActiveImg] = useState<string | null>(null);
     const [quantity, setQuantity] = useState(1);
@@ -32,6 +32,11 @@ export default function ProductDetail() {
     const formatPrice = (value: number) => `S/ ${value.toFixed(2)}`;
     const handleIncrease = () => setQuantity((prev) => prev + 1);
     const handleDecrease = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+
+    const precioRegular = Number(product.precio) || 0;
+    const precioMayoreo = Number(product.precio_mayoreo) || 0;
+    const cantidadMinMayoreo = Number(product.cantidad_mayoreo) || 0;
+    const tieneMayoreo = product.precio_mayoreo != null && Number(product.precio_mayoreo) > 0;
 
     return (
         <div className="mx-auto w-full max-w-6xl px-4 py-8 md:py-12">
@@ -89,30 +94,25 @@ export default function ProductDetail() {
                             </div>
 
                             {/* Precio */}
-                            <div className=" py-3  dark:border-zinc-800">
-                                <Texto className="font-medium text-3xl">
-                                    {formatPrice(Number(product.precio))}
+                            <div className="py-3">
+                                <Texto className="font-bold text-3xl">
+                                    {formatPrice(precioRegular)}
                                 </Texto>
-
-
+                                {tieneMayoreo && (
+                                    <p className="text-sm text-slate-500 mt-1">
+                                        Mayorista desde {cantidadMinMayoreo} uds: S/ {precioMayoreo.toFixed(2)}/ud
+                                    </p>
+                                )}
                             </div>
 
                             {/* Compra */}
                             <div className="space-y-5">
-
                                 <div className="flex gap-2 flex-col">
-                                    {product.precio_mayoreo && (
-                                        <Texto variant="small" className="text-secondary-foreground">
-                                            Precio mayorista: {formatPrice(Number(product.precio_mayoreo))}
-                                        </Texto>
-                                    )}
                                     <div>
                                         <Badge size="lg" visual="flat" className="px-4 text-sm text-foreground/88 border-none py-2">
-                                            Stock disponible:{" "}
-                                            {data.stock}
+                                            Stock disponible: {data.stock}
                                         </Badge>
                                     </div>
-
                                 </div>
 
                                 {/* Cantidad */}
@@ -155,6 +155,8 @@ export default function ProductDetail() {
                                             id: product.id,
                                             nombre: product.name,
                                             precio: Number(product.precio),
+                                            precio_mayoreo: product.precio_mayoreo ? Number(product.precio_mayoreo) : undefined,
+                                            cantidad_mayoreo: product.cantidad_mayoreo ?? undefined,
                                             imagen: product.imagen,
                                             cantidad: quantity,
                                         });

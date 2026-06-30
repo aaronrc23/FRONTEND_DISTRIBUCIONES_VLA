@@ -85,7 +85,7 @@ export default function Footer() {
                     {/* Columna 1 — Marca */}
                     <div className="lg:col-span-4 flex flex-col gap-5">
                         <div className="flex items-center gap-3">
-                          
+
                             <div>
                                 <h2 className="text-lg font-bold text-footer-title tracking-tight">{footer.nombre_comercial}</h2>
                                 <span className="text-sm font-bold text-footer-accent uppercase tracking-[0.2em]">E.I.R.L</span>
@@ -121,8 +121,8 @@ export default function Footer() {
                     {/* Columna 2 — Tienda */}
                     {tiendaLinks.length > 0 && (
                         <div className="lg:col-span-3 flex flex-col gap-4">
+                          
                             <h3 className="text-sm font-bold text-footer-title uppercase tracking-[0.15em]">Tienda</h3>
-                            <div className="w-8 h-[2px] bg-gradient-to-r from-footer-accent to-footer-accent/80 rounded-full" />
                             <ul className="flex flex-col gap-3">
                                 {tiendaLinks.map((link: any) => (
                                     <li key={link.label}>
@@ -142,8 +142,8 @@ export default function Footer() {
                     {/* Columna 3 — Ayuda */}
                     {ayudaLinks.length > 0 && (
                         <div className="lg:col-span-2 flex flex-col gap-4">
-                            <h3 className="text-xs font-bold text-footer-title uppercase tracking-[0.15em]">Ayuda</h3>
-                            <div className="w-8 h-[2px] bg-gradient-to-r from-footer-accent to-footer-accent/80 rounded-full" />
+                            <h3 className="text-sm font-bold text-footer-title uppercase tracking-[0.15em]">Ayuda</h3>
+
                             <ul className="flex flex-col gap-3">
                                 {ayudaLinks.map((link: any) => (
                                     <li key={link.label}>
@@ -162,8 +162,8 @@ export default function Footer() {
 
                     {/* Columna 4 — Contacto */}
                     <div className="lg:col-span-3 flex flex-col gap-4">
-                        <h3 className="text-xs font-bold text-footer-title uppercase tracking-[0.15em]">Contacto</h3>
-                        <div className="w-8 h-[2px] bg-gradient-to-r from-footer-accent to-footer-accent/80 rounded-full" />
+                        <h3 className="text-sm font-bold text-footer-title uppercase tracking-[0.15em]">Contacto</h3>
+
                         <ul className="flex flex-col gap-4">
                             {direccionCompleta && (
                                 <li className="flex items-start gap-3">
@@ -216,15 +216,15 @@ export default function Footer() {
             </div>
 
             {/* Barra inferior */}
-            <div className="border-t border-footer-border bg-footer-bottom-bg">
+            <div className="bg-footer-bg">
                 <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-                    <p className="text-xs text-footer-muted">
+                    <p className="text-xs text-footer-muted font-medium">
                         {footer.copyright_text || defaultFooter.copyright_text}
                     </p>
                     <div className="flex items-center gap-4">
-                        <a href="#" className="text-xs text-footer-muted hover:text-footer-accent transition-colors">Política de privacidad</a>
+                        <a href="#" className="text-xs text-footer-muted hover:text-footer-accent transition-colors font-medium">Política de privacidad</a>
                         <span className="text-footer-border text-[10px]">|</span>
-                        <a href="#" className="text-xs text-footer-muted hover:text-footer-accent transition-colors">Términos de uso</a>
+                        <a href="#" className="text-xs text-footer-muted hover:text-footer-accent transition-colors font-medium">Términos de uso</a>
                     </div>
                 </div>
             </div>

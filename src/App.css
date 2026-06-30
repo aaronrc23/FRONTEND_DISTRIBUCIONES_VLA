@@ -21,7 +21,12 @@
   
 }
 
-/* select {
+
+
+
+
+
+select {
     appearance: base-select;
     &::picker(select) {
         appearance: base-select;

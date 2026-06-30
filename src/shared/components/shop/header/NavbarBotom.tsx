@@ -41,7 +41,7 @@ export default function NavbarBottom({ dark = false }: NavbarBottomProps) {
                    transition-colors duration-150  rounded-xl 
                    ${isActive
                                     ? dark
-                                        ? "text-blue-100 bg-shopheader-button"
+                                        ? " bg-shopheader-button"
                                         : "text-white bg-white/10"
                                     : dark
                                         ? "text-shopheader-foreground"

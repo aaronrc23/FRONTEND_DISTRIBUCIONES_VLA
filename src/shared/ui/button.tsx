@@ -32,7 +32,7 @@ const buttonVariants = cva(
           ${baseModernBtn}
           bg-shoprimary text-white
           hover:bg-shoprimary/90
-          shadow-lg
+
           rounded-2xl
         `,
         shopSecondary: `
@@ -130,7 +130,7 @@ const buttonVariants = cva(
           ${baseModernBtn}
           bg-shoprimary text-white
           hover:bg-shoprimary/90
-          shadow-lg
+    
           rounded-2xl
         `,
       },

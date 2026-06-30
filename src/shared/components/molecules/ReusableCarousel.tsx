@@ -3,6 +3,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { CarouselArrow } from "../atoms/CarruselArrow";
 
 /* ── Tipos públicos ─────────────────────────────────────────────── */
 
@@ -124,26 +125,26 @@ export default function ReusableCarousel({
       breakpoints:
         !isBanner && slidesPerView.length > 1
           ? {
-              "(min-width: 640px)": { slidesToScroll: slidesPerView[1] ?? 2 },
-              "(min-width: 768px)": { slidesToScroll: slidesPerView[2] ?? 2 },
-              "(min-width: 1024px)": {
-                slidesToScroll: slidesPerView[3] ?? 3,
-              },
-              "(min-width: 1280px)": {
-                slidesToScroll: slidesPerView[4] ?? 4,
-              },
-            }
+            "(min-width: 640px)": { slidesToScroll: slidesPerView[1] ?? 2 },
+            "(min-width: 768px)": { slidesToScroll: slidesPerView[2] ?? 2 },
+            "(min-width: 1024px)": {
+              slidesToScroll: slidesPerView[3] ?? 3,
+            },
+            "(min-width: 1280px)": {
+              slidesToScroll: slidesPerView[4] ?? 4,
+            },
+          }
           : undefined,
     },
     autoplay
       ? [
-          Autoplay({
-            delay: autoplayDelay,
-            stopOnInteraction,
-            stopOnMouseEnter: stopOnHover,
-            rootNode: (emblaRoot) => emblaRoot.parentElement!,
-          }),
-        ]
+        Autoplay({
+          delay: autoplayDelay,
+          stopOnInteraction,
+          stopOnMouseEnter: stopOnHover,
+          rootNode: (emblaRoot) => emblaRoot.parentElement!,
+        }),
+      ]
       : []
   );
 
@@ -221,29 +222,29 @@ export default function ReusableCarousel({
                   )}
                   {...(slide.link
                     ? {
-                        onClick: () => {
+                      onClick: () => {
+                        if (slide.link?.startsWith("http")) {
+                          window.open(slide.link, "_blank", "noopener,noreferrer");
+                        } else {
+                          window.location.href = slide.link!;
+                        }
+                      },
+                      role: "button",
+                      tabIndex: 0,
+                      onKeyDown: (e: React.KeyboardEvent) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
                           if (slide.link?.startsWith("http")) {
                             window.open(slide.link, "_blank", "noopener,noreferrer");
                           } else {
-                            window.location.href = slide.link !;
+                            window.location.href = slide.link!;
                           }
-                        },
-                        role: "button",
-                        tabIndex: 0,
-                        onKeyDown: (e: React.KeyboardEvent) => {
-                          if (e.key === "Enter" || e.key === " ") {
-                            e.preventDefault();
-                            if (slide.link?.startsWith("http")) {
-                              window.open(slide.link, "_blank", "noopener,noreferrer");
-                            } else {
-                              window.location.href = slide.link!;
-                            }
-                          }
-                        },
-                      }
+                        }
+                      },
+                    }
                     : {})}
                 >
-                  {/* Imagen de fondo con Ken Burns (solo anima el slide activo) */}
+
                   {slide.image && (
                     <img
                       key={`${slide.id}-${slideVersion.current[slide.id] ?? 0}`}
@@ -264,14 +265,14 @@ export default function ReusableCarousel({
                     className={cn(
                       "absolute inset-0",
                       slide.overlayClassName ??
-                        "bg-linear-to-r from-blue-900/10 via-blue-900/20 to-blue-900/10"
+                      "bg-linear-to-r from-blue-900/10 via-blue-900/20 to-blue-900/10"
                     )}
                   />
 
                   {/* Contenido animado */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 gap-4 sm:gap-6">
                     {slide.title && (
-                      <div className="carousel-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                      <div className="carousel-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl  text-white leading-tight">
                         {slide.title}
                       </div>
                     )}
@@ -351,7 +352,7 @@ export default function ReusableCarousel({
   }
 
   /* ────────────────────── MODO CARD ────────────────────── */
-  const gapPx = slidesGap === "gap-4" ? 16 : slidesGap === "gap-2" ? 8 : slidesGap === "gap-6" ? 24 : 16;
+  const gapPx = slidesGap === "gap-4" ? 16 : slidesGap === "gap-2" ? 8 : slidesGap === "gap-5" ? 20 : slidesGap === "gap-6" ? 24 : 16;
   const itemFlexBasis = cols > 0
     ? `0 0 calc((100% - ${(cols - 1) * gapPx}px) / ${cols})`
     : `0 0 100%`;
@@ -375,36 +376,17 @@ export default function ReusableCarousel({
       {/* Flechas */}
       {showArrows && slides.length > cols && (
         <>
-          <button
+          <CarouselArrow
+            direction="left"
             onClick={scrollPrev}
-            className={cn(
-              "absolute -left-3 sm:-left-4 top-1/2 -translate-y-1/2 z-10",
-              "w-10 h-10 rounded-full bg-white shadow-lg border border-slate-200",
-              "flex items-center justify-center text-slate-700",
-              "opacity-0 group-hover:opacity-100 transition-all duration-300",
-              "hover:bg-blue-50 hover:text-blue-900 hover:border-blue-200",
-              "active:scale-90",
-              arrowClassName
-            )}
-            aria-label="Anterior"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
+            className={arrowClassName}
+          />
+
+          <CarouselArrow
+            direction="right"
             onClick={scrollNext}
-            className={cn(
-              "absolute -right-3 sm:-right-4 top-1/2 -translate-y-1/2 z-10",
-              "w-10 h-10 rounded-full bg-white shadow-lg border border-slate-200",
-              "flex items-center justify-center text-slate-700",
-              "opacity-0 group-hover:opacity-100 transition-all duration-300",
-              "hover:bg-blue-50 hover:text-blue-900 hover:border-blue-200",
-              "active:scale-90",
-              arrowClassName
-            )}
-            aria-label="Siguiente"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+            className={arrowClassName}
+          />
         </>
       )}
 
@@ -423,8 +405,8 @@ export default function ReusableCarousel({
               className={cn(
                 "rounded-full transition-all duration-300",
                 idx === selectedIndex
-                  ? "w-6 h-2 bg-blue-900"
-                  : "w-2 h-2 bg-slate-300 hover:bg-slate-400"
+                  ? "w-6 h-2 bg-shoprimary2"
+                  : "w-2 h-2 bg-accent hover:bg-accent"
               )}
               aria-label={`Ir a slide ${idx + 1}`}
             />

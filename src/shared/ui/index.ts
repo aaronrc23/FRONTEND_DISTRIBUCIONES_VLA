@@ -17,3 +17,4 @@ export * from './table';
 export * from './tabs';
 export * from './texto';
 export * from './toogle';
+export * from './pagination';

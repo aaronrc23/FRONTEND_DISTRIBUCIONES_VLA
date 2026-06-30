@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { Icon } from "@iconify-icon/react";
 import DrTitle from "../components/atoms/DrTitle";
 
@@ -12,8 +12,6 @@ interface ShopDrawerProps {
     icon?: string;
 }
 
-const TRANSITION_DURATION = 250;
-
 export default function ShopDrawer({
     open,
     onClose,
@@ -23,32 +21,6 @@ export default function ShopDrawer({
     subtitle = "",
     icon = "",
 }: ShopDrawerProps) {
-    const [mounted, setMounted] = useState(false);
-    const [visible, setVisible] = useState(false);
-    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-    // Gestionar montaje/desmontaje con animación
-    useEffect(() => {
-        if (timerRef.current) clearTimeout(timerRef.current);
-
-        if (open) {
-            setMounted(true);
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    setVisible(true);
-                });
-            });
-        } else {
-            setVisible(false);
-            timerRef.current = setTimeout(() => {
-                setMounted(false);
-            }, TRANSITION_DURATION);
-        }
-
-        return () => {
-            if (timerRef.current) clearTimeout(timerRef.current);
-        };
-    }, [open]);
 
     // Tecla Escape + bloqueo de scroll
     useEffect(() => {
@@ -67,17 +39,20 @@ export default function ShopDrawer({
         };
     }, [open, onClose]);
 
-    if (!mounted) return null;
-
     return (
-        <>
+        <div
+            className={`
+                fixed inset-0 z-[100]
+                transition-all duration-300 ease-out
+                ${open
+                    ? "pointer-events-auto opacity-100"
+                    : "pointer-events-none opacity-0"
+                }
+            `}
+        >
             {/* Overlay */}
             <div
-                className={`
-                    fixed inset-0 z-[100] bg-black/40
-                    transition-opacity duration-[250ms] ease-out will-change-opacity
-                    ${visible ? "opacity-100" : "opacity-0"}
-                `}
+                className="absolute inset-0 bg-black/40"
                 onClick={onClose}
             />
 
@@ -85,9 +60,9 @@ export default function ShopDrawer({
             <aside
                 style={{ width }}
                 className={`
-                    fixed right-0 top-0 z-[110] h-screen bg-modal shadow-2xl flex flex-col
-                    transition-all duration-[250ms] ease-out will-change-transform
-                    ${visible ? "translate-x-0" : "translate-x-full"}
+                    absolute right-0 top-0 h-screen bg-modal shadow-2xl flex flex-col
+                    transition-transform duration-300 ease-out
+                    ${open ? "translate-x-0" : "translate-x-full"}
                 `}
             >
                 {/* Header */}
@@ -111,6 +86,6 @@ export default function ShopDrawer({
                     {children}
                 </div>
             </aside>
-        </>
+        </div>
     );
 }

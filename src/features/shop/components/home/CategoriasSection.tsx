@@ -6,10 +6,16 @@ import { useScrollReveal } from "@/shared/hooks/useScrollReveal";
 import Image from "@/shared/ui/image";
 import Loading from "@/shared/ui/loading";
 import { Texto } from "@/shared/ui";
+import ReusableCarousel from "@/shared/components/molecules/ReusableCarousel";
+import type { CarouselSlide } from "@/shared/components/molecules/ReusableCarousel";
 
 interface Categoria {
+    id: number;
     categoria: string;
+    slug?: string | null;
     img: string | null;
+    icon: string | null;
+    childrenCount: number;
 }
 
 const ICONOS_CATEGORIA = [
@@ -30,7 +36,7 @@ const ICONOS_CATEGORIA = [
 export default function CategoriasSection() {
     const navigate = useNavigate();
     const { data, isLoading } = useCategoryShop();
-    const { ref: sectionRef} = useScrollReveal<HTMLElement>();
+    const { ref: sectionRef } = useScrollReveal<HTMLElement>();
     const [imgErrors, setImgErrors] = useState<Set<number>>(new Set());
 
     if (isLoading) {
@@ -49,77 +55,85 @@ export default function CategoriasSection() {
         return !cat.img || cat.img.includes("default.png") || imgErrors.has(index);
     };
 
+    const slides: CarouselSlide[] = categorias.map((cat, index) => {
+        const sinImagen = noTieneImagen(cat, index);
+        const icono = cat.icon || ICONOS_CATEGORIA[index % ICONOS_CATEGORIA.length];
+
+        return {
+            id: `cat-${cat.id}`,
+            content: (
+                <div
+                    className="flex justify-center pt-1 select-none"
+                >
+                    <div
+                        onClick={() => navigate(`/catalogo?categoria=${cat.slug  || cat.id}`)}
+                        className="flex flex-col items-center text-center cursor-pointer"
+                    >
+                        <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden bg-accent/70 ">
+                            {sinImagen ? (
+                                <div className="w-full h-full flex flex-col items-center justify-center gap-1">
+                                    <Icon
+                                        icon={icono}
+                                        className="text-2xl sm:text-3xl text-shopforeground"
+                                    />
+                                    <span className="text-[10px] sm:text-xs font-semibold text-shopforeground tracking-widest">
+                                        Sin imagen
+                                    </span>
+                                </div>
+                            ) : (
+                                <Image
+                                    src={cat.img!}
+                                    alt={cat.categoria}
+                                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                                    containerClassName="w-full h-full"
+                                    onError={() => {
+                                        setImgErrors((prev) => new Set(prev).add(index));
+                                    }}
+                                />
+                            )}
+                        </div>
+
+                        <div className="px-2 pt-3 pb-1">
+                            <h3 className=" text-sm sm:text-base text-shopforeground font-medium hover:text-shoprimary">
+                                {cat.categoria}
+                            </h3>
+                           
+                        </div>
+                    </div>
+                </div>
+            ),
+        };
+    });
+
     return (
         <section
             ref={sectionRef}
-            className={`py-20 px-6 bg-background transition-all duration-700 ease-out `}
+            className="py-14 md:py-16 px-6 bg-card transition-all duration-700 ease-out"
         >
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-12 sm:mb-14">
-                    <Texto className="mb-2 font-extrabold text-2xl md:text-4xl opacity-95">
-                        Categorias
+                    <Texto className="mb-2 font-extrabold text-2xl md:text-3xl opacity-95">
+                        Encuentra lo que buscas
                     </Texto>
+                    <p className=" text-muted-foreground mt-2">
+                        Explora nuestras categorías principales
+                    </p>
                 </div>
 
-                {/* Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
-                    {categorias.map((cat, index) => {
-                        const sinImagen = noTieneImagen(cat, index);
-                        const icono = ICONOS_CATEGORIA[index % ICONOS_CATEGORIA.length];
-                        return (
-                            <article
-                                key={`cat-${index}`}
-                                onClick={() => navigate('/catalogo')}
-                                className="group cursor-pointer"
-                            >
-                                <div className="relative rounded-xl overflow-hidden bg-shopcard shadow-card transition-all duration-300 hover:shadow-hover hover:-translate-y-1">
-                                    {/* Image area */}
-                                    <div className="relative aspect-[4/3] overflow-hidden">
-                                        {sinImagen ? (
-                                            <div className="w-full h-full flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-shoprimary/5 to-shoprimary/15 group-hover:from-shoprimary/10 group-hover:to-shoprimary/25 transition-all duration-500">
-                                                {/* Círculo decorativo */}
-                                                <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-shoprimary/10 group-hover:bg-shoprimary/20 transition-all duration-500 group-hover:scale-110">
-                                                    <Icon
-                                                        icon={icono}
-                                                        className="text-3xl text-shoprimary/60 group-hover:text-shoprimary transition-all duration-500"
-                                                    />
-                                                </div>
-                                                <span className="text-[10px] font-medium text-shoprimary/40 uppercase tracking-widest">
-                                                    Sin imagen
-                                                </span>
-                                            </div>
-                                        ) : (
-                                            <>
-                                                <Image
-                                                    src={cat.img!}
-                                                    alt={cat.categoria}
-                                                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-                                                    containerClassName="w-full h-full"
-                                                    onError={() => {
-                                                        setImgErrors((prev) => new Set(prev).add(index));
-                                                    }}
-                                                />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                            </>
-                                        )}
-                                    </div>
-
-                                    {/* Name container below image */}
-                                    <div className="px-4 py-3.5 bg-shopcard border-t border-shopborder/50">
-                                        <h3 className="text-center font-semibold text-sm sm:text-base text-shopforeground group-hover:text-shoprimary transition-colors duration-300">
-                                            {cat.categoria}
-                                        </h3>
-                                    </div>
-
-                                    {/* Accent line on hover */}
-                                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-shoprimary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                                </div>
-                            </article>
-                        );
-                    })}
-                </div>
-
-              
+                <ReusableCarousel
+                    slides={slides}
+                    variant="card"
+                    slidesPerView={[2, 3, 4, 4, 4]}
+                    slidesGap="gap-5"
+                    showArrows
+                    showDots
+                    autoplay
+                    autoplayDelay={4000}
+                    stopOnInteraction={false}
+                    stopOnHover={false}
+                    arrowClassName="bg-black/40 hover:bg-black/60 text-white rounded-md border-0 shadow-md backdrop-blur-sm"
+                    cardClassName="flex justify-center pt-1"
+                />
             </div>
         </section>
     );
