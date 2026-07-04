@@ -13,27 +13,15 @@ export default function MdShop() {
     const total = items.reduce((sum, item) => sum + getPrecioEfectivo(item) * item.cantidad, 0);
 
     const enviarPedidoWhatsApp = () => {
-        let mensaje = "🛒 *Nuevo Pedido - Distribuciones VLA*\n\n";
-        mensaje += "*DETALLE DEL PEDIDO:*\n";
-        mensaje += "─────────────────────\n\n";
+        let mensaje = "Hola! Vengo de la página y quiero reservar estos productos:\n";
 
-        items.forEach((item, index) => {
-            const efectivo = getPrecioEfectivo(item);
-            const subtotal = efectivo * item.cantidad;
-            mensaje += `${index + 1}. *${item.nombre}*\n`;
-            const precioLabel = efectivo !== Number(item.precio)
-                ? `S/ ${efectivo.toFixed(2)} (mayoreo)`
-                : `S/ ${item.precio.toFixed(2)}`;
-            mensaje += `   Cantidad: ${item.cantidad} | Precio: ${precioLabel}\n`;
-            if (item.presentacion) {
-                mensaje += `   Presentación: ${item.presentacion.medida}\n`;
-            }
-            mensaje += `   Subtotal: S/ ${subtotal.toFixed(2)}\n\n`;
+        items.forEach((item) => {
+            const presentacion = item.presentacion ? ` (${item.presentacion.medida})` : "";
+
+            mensaje += `• ${item.nombre}${presentacion} - ${item.cantidad} unid.\n`;
         });
 
-        mensaje += "─────────────────────\n";
-        mensaje += `*TOTAL: S/ ${total.toFixed(2)}*\n\n`;
-        mensaje += "¡Gracias por tu pedido! 🙌";
+        mensaje += `\nEn total serían S/ ${total.toFixed(2)}. ¿Me confirman disponibilidad?`;
 
         const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensaje)}`;
         window.open(url, "_blank");
@@ -45,12 +33,12 @@ export default function MdShop() {
             onClose={modaladd.close}
             title="Mi Carrito"
         >
-            <div className="flex h-full flex-col">
-                <div className="flex-1 overflow-y-auto">
+            <div className="min-h-full flex flex-col">
+                <div className="flex-1">
                     <CardCarrito items={items} />
                 </div>
 
-                <div className="border-t border-white/10 bg-card p-4 space-y-3">
+                <div className="sticky bottom-0 border-t border-white/10 bg-card p-4 space-y-3 shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
                     {/* Resumen */}
                     <div className="flex items-center justify-between px-1">
                         <span className="text-sm text-slate-500">Total</span>

@@ -5,6 +5,8 @@ import { Button } from "../../../../shared/ui";
 import { Icon } from "@iconify-icon/react";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { useMobileMenuStore } from "../../common/store/menuStore";
+import { useModal } from "@/shared/hooks/useModal";
+import { useCartStore } from "../../common/store/cartStore";
 import MobileMenu from "./MobileMenu";
 
 
@@ -14,6 +16,8 @@ export default function HeaderStore({ className }: any) {
     const navigate = useNavigate();
     const handleHome = () => navigate('/');
     const { toggle, isOpen } = useMobileMenuStore();
+    const cartModal = useModal("md-carrito");
+    const totalItems = useCartStore((state) => state.items.reduce((acc, item) => acc + item.cantidad, 0));
     const [scrolled, setScrolled] = useState(() => window.scrollY > 10);
 
     useEffect(() => {
@@ -50,19 +54,37 @@ export default function HeaderStore({ className }: any) {
 
 
 
-                        {/* Mobile menu */}
-                        <Button
-                            aria-label="menu"
-                            className="md:hidden p-2 text-shopheader-foreground"
-                            variant="outline"
-                            onClick={toggle}
-                        >
-                            {isOpen ? (
-                                <Icon icon="lucide:x" className="text-2xl" />
-                            ) : (
-                                <Icon icon="lucide:menu" className="text-2xl" />
-                            )}
-                        </Button>
+                        {/* Mobile actions */}
+                        <div className="md:hidden flex items-center gap-1">
+                            {/* Cart button */}
+                            <Button
+                                aria-label="carrito"
+                                className="relative p-2 text-shopheader-foreground"
+                                variant="outline"
+                                onClick={cartModal.open}
+                            >
+                                <Icon icon="lucide:shopping-cart" className="text-2xl" />
+                                {totalItems > 0 && (
+                                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full min-w-[20px] h-5 flex items-center justify-center px-1 shadow-md">
+                                        {totalItems}
+                                    </span>
+                                )}
+                            </Button>
+
+                            {/* Menu button */}
+                            <Button
+                                aria-label="menu"
+                                className="p-2 text-shopheader-foreground"
+                                variant="outline"
+                                onClick={toggle}
+                            >
+                                {isOpen ? (
+                                    <Icon icon="lucide:x" className="text-2xl" />
+                                ) : (
+                                    <Icon icon="lucide:menu" className="text-2xl" />
+                                )}
+                            </Button>
+                        </div>
 
 
                     </div>

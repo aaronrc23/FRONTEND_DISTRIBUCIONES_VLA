@@ -21,11 +21,11 @@ export default function FilterProductos({
                 aria-label="ordenar"
                 value={sort}
                 onChange={(e) => setSort(e.target.value)}
-                className="border rounded-md p-2 text-sm bg-input border-border-input outline-none "
+                className="border rounded-md p-2 text-sm bg-input text-shopforeground border-border-input outline-none cursor-pointer"
             >
-                <option value="default">Ordenar</option>
-                <option value="price-asc">Precio: menor a mayor</option>
-                <option value="price-desc">Precio: mayor a menor</option>
+                <option value="default" style={{ background: 'var(--input, #fff)', color: 'var(--shopforeground, #374151)' }}>Ordenar</option>
+                <option value="price-asc" style={{ background: 'var(--input, #fff)', color: 'var(--shopforeground, #374151)' }}>Precio: menor a mayor</option>
+                <option value="price-desc" style={{ background: 'var(--input, #fff)', color: 'var(--shopforeground, #374151)' }}>Precio: mayor a menor</option>
             </select>
 
             {/* Vista */}

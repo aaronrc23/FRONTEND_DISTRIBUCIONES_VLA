@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useFilterProduct, useActiveBanners } from "../../common/hooks/useConsultas";
 import { Icon } from "@iconify-icon/react";
-import { Button, Card, Texto } from "@/shared/ui";
+import { Button, Card } from "@/shared/ui";
 import { useScrollReveal } from "@/shared/hooks/useScrollReveal";
 import ReusableCarousel from "@/shared/components/molecules/ReusableCarousel";
 import CategoriasSection from "./CategoriasSection";
-import { useWhatsappNumber } from "../../common/hooks/useWhatsappNumber";
+
 import type { CarouselSlide } from "@/shared/components/molecules/ReusableCarousel";
 import { ImageOff } from "lucide-react";
 
