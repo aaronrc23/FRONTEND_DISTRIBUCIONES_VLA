@@ -56,7 +56,7 @@ export default function MobileMenu() {
                 duration-200
                 ${isActive
                   ? "bg-shoprimary text-white shadow-md"
-                  : "text-slate-700 hover:bg-blue-50 hover:text-blue-900"
+                  : "text-foreground hover:bg-accent/50 hover:text-foreground-2 dark:hover:bg-blue-900 dark:hover:text-white"
                 }
               `
             }
@@ -70,10 +70,7 @@ export default function MobileMenu() {
               {link.name}
             </span>
 
-            <Icon
-              icon="mdi:chevron-right"
-              className="text-slate-300 text-lg"
-            />
+           
           </NavLink>
         ))}
       </nav>

@@ -14,7 +14,7 @@ const sizes: Record<string, { outer: string; inner: string }> = {
 };
 
 const colors: Record<string, { bg: string; glow: string }> = {
-    orange: { bg: 'bg-orange-500', glow: '#f97316' },
+    orange: { bg: 'bg-shoprimary2', glow: '#ff595e' },
     blue: { bg: 'bg-blue-500', glow: '#3b82f6' },
     red: { bg: 'bg-red-500', glow: '#ef4444' },
     skye: { bg: 'bg-sky-400', glow: '#0ea5e9' },

@@ -50,7 +50,7 @@ function HeroSection() {
 
 function MenssageBienvenida() {
   return (
-    <div className="relative w-full bg-card px-6 py-20 md:pt-20 md:pb-10 overflow-hidden">
+    <div className="relative w-full bg-card dark:bg-transparent px-6 py-20 md:pt-20 md:pb-10 overflow-hidden">
       {/* Resplandores ambientales sutiles */}
     
 
@@ -99,7 +99,7 @@ function FeaturedProductsSection() {
   return (
     <section
       ref={ref}
-      className={`py-14 md:py-16  bg-bgshop dark:bg-background  transition-all duration-700 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      className={`py-14 md:py-16  bg-bgshop dark:bg-transparent  transition-all duration-700 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
     >
       <div className="max-w-6xl mx-auto px-1 sm:px-4">
@@ -110,7 +110,7 @@ function FeaturedProductsSection() {
           </h2>
 
           <Button
-            variant="outline"
+            variant="default"
             onClick={() => navigate("/productos")}
           >
             Ver todos

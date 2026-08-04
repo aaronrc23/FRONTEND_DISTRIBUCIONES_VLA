@@ -25,7 +25,7 @@
 
 
 
-
+/* 
 select {
     appearance: base-select;
     &::picker(select) {
@@ -70,4 +70,4 @@ select {
         }
 
     }
-} 
+}  */

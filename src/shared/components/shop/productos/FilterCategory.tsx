@@ -86,7 +86,7 @@ export default function FilterCategory({
             <div className="flex justify-between items-center mb-5">
                 <div className="flex items-center gap-2">
                     <SlidersHorizontal className="w-4 h-4 text-shoprimary" />
-                    <Texto className="font-bold text-lg text-slate-800">Filtros</Texto>
+                    <Texto className="font-bold text-lg text-foreground/90">Filtros</Texto>
                 </div>
                 <div className="flex items-center gap-2">
                     {activeFiltersCount > 0 && (
@@ -111,7 +111,7 @@ export default function FilterCategory({
             {/* ── CATEGORÍAS ── */}
             <div className="mb-1 px-1">
                 <div className="flex items-center justify-between mb-3">
-                    <Texto className="font-semibold text-sm text-slate-600 uppercase tracking-tight flex items-center gap-1.5">
+                    <Texto className="font-semibold text-sm text-accent-foreground uppercase tracking-tight flex items-center gap-1.5">
                         Categorías
                     </Texto>
                     <span className="bg-muted text-muted-foreground text-xs font-bold px-2 py-0.5 rounded-sm">
@@ -122,7 +122,7 @@ export default function FilterCategory({
                 {loading && (
                     <div className="flex items-center gap-2 py-3">
                         <div className="w-4 h-4 border-2 border-shoprimary/30 border-t-shoprimary rounded-full animate-spin" />
-                        <p className="text-xs text-zinc-400 font-medium">Actualizando...</p>
+                        <p className="text-xs text-accent-foreground font-medium">Actualizando...</p>
                     </div>
                 )}
 
@@ -139,7 +139,7 @@ export default function FilterCategory({
                                 <div
                                     className={[
                                         "group flex items-center justify-between p-2.5 rounded-xl cursor-pointer transition-all duration-200",
-                                        isActive ? "bg-orange-50/70" : "hover:bg-gray-50"
+                                        isActive ? "bg-shoprimary/20 text-white" : "hover:bg-white/5 hover:text-white"
                                     ].join(" ")}
                                 >
                                     <div
@@ -156,14 +156,14 @@ export default function FilterCategory({
                                             className={[
                                                 "w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-300 shrink-0",
                                                 isActive
-                                                    ? "bg-linear-to-br from-shoprimary to-shoprimary2 border-transparent shadow-sm shadow-orange-200 scale-110"
-                                                    : "border-gray-300 bg-white group-hover:border-orange-300"
+                                                    ? "bg-linear-to-br from-shoprimary to-shoprimary2 border-transparent shadow-sm  scale-110"
+                                                    : "border-border bg-white/8 group-hover:border-orange-300"
                                             ].join(" ")}
                                         >
                                             {isActive && <Check className="w-3.5 h-3.5 text-white stroke-[3px]" />}
                                         </div>
 
-                                        <span className={["text-sm transition-colors duration-200 truncate", isActive ? "font-semibold text-shoprimary" : "text-slate-600 group-hover:text-slate-900"].join(" ")}>
+                                        <span className={["text-sm transition-colors duration-200 truncate", isActive ? "font-semibold text-shoprimary" : "text-foreground/90 group-hover:text-foreground"].join(" ")}>
                                             {parent.nombre}
                                         </span>
 

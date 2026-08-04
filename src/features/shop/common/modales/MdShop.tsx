@@ -42,7 +42,7 @@ export default function MdShop() {
                     {/* Resumen */}
                     <div className="flex items-center justify-between px-1">
                         <span className="text-sm text-slate-500">Total</span>
-                        <span className="text-lg font-bold text-blue-900">
+                        <span className="text-lg font-bold text-foreground">
                             S/ {total.toFixed(2)}
                         </span>
                     </div>

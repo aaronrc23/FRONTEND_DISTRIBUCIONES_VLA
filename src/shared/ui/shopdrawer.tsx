@@ -67,14 +67,14 @@ export default function ShopDrawer({
                     maxWidth: typeof maxWidth === "number" ? `${maxWidth}px` : maxWidth,
                 }}
                 className={`
-                    absolute right-0 top-0 h-screen bg-gradient-to-b from-white to-slate-50 shadow-2xl flex flex-col
+                    absolute right-0 top-0 h-screen bg-background dark:bg-card  shadow-2xl flex flex-col
                     transition-transform duration-300 ease-out
                     w-full sm:w-auto
                     ${open ? "translate-x-0" : "translate-x-full"}
                 `}
             >
                 {/* Header */}
-                <div className="relative flex items-center justify-between px-6 pt-5 pb-3 border-b border-slate-100">
+                <div className="relative flex items-center justify-between px-6 pt-5 pb-3 border-b border-accent/20">
                     {title && (
                         <div className="shrink-0">
                             <DrTitle icon={icon} title={title} subtitle={subtitle} />
@@ -83,7 +83,7 @@ export default function ShopDrawer({
 
                     <button
                         onClick={onClose}
-                        className="ml-auto p-2.5 rounded-xl bg-slate-100 hover:bg-red-500 hover:text-white cursor-pointer transition-all duration-200 active:scale-90 flex items-center justify-center"
+                        className="ml-auto p-2.5 rounded-xl bg-accent hover:bg-red-500 hover:text-white cursor-pointer transition-all duration-200 active:scale-90 flex items-center justify-center"
                         aria-label="Cerrar"
                     >
                         <Icon icon="ep:close" className="text-lg" />

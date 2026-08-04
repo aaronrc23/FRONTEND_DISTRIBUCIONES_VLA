@@ -28,19 +28,19 @@ export default function CardCarrito({ items }: any) {
                 return (
                     <div
                         key={`${item.id}-${item.presentacion?.id ?? ""}`}
-                        className="group relative flex gap-3 sm:gap-4 bg-white p-3 sm:p-4 rounded-xl transition-all duration-200 hover:shadow-sm"
+                        className="group relative flex gap-3 sm:gap-4 bg-card dark:bg-white/5 border border-card-border p-3 sm:p-4 rounded-xl transition-all duration-200 hover:shadow-sm"
                     >
                         {/* Botón eliminar */}
                         <button
                             onClick={() => removeItem(item.id, item.presentacion?.id)}
-                            className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer z-10"
+                            className="absolute -top-1.5 -right-1.5 w-6 h-6 bg-accent hover:bg-destructive text-foreground rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer z-10"
                             title="Eliminar del carrito"
                         >
                             <Icon icon="mdi:close" className="text-xs" />
                         </button>
 
                         {/* Imagen */}
-                        <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-lg overflow-hidden bg-gray-50 shrink-0">
+                        <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-lg overflow-hidden bg-accent/50 shrink-0">
                             <img
                                 src={item.imagen}
                                 alt={item.nombre}
@@ -53,16 +53,16 @@ export default function CardCarrito({ items }: any) {
                             {/* Header: nombre + precio */}
                             <div className="flex items-start justify-between gap-2">
                                 <div className="min-w-0 flex-1">
-                                    <Texto className="text-sm font-medium text-gray-900 truncate">
+                                    <Texto className="text-sm font-medium text-shopforeground truncate">
                                         {item.nombre}
                                     </Texto>
                                     {item.presentacion && (
-                                        <span className="text-xs text-gray-400">
+                                        <span className="text-xs text-shop-secondary-foreground">
                                             {item.presentacion.medida}
                                         </span>
                                     )}
                                 </div>
-                                <span className={`text-sm font-semibold whitespace-nowrap shrink-0 ${mayorista ? 'text-emerald-600' : 'text-gray-900'}`}>
+                                <span className={`text-sm font-semibold whitespace-nowrap shrink-0 ${mayorista ? 'text-emerald-600' : 'text-shopforeground'}`}>
                                     {moneda}{(efectivo * item.cantidad).toFixed(2)}
                                 </span>
                             </div>
@@ -88,32 +88,32 @@ export default function CardCarrito({ items }: any) {
 
                             {/* Indicador de mayoreo */}
                             {faltaMayoreo > 0 && (
-                                <div className="flex items-center gap-1.5 text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded-md">
+                                <div className="flex items-center gap-1.5 text-xs text-textwarning-20 bg-warning-20 px-2 py-1 rounded-md">
                                     <Icon icon="mdi:information-outline" className="text-sm shrink-0" />
                                     <span>+{faltaMayoreo} para mayoreo</span>
                                 </div>
                             )}
 
                             {/* Controles de cantidad + badge + ahorro */}
-                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pt-1.5 sm:pt-2">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pt-1.5  sm:pt-2">
                                 <div className="flex items-center gap-2">
-                                    <div className="flex items-center border border-gray-200 rounded-md">
+                                    <div className="flex items-center border border-border-input rounded-md bg-white/5">
                                         <button
                                             onClick={() => decreaseQty(item.id, item.presentacion?.id)}
                                             disabled={item.cantidad <= 1}
-                                            className="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+                                            className="w-7 h-7 flex items-center justify-center text-foreground hover:bg-accent/40 transition disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
                                             aria-label="Disminuir cantidad"
                                         >
                                             <Icon icon="mdi:minus" className="text-sm" />
                                         </button>
 
-                                        <span className="w-7 text-center text-sm font-medium text-gray-700">
+                                        <span className="w-7 text-center text-sm font-medium text-foreground">
                                             {item.cantidad}
                                         </span>
 
                                         <button
                                             onClick={() => increaseQty(item.id, item.presentacion?.id)}
-                                            className="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition cursor-pointer"
+                                            className="w-7 h-7 flex items-center justify-center text-foreground hover:bg-accent/40 transition cursor-pointer"
                                             aria-label="Aumentar cantidad"
                                         >
                                             <Icon icon="mdi:plus" className="text-sm" />

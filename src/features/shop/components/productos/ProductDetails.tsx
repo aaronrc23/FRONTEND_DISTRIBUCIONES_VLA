@@ -109,7 +109,7 @@ export default function ProductDetail() {
                             <div className="space-y-5">
                                 <div className="flex gap-2 flex-col">
                                     <div>
-                                        <Badge size="lg" visual="flat" className="px-4 text-sm text-foreground/88 border-none py-2">
+                                        <Badge size="lg" visual="flat" className="px-4 text-sm text-foreground/88 border-none py-2 dark:text-white/90 dark:bg-white/5">
                                             Stock disponible: {data.stock}
                                         </Badge>
                                     </div>
@@ -119,10 +119,10 @@ export default function ProductDetail() {
                                 <div className="flex flex-wrap items-center gap-3">
                                     <span className="text-sm text-zinc-500">Cantidad</span>
 
-                                    <div className="inline-flex items-center overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
+                                    <div className="inline-flex items-center overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-white/10 dark:bg-white/5">
                                         <button
                                             onClick={handleDecrease}
-                                            className="px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50 dark:text-zinc-200 dark:hover:bg-zinc-900"
+                                            className="px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50 dark:text-zinc-200 dark:hover:bg-white/5"
                                             aria-label="Disminuir cantidad"
                                         >
                                             -
@@ -137,7 +137,7 @@ export default function ProductDetail() {
 
                                         <button
                                             onClick={handleIncrease}
-                                            className="px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50 dark:text-zinc-200 dark:hover:bg-zinc-900"
+                                            className="px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50 dark:text-zinc-200 dark:hover:bg-white/5"
                                             aria-label="Aumentar cantidad"
                                         >
                                             +

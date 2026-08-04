@@ -108,7 +108,7 @@ export default function CategoriasSection() {
     return (
         <section
             ref={sectionRef}
-            className="py-14 md:py-16 px-6 bg-card transition-all duration-700 ease-out"
+            className="py-14 md:py-16 px-6 bg-card dark:bg-transparent transition-all duration-700 ease-out"
         >
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-12 sm:mb-14">
