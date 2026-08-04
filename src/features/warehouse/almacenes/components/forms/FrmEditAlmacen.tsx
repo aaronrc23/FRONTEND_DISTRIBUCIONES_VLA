@@ -7,8 +7,10 @@ import { showConfirmation } from "../../../../../shared/hooks/useSwalert";
 import { FrInput } from "../../../../../shared/components/atoms/FR/FrInput";
 import { FrSelect } from "../../../../../shared/components/atoms/FR/FrSelect";
 import Msj from "../../../../../shared/components/atoms/Msj";
-import { Button, Toggle } from "../../../../../shared/ui";
-import { Icon } from "@iconify-icon/react";
+import { Button } from "../../../../../shared/ui";
+
+import { ToggleCard } from "../../../../../shared/components/molecules/ToogleCard";
+import {  CheckIcon ,XIcon } from "lucide-react";
 
 interface Props {
     onClose?: () => void;
@@ -17,10 +19,12 @@ interface Props {
 
 export default function FrmEditAlmacen({ onClose, data }: Props) {
 
+
+
     const forms = useForm<AlmacenFormValuesEdit>({
         resolver: zodResolver(almacenFormEdit),
         defaultValues: {
-            nombre: data?.name || "",
+            nombre: data?.nombre || "",
             tipo: data?.tipo || "FISICO",
             is_principal: data?.is_principal || false,
         }
@@ -51,7 +55,7 @@ export default function FrmEditAlmacen({ onClose, data }: Props) {
     };
 
     return (
-        <div className="w-full md:min-w-[440px]">
+        <div className="w-full md:min-w-110">
             {/* HEADER */}
 
             <form onSubmit={forms.handleSubmit(onSubmit)}>
@@ -62,7 +66,7 @@ export default function FrmEditAlmacen({ onClose, data }: Props) {
 
                     {/* NOMBRE */}
                     <FrInput
-                        name="name"
+                        name="nombre"
                         control={forms.control}
                         label="Nombre"
                         placeholder="Ej: Almacén principal"
@@ -101,39 +105,27 @@ export default function FrmEditAlmacen({ onClose, data }: Props) {
 
 
                     {tipoSeleccionado === "FISICO" && (
-                        <div
-                            className="flex items-center justify-between 
-        p-3 rounded-xl border bg-secondary/30"
-                        >
-                            <div>
-                                <p className="font-medium text-sm">
-                                    Sede principal
-                                </p>
-                                <p className="text-xs text-gray-500">
-                                    Será la sede por defecto del sistema
-                                </p>
-                            </div>
-
-                            <Toggle
-                                checked={forms.watch("is_principal") || false}
-                                onChange={(value) => forms.setValue("is_principal", value)}
-                                size="md"
-                            />
-                        </div>
+                        <ToggleCard
+                            title="Sede principal"
+                            description=" Será la sede por defecto del sistema"
+                            iconChecked={<CheckIcon />}
+                            iconUnchecked={<XIcon />}
+                            checked={forms.watch("is_principal") || false}
+                            onChange={(val) => forms.setValue("is_principal", val)}
+                        />
                     )}
 
 
 
-
                     {/* BOTONES */}
-                    <div className="flex justify-between pt-4 border-t">
+                    <div className="flex justify-between pt-4 border-t border-border">
                         <Button type="button" variant="secondary" onClick={onClose}>
                             Cancelar
                         </Button>
 
                         <Button
-                            type="submit">
-                            <Icon icon="solar:diskette-bold" width="18" />
+                            type="submit" variant="primary" className=" cursor-pointer">
+                            
                             Guardar cambios
                         </Button>
                     </div>

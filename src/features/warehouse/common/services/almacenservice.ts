@@ -1,7 +1,7 @@
 import { apiInstancesPanel } from "../../../../core/services/ApiInstancePanel";
 
 export const listAlmacenes = async () => {
-    const response = await apiInstancesPanel.get("/almacenes")
+    const response = await apiInstancesPanel.get("/almacenes/list")
     return response.data
 }
 

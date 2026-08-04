@@ -3,9 +3,6 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { Tabs as TabsPrimitive } from "radix-ui"
 import { cn } from "../../lib/utils"
 
-
-
-
 function Tabs({
     className,
     orientation = "horizontal",
@@ -26,12 +23,13 @@ function Tabs({
 }
 
 const tabsListVariants = cva(
-    "rounded-lg p-[3px] group-data-[orientation=horizontal]/tabs:h-9 data-[variant=line]:rounded-none group/tabs-list text-muted-foreground inline-flex w-fit items-center justify-center group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col",
+    "group/tabs-list inline-flex w-fit items-center justify-center rounded-xl p-1 text-muted-foreground group-data-[orientation=horizontal]/tabs:h-auto group-data-[orientation=horizontal]/tabs:min-h-9 group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col",
     {
         variants: {
             variant: {
-                default: "bg-muted",
-                line: "gap-1 bg-transparent",
+                default: "bg-muted/70",
+                line: "gap-1 bg-transparent rounded-none",
+                bordered: "gap-0 bg-transparent rounded-xl border border-border/40 p-0 h-auto shadow-sm max-sm:flex max-sm:flex-wrap max-sm:justify-center max-sm:gap-2 max-sm:bg-muted/50 max-sm:p-1.5 max-sm:shadow-none max-sm:border-border/50 max-sm:border max-sm:rounded-2xl",
             },
         },
         defaultVariants: {
@@ -64,10 +62,17 @@ function TabsTrigger({
         <TabsPrimitive.Trigger
             data-slot="tabs-trigger"
             className={cn(
-                "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring text-foreground/60 hover:text-foreground dark:text-muted-foreground dark:hover:text-foreground relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-all group-data-[orientation=vertical]/tabs:w-full group-data-[orientation=vertical]/tabs:justify-start focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 group-data-[variant=default]/tabs-list:data-[state=active]:shadow-sm group-data-[variant=line]/tabs-list:data-[state=active]:shadow-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-                "group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent dark:group-data-[variant=line]/tabs-list:data-[state=active]:border-transparent dark:group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent",
-                "data-[state=active]:bg-background dark:data-[state=active]:text-foreground dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 data-[state=active]:text-foreground",
-                "after:bg-foreground after:absolute after:opacity-0 after:transition-opacity group-data-[orientation=horizontal]/tabs:after:inset-x-0 group-data-[orientation=horizontal]/tabs:after:bottom-[-5px] group-data-[orientation=horizontal]/tabs:after:h-0.5 group-data-[orientation=vertical]/tabs:after:inset-y-0 group-data-[orientation=vertical]/tabs:after:-right-1 group-data-[orientation=vertical]/tabs:after:w-0.5 group-data-[variant=line]/tabs-list:data-[state=active]:after:opacity-100",
+                "relative inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-all duration-200",
+                "text-muted-foreground hover:text-foreground",
+                "data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-sm",
+                "focus-visible:ring-ring/50 focus-visible:outline-ring focus-visible:ring-[3px] focus-visible:outline-1",
+                "disabled:pointer-events-none disabled:opacity-50",
+                "group-data-[orientation=vertical]/tabs:w-full group-data-[orientation=vertical]/tabs:justify-start",
+                "group-data-[variant=line]/tabs-list:rounded-none group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-[state=active]:bg-transparent group-data-[variant=line]/tabs-list:data-[state=active]:shadow-none group-data-[variant=line]/tabs-list:data-[state=active]:text-primary",
+                "group-data-[variant=bordered]/tabs-list:rounded-none group-data-[variant=bordered]/tabs-list:bg-transparent group-data-[variant=bordered]/tabs-list:data-[state=active]:bg-accent/50 group-data-[variant=bordered]/tabs-list:data-[state=active]:text-primary group-data-[variant=bordered]/tabs-list:data-[state=active]:shadow-none",
+                "max-sm:group-data-[variant=bordered]/tabs-list:rounded-xl max-sm:group-data-[variant=bordered]/tabs-list:data-[state=active]:rounded-xl max-sm:group-data-[variant=bordered]/tabs-list:data-[state=active]:bg-primary/10 max-sm:group-data-[variant=bordered]/tabs-list:data-[state=active]:text-primary max-sm:group-data-[variant=bordered]/tabs-list:data-[state=active]:shadow-sm max-sm:group-data-[variant=bordered]/tabs-list:data-[state=active]:font-semibold max-sm:group-data-[variant=bordered]/tabs-list:border max-sm:group-data-[variant=bordered]/tabs-list:border-transparent max-sm:group-data-[variant=bordered]/tabs-list:data-[state=active]:border-primary/20",
+                "sm:group-data-[variant=bordered]/tabs-list:border-r sm:group-data-[variant=bordered]/tabs-list:border-border/40 sm:group-data-[variant=bordered]/tabs-list:last:border-r-0",
+                "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
                 className
             )}
             {...props}
@@ -82,7 +87,7 @@ function TabsContent({
     return (
         <TabsPrimitive.Content
             data-slot="tabs-content"
-            className={cn("flex-1 outline-none", className)}
+            className={cn("flex-1 outline-none mt-2 animate-in fade-in-50 duration-200 min-w-0", className)}
             {...props}
         />
     )

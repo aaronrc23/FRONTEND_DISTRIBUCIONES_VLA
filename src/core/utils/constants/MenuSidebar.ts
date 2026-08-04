@@ -2,29 +2,50 @@ export const menusid = [
     {
         label: "Panel de Control",
         icon: "material-symbols:dashboard-rounded",
-        path: "/dashboard",
+        path: "/panel/dashboard",
     },
-  
+
     {
         label: "Logística",
         icon: "solar:box-linear",
         children: [
             { label: "Productos", path: "/panel/productos" },
             { label: "Categorías", path: "/panel/categorias" },
-            { label: "Almacenes", path: "/panel/almacenes" }
+            { label: "Almacenes", path: "/panel/almacenes" },
+            { label: "Marcas", path: "/panel/marcas" },
         ],
     },
     {
         label: "Inventario",
-        icon: "solar:box-linear",
+        icon: "mdi:form",
         path: "/panel/inventario",
+    },
+    {
+        label: "Historial de Movimientos",
+        icon: "mdi:history",
+        path: "/panel/historial_movimientos",
     },
     {
         label: "Administracion",
         icon: "tabler:settings",
         children: [
             { label: "Empleados", path: "/panel/empleados" },
+            { label: "Empresa", path: "/panel/empresa" },
+            { label: "Mi Perfil", path: "/panel/perfil" },
         ],
+    },
+    {
+        label: "Marketing",
+        icon: "mdi:bullhorn",
+        children: [
+            { label: "Banners Inicio", path: "/panel/banners" },
+            { label: "Footer", path: "/panel/footer" },
+        ],
+    },
+    {
+        label: "Reportes",
+        icon: "mdi:report",
+        path: "/panel/reportes",
     },
 
 

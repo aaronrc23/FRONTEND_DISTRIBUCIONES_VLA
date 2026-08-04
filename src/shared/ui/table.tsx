@@ -10,12 +10,12 @@ interface TableUIProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function TableUI({
     className,
-    variant = "default",
+    variant = "glass",
     ...props
 }: TableUIProps) {
     const variants: Record<TableVariant, string> = {
         default:
-            "rounded-xl border border-border/60 bg-table-bg shadow-sm",
+            "rounded-xl  bg-table-bg ",
         glass:
             "rounded-xl border border-border/90 bg-table-bg/5 backdrop-blur-xl shadow-lg",
         soft:

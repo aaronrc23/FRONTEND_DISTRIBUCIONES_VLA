@@ -1,22 +1,12 @@
-import CustomTabs from '../../../../shared/components/molecules/CustomTabs';
 import { useModal } from '../../../../shared/hooks/useModal';
 import { Modal } from '../../../../shared/ui';
 import FrmInventario from '../../Inventario/components/form/FrmInventario';
+import FrmMovimiento from '../../Inventario/components/form/FrmMovimiento';
 
 export default function MdInventario() {
     const modaladd = useModal("md-addInv")
-    const tabs = [
-        {
-            value: "general",
-            label: "Ingreso",
-            content: <FrmInventario onClose={modaladd.close} mode="Entrada" />
-        },
-        {
-            value: "usuarios",
-            label: "Salida",
-            content: <FrmInventario onClose={modaladd.close} mode="Salida" />
-        }
-    ];
+    const modalmov = useModal("md-movInv")
+
 
     return (
         <div>
@@ -24,10 +14,14 @@ export default function MdInventario() {
                 isOpen={modaladd.isOpen}
                 onClose={modaladd.close}
                 position="top"
-                className="pt-6"
-            >
-                <CustomTabs tabs={tabs} defaultValue="general" className="w-auto" />
+                className="pt-6 "
 
+            >
+                <FrmInventario onClose={modaladd.close} />
+
+            </Modal>
+            <Modal isOpen={modalmov.isOpen} onClose={modalmov.close} position="top" className="pt-6 ">
+                <FrmMovimiento onClose={modalmov.close} />
             </Modal>
         </div>
     )

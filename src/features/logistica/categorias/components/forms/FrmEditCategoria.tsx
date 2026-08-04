@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { showConfirmation } from '../../../../../shared/hooks/useSwalert';
@@ -8,6 +9,7 @@ import { CATEGORY_LEVEL } from '../../../common/constants/CategoryLevel';
 import { FrInput } from '../../../../../shared/components/atoms/FR/FrInput';
 import { FrSelectAsync } from '../../../../../shared/components/atoms/FR/FrSelectAsync';
 import { FrImagePreview } from '../../../../../shared/components/atoms/FR/FrImagePreview';
+import { FrFileInput } from '../../../../../shared/components/atoms/FR/FrmFileInput';
 import { buildCategoriaFormData } from '../../../common/utils/buildCategoriaFormData';
 import { editCategoriaSchema, type EditCategoriaSchema } from '../../../common/libs/CategoriaSchema';
 import { listarCatPadre, useCatCrudMuttation } from '../../../common/hooks/useCrudCat';
@@ -25,6 +27,7 @@ export default function FrmEditCategorias({ info }: { info: EditCategoriaSchema 
             imagen: info.imagen ?? null,
         },
     });
+    const [fileKey, setFileKey] = useState(0);
     const imageValue = forms.watch("imagen");
     const { EditCatMuttation } = useCatCrudMuttation({ forms, onClose: modaledit.close });
     const onSubmit = async (data: EditCategoriaSchema) => {
@@ -33,13 +36,14 @@ export default function FrmEditCategorias({ info }: { info: EditCategoriaSchema 
             "¿Estás seguro de guardar la categoría?"
         );
         if (!isConfirm) return;
-        const formData = buildCategoriaFormData(data);
+        const formData = buildCategoriaFormData(data as any);
         EditCatMuttation.mutate({ id: info.id, data: formData });
     };
 
 
     const handleCancel = () => {
         forms.reset();
+        setFileKey(prev => prev + 1);
         modaledit.close();
     };
 
@@ -86,20 +90,26 @@ export default function FrmEditCategorias({ info }: { info: EditCategoriaSchema 
 
 
 
-            {/* <FrFileInput
-                name="imagen"
-                label="Imagen"
-                control={forms.control}
-            />
+            {/* IMAGEN ACTUAL (desde BD) */}
             {typeof imageValue === "string" && imageValue && (
-                <div className="flex gap-2 justify-center">
+                <div className="flex flex-col gap-2 items-center">
+                    <p className="text-sm text-muted-foreground font-semibold">
+                        Imagen actual
+                    </p>
                     <img
                         src={imageValue}
                         alt="Imagen actual"
-                        className="h-32 w-32 object-cover rounded-md"
+                        className="h-32 w-32 object-cover rounded-xl border border-border shadow-sm"
                     />
                 </div>
-            )} */}
+            )}
+
+            <FrFileInput
+                key={fileKey}
+                name="imagen"
+                label="Cambiar imagen"
+                control={forms.control}
+            />
 
             {/* PREVIEW DE NUEVA IMAGEN */}
             {imageValue instanceof File && (

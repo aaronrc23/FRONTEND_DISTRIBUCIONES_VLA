@@ -9,11 +9,15 @@
     }
   ],
   "compilerOptions": {
+    "noEmitOnError": false,
     "strict": true,
     "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@ui/*": [
+        "src/shared/ui/*"
       ]
     }
   },

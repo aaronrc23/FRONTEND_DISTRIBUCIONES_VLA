@@ -1,20 +1,23 @@
 import { Outlet } from "react-router-dom";
 import HeaderStore from "../components/header/HeaderStore";
-import NavbarBottom from "../components/header/NavbarBotom";
+import Footer from "./landing/Footer";
+import MdShop from "../common/modales/MdShop";
+import WhatsAppFloatButton from "../common/components/WhatsAppFloatButton";
+import ScrollToTop from "@/shared/components/ScrollToTop";
+
 
 export default function StoreLayout() {
     return (
-        <section className="w-full min-h-screen dark:bg-zinc-900/80">
-
-            {/* 🔝 Siempre visible */}
+        <section className="w-full min-h-screen flex flex-col bg-bgshop">
+            <ScrollToTop />
+            {/* <TopBanner /> */}
             <HeaderStore />
-            <NavbarBottom />
-
-            {/* 🔄 Aquí cambia el contenido */}
-            <main className="pt-2">
+            <main className="flex-1 w-full min-h-screen bg-bgshop">
                 <Outlet />
             </main>
-
+            <Footer />
+            <MdShop />
+            <WhatsAppFloatButton />
         </section>
     );
 }

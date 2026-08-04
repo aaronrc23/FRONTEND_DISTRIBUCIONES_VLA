@@ -3,66 +3,146 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "../../lib/utils"
 
 
-
 const baseModernBtn =
-  "px-5 py-2.5 rounded-xl font-semibold text-sm flex items-center gap-2 transition-all active:scale-95";
+  "px-5 py-2.5 rounded-xl border-none font-medium text-sm flex items-center gap-2 transition-all duration-200 active:scale-[0.97] cursor-pointer";
+
+// Base para botones estilo Hero (más grandes y con sombra prominente)
+const baseHeroBtn =
+  "px-8 py-4 rounded-2xl flex items-center gap-2 transition-all duration-200 active:scale-[0.97] cursor-pointer";
+
+// ══════════════════════════════════════════════════════════════
+// 🧩 VARIANTES
+// ══════════════════════════════════════════════════════════════
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center border border-transparent text-sm font-medium whitespace-nowrap transition-all outline-none select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/btn inline-flex shrink-0 items-center justify-center border border-transparent text-sm font-medium whitespace-nowrap transition-all duration-200 outline-none select-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default:
-          "p-3 bg-white dark:bg-secondary rounded-2xl border border-slate-200 dark:border-none px-5 hover:dark:text-slate-50 hover:text-slate-900 shadow-sm",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-xl px-5 py-2.5 font-medium text-sm active:scale-[0.97]",
 
         primary: `
           ${baseModernBtn}
-          bg-blue-500 dark:bg-blue-600 text-white hover:bg-blue-600
-          dark:shadow-lg dark:shadow-blue-500/20
+          bg-primary text-primary-foreground
+          hover:bg-primary/90
+          shadow-lg shadow-primary/25
+        `,
+        shopPrimary: `
+          ${baseModernBtn}
+          bg-shoprimary text-white
+          hover:bg-shoprimary/90
+
+          rounded-2xl
+        `,
+        shopSecondary: `
+          ${baseModernBtn}
+          bg-shopsecondary 
+          hover:bg-shopsecondary/90
+     
+          rounded-2xl
+        `,
+
+        indigo: `
+          ${baseModernBtn}
+          bg-primary text-primary-foreground
+          hover:bg-primary/90
+          shadow-lg shadow-primary/25
         `,
 
         success: `
           ${baseModernBtn}
           bg-emerald-500 hover:bg-emerald-600 text-white
-          dark:shadow-lg dark:shadow-emerald-500/20
+          shadow-lg shadow-emerald-500/25
         `,
 
         warning: `
           ${baseModernBtn}
-          bg-yellow-500 hover:bg-yellow-600 text-white
-          dark:shadow-lg dark:shadow-yellow-500/20
+          bg-amber-500 hover:bg-amber-600 text-white
+          shadow-lg shadow-amber-500/25
         `,
 
         danger: `
           ${baseModernBtn}
           bg-red-500 hover:bg-red-600 text-white
-          dark:shadow-lg dark:shadow-red-500/20
+          shadow-lg shadow-red-500/25
         `,
 
         secondary: `
           ${baseModernBtn}
-          bg-slate-200 text-slate-800 hover:bg-slate-300
-          dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600
+          bg-secondary text-secondary-foreground
+          hover:bg-secondary/80
         `,
 
-        ghost:
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+        ghost: `
+          ${baseModernBtn}
+          bg-transparent hover:bg-accent
+          text-foreground hover:text-accent-foreground
+          shadow-none
+        `,
 
-        outline:
-          "border bg-background hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+        unstyled: "hover:none px-6",
 
-        link: "text-primary underline-offset-4 hover:underline",
+        outline: `
+          ${baseModernBtn}
+          border border-border bg-transparent
+          text-foreground hover:bg-accent hover:text-accent-foreground
+        `,
 
-        destructive:
-          "bg-destructive text-white hover:bg-destructive/90",
+        link:
+          "bg-transparent text-primary underline-offset-4 hover:underline cursor-pointer inline-flex items-center gap-1.5 transition-all duration-200 outline-none select-none disabled:pointer-events-none disabled:opacity-50",
+
+        destructive: `
+          ${baseModernBtn}
+          bg-destructive text-white
+          hover:bg-destructive/90
+          shadow-lg shadow-destructive/25
+        `,
+
+        // ── 🌟 Variante Brand (estilo Hero) ──────────────────
+        brand: `
+          ${baseHeroBtn}
+          bg-linear-to-r from-shoprimary2 to-shoprimary opacity-90
+          text-white font-semibold
+        
+          hover:shadow-orange-500/45 hover:scale-[1.02]
+          border border-white/10
+        `,
+
+        "brand-outline": `
+          ${baseHeroBtn}
+          bg-white/10 backdrop-blur-sm
+          border border-white/20
+          text-white
+          hover:bg-white/20 hover:scale-[1.02]
+        `,
+
+        "brand-sm": `
+          ${baseModernBtn}
+          bg-linear-to-r from-amber-400 to-orange-500
+          text-white font-semibold
+          shadow-lg shadow-orange-500/25
+          hover:shadow-orange-500/45 hover:scale-[1.02]
+          border border-white/10
+        `,
+
+        "shop-primary": `
+          ${baseModernBtn}
+          bg-shoprimary text-white
+          hover:bg-shoprimary/90
+    
+          rounded-2xl
+        `,
       },
 
+
       size: {
-        default: "gap-1.5 px-3 py-2.5",
+        default: "gap-1.5 px-4 py-2.5",
         xs: "h-6 gap-1 px-2 text-xs",
         sm: "h-8 gap-1 px-2.5",
-        lg: "h-10 gap-1.5 px-2.5",
+        lg: "gap-1.5 px-4 text-base",
         xl: "py-4 px-6 text-base",
+        icon_sm: "size-6",
         icon: "size-9",
       },
     },
@@ -74,6 +154,10 @@ const buttonVariants = cva(
   }
 );
 
+// ══════════════════════════════════════════════════════════════
+// 🔘 COMPONENTE
+// ══════════════════════════════════════════════════════════════
+
 function Button({
   className,
   variant = "default",
@@ -82,12 +166,11 @@ function Button({
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
   return (
     <ButtonPrimitive
-
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />
-  )
+  );
 }
 
-export { Button, buttonVariants }
+export { Button, buttonVariants };

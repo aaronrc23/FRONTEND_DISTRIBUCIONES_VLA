@@ -7,11 +7,16 @@ export function productToFormData(data: ProductSchema): FormData {
         if (value === undefined || value === null) return;
 
         if (key === "imagenes" && Array.isArray(value)) {
-            value.forEach((img) => {
+            value.forEach((img: any) => {
                 if (img.file instanceof File) {
                     formData.append("imagenes[]", img.file);
                 }
             });
+            return;
+        }
+
+        if (Array.isArray(value) || typeof value === "object") {
+            formData.append(key, JSON.stringify(value));
             return;
         }
 
@@ -43,6 +48,8 @@ export function productToFormDataEdit(imgs: any[]): FormData {
             `imagenes[${index}][isPrincipal]`,
             img.isPrincipal ? "1" : "0"
         );
+
+        
 
         // si existe id (imagen vieja)
         if (img.id) {

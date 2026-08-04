@@ -7,6 +7,7 @@ import { loginSchemaPanel, type LoginFormValuesPanel } from '../../hooks/validat
 import { useAccionAuth } from '../../hooks/useAccionAuth';
 import { FrInput } from '../../../../shared/components/atoms/FR/FrInput';
 
+
 export default function FrmLogin() {
     const forms = useForm<LoginFormValuesPanel>({
         resolver: zodResolver(loginSchemaPanel),
@@ -22,7 +23,8 @@ export default function FrmLogin() {
     };
 
     return (
-        <form className="space-y-5  px-8 md:px-0 w-full" onSubmit={forms.handleSubmit(onSubmit)}>
+        <form className="space-y-6  px-8 md:px-0 w-full" onSubmit={forms.handleSubmit(onSubmit)}>
+
             {/* Email */}
             <FrInput
                 name="email"

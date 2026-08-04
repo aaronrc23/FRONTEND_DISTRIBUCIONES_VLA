@@ -2,7 +2,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { addEmp, dropEmp, editEmp, listEmpleados } from "../services/EmpleadoService";
 import { useModal } from "../../../../shared/hooks/useModal";
 import { useEmpStore } from "../store/Empstore";
-import {  showConfirmation, showError, showLoading, showSuccess  } from "../../../../shared/hooks/useSwalert";
+import { showConfirmation, showError, showLoading, showSuccess } from "../../../../shared/hooks/useSwalert";
+import { cerrarSessionGlobal } from "../../perfil/services/PerfilService";
 
 export function ListEmpleador() {
     const { data, isLoading, error, ...props } = useQuery({
@@ -21,6 +22,14 @@ export function CrudMuttation() {
         if (data.success == true) {
             modalEdit.close();
             showSuccess("Exito", data.message ?? "Operacion exitosa");
+        }
+
+    }
+    const cerrarSesionSuccess = (data: any) => {
+        if (data.success == true) {
+            showSuccess("Exito", data.message ?? "Operacion exitosa");
+            localStorage.clear();
+            window.location.href = "/panel/login";
         }
 
     }
@@ -52,8 +61,17 @@ export function CrudMuttation() {
         onSettled: () => queryClient.invalidateQueries({ queryKey: ["empleados"] }),
     })
 
-    return { handleEditEmp, handleDelete, handleAddEmp }
+    const handleCerrarGlobal = useMutation({
+        mutationFn: cerrarSessionGlobal,
+        onMutate: () => showLoading("Cerrando sesión..."),
+        onSuccess: (data) => cerrarSesionSuccess(data),
+        onError: (error) => Error(error),
+        onSettled: () => queryClient.invalidateQueries({ queryKey: ["empleados"] }),
+    })
+
+    return { handleEditEmp, handleDelete, handleAddEmp, handleCerrarGlobal };
 }
+
 
 export function AccionesEmpl() {
     const modalEdit = useModal("drawer-empedit");
@@ -62,7 +80,7 @@ export function AccionesEmpl() {
         setData(data);
         modalEdit.open("drawer-empedit");
     };
-    const { handleEditEmp, handleDelete, handleAddEmp } = CrudMuttation();
+    const { handleEditEmp, handleDelete, handleAddEmp, handleCerrarGlobal } = CrudMuttation();
     const handleEmpEdit = async (data: any) => {
         const isconfirm = await showConfirmation("Editar empleado", "¿Estas seguro de editar este empleado?");
         if (!isconfirm) return;
@@ -85,6 +103,17 @@ export function AccionesEmpl() {
         handleDelete.mutate(data);
     }
 
-    return { handleEmpEdit, OpenEdit, handleDeleteEmp, handleAdd }
+    const handleLogoutGlobal = async () => {
+        const isconfirm = await showConfirmation(
+            "¿Cerrar sesión en todos los dispositivos?",
+            "Esto cerrará tu sesión en todos los navegadores y dispositivos donde hayas iniciado sesión."
+        );
+        if (!isconfirm) return;
+
+        handleCerrarGlobal.mutate();
+    }
+
+
+    return { handleEmpEdit, OpenEdit, handleDeleteEmp, handleAdd, handleLogoutGlobal }
 
 }

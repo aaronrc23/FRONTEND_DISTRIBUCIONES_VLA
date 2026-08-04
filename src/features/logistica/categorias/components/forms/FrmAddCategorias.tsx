@@ -1,11 +1,14 @@
 
 
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Button } from '../../../../../shared/ui';
 import { FrSelectAsync } from '../../../../../shared/components/atoms/FR/FrSelectAsync';
 import { FrSelect } from '../../../../../shared/components/atoms/FR/FrSelect';
 import { FrInput } from '../../../../../shared/components/atoms/FR/FrInput';
+import { FrFileInput } from '../../../../../shared/components/atoms/FR/FrmFileInput';
+import { FrImagePreview } from '../../../../../shared/components/atoms/FR/FrImagePreview';
 import { buildCategoriaFormData } from '../../../common/utils/buildCategoriaFormData';
 import { showConfirmation } from '../../../../../shared/hooks/useSwalert';
 import { CATEGORY_LEVEL } from '../../../common/constants/CategoryLevel';
@@ -33,11 +36,10 @@ export default function FrmAddCategorias() {
 
         AddCatMuttation.mutate(formData);
     };
-    // const [fileKey, setFileKey] = useState(0);
+    const [fileKey, setFileKey] = useState(0);
     const handleCancel = () => {
         forms.reset();
-        // setFileKey(prev => prev + 1);
-
+        setFileKey(prev => prev + 1);
     };
 
     return (
@@ -80,21 +82,20 @@ export default function FrmAddCategorias() {
                 />
             )}
 
-{/* 
             <FrFileInput
+                key={fileKey}
                 name="imagen"
                 label="Imagen"
                 control={forms.control}
-                key={fileKey}
             />
 
 
 
-            {forms.watch("imagen") && (
+            {forms.watch("imagen") && forms.watch("imagen") instanceof File && (
                 <div className="flex gap-2 justify-center ">
                     <FrImagePreview file={forms.watch("imagen")} />
                 </div>
-            )} */}
+            )}
 
             <div className="flex gap-2 justify-center pt-2">
                 <Button type="submit" className="cursor-pointer " variant={"primary"}>

@@ -22,6 +22,7 @@ interface DrawerProps {
     title?: string;
     icon?: string;
     subtitle?: string;
+    clscontent?: string
 }
 
 export function Drawer({
@@ -37,6 +38,7 @@ export function Drawer({
     icon,
     subtitle,
     className,
+    clscontent
 }: DrawerProps) {
     const [isMounted, setIsMounted] = useState(open);
     const [isVisible, setIsVisible] = useState(open);
@@ -127,7 +129,7 @@ export function Drawer({
 
 
                 {/* CONTENT */}
-                <div className="flex-1 overflow-y-auto px-4 scrollsidebar">
+                <div className={cn("flex-1 overflow-y-auto px-4 scrollsidebar",clscontent)}>
                     {children}
                 </div>
 

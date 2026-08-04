@@ -38,22 +38,31 @@ export default function ColumnsAlmacen() {
             cell: ({ row }: { row: Row<Almacen> }) => {
                 const tipo = row.original.tipo;
 
-                const styles = {
-                    FISICO: "bg-info/10 text-info border-info/40",
-                    VIRTUAL: "bg-purple/10 text-purple border-purple/40"
+                const badgeConfig = {
+                    FISICO: {
+                        color: "info" as const,
+                        icon: "mdi:warehouse",
+                        label: "Físico"
+                    },
+                    VIRTUAL: {
+                        color: "secondary" as const,
+                        icon: "mdi:web",
+                        label: "Virtual"
+                    }
                 };
 
+                const config = badgeConfig[tipo];
+
                 return (
-                    <div className="flex  w-full">
-                        <span className={`
-                    px-2 py-[4px]
-                    rounded-lg
-                    text-[11px] font-semibold
-                    border
-                    ${styles[tipo] || "bg-slate-50 text-slate-600 border-slate-200"}
-                `}>
-                            {tipo}
-                        </span>
+                    <div className="flex w-full">
+                        <Badge
+                            color={config?.color ?? "default"}
+                            visual="flat"
+                            size="md"
+                            leftIcon={config?.icon}
+                        >
+                            {config?.label ?? tipo}
+                        </Badge>
                     </div>
                 );
             }
@@ -70,7 +79,7 @@ export default function ColumnsAlmacen() {
                         {isPrincipal ? (
                             <span className="
                         inline-flex items-center gap-1
-                        px-2 py-[3px]
+                        px-2 py-0.75
                         rounded-full
                         text-xs font-semibold
                         bg-orange-100 text-orange-700
@@ -97,7 +106,7 @@ export default function ColumnsAlmacen() {
 
                 return (
                     <div className="flex w-full">
-                        <div className="w-[90px] flex flex-row md:flex-col items-center justify-center gap-1">
+                        <div className="w-22.5 flex flex-row md:flex-col items-center justify-center gap-1">
                             {isActive === 1 ? (
                                 <>
                                     <Badge color="success">Activo</Badge>
@@ -119,7 +128,7 @@ export default function ColumnsAlmacen() {
                 const id = row.original.id;
                 return (
                     <div className="flex w-full ">
-                        <div className="w-[90px] flex flex-row items-center justify-center gap-2">
+                        <div className="w-22.5 flex flex-row items-center justify-center gap-2">
                             <Button
                                 size="icon"
                                 onClick={() => handleEdit(row.original)}

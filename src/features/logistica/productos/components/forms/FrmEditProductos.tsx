@@ -9,7 +9,9 @@ import FrmInfoProd from '../plantillas/FrmInfoProd';
 import FrmPrecios from '../plantillas/FrmPrecios';
 import FrDetalle from '../plantillas/FrDetalle';
 import FrmImg from '../plantillas/FrmImg';
-import { Button } from '../../../../../shared/ui';
+import { Button, Texto } from '../../../../../shared/ui';
+import FrCaracteristicas from '../plantillas/FrCaracteristicas';
+import FrPresentaciones from '../plantillas/FrPresentaciones';
 
 type ImagenProducto = {
     id: number;
@@ -21,7 +23,7 @@ type ImagenProducto = {
 export default function FrmEditProductos({ onClose, data }: { onClose?: () => void, data: any }) {
     const { data: refprod } = listarRefProd();
     const methods = useForm<EditProdForm>({
-        resolver: zodResolver(EditProductSchema),
+        resolver: zodResolver(EditProductSchema as any),
         defaultValues: {
             id: data?.id || "",
             name: data?.name || "",
@@ -36,7 +38,27 @@ export default function FrmEditProductos({ onClose, data }: { onClose?: () => vo
             precio_mayoreo: data?.precio_mayoreo || 0,
             description: data?.description || "",
             destacado: data?.destacado || false,
+            marca_id: data?.marca?.id?.toString() || "",
             imagenes: [],
+            caracteristicas:
+                data?.caracteristicas?.length > 0
+                    ? data.caracteristicas.map((c: any) => ({
+                        descripcion: c.descripcion,
+                    }))
+                    : [],
+            presentaciones:
+                data?.presentaciones?.length
+                    ? data.presentaciones.map((p: any) => ({
+                        medida: p.medida || "",
+                        unidades_por_caja: p.unidades_por_caja || 0,
+                        largo: p.largo || 0,
+                        ancho: p.ancho || 0,
+                        alto: p.alto || 0,
+                        peso: p.peso || 0,
+                        unidad_id: p.unidad_id || "",
+                        es_principal: p.es_principal || false,
+                    }))
+                    : [],
         },
     });
 
@@ -63,12 +85,15 @@ export default function FrmEditProductos({ onClose, data }: { onClose?: () => vo
 
     const onSubmit = async (datos: EditProdForm) => {
         const imagenes = datos.imagenes || [];
+        
         const formData = productToFormDataEdit(imagenes);
-
+        
 
         for (const [k, v] of formData.entries()) {
             console.log(k, v);
         }
+
+
 
         const confirm = await showConfirmation("¿Estas seguro de editar el producto?");
         if (confirm) {
@@ -107,13 +132,22 @@ export default function FrmEditProductos({ onClose, data }: { onClose?: () => vo
                     onDeleteImage={DeleteImg}
                     onIsPrincipal={handleSetPrincipal}
                 />
+                <div className="flex flex-col gap-4">
+                    <Texto className="font-semibold text-base">Características Técnicas</Texto>
+                    <FrCaracteristicas />
+                </div>
+                <div className="flex flex-col gap-4">
+                    <Texto className="font-semibold text-base">Presentaciones y Logísticas</Texto>
+                    <FrPresentaciones />
+                </div>
+
                 {/* ================== ACTIONS ================== */}
-                <div className="flex justify-end gap-3 pt-6 border-t">
+                <div className="flex justify-end gap-3 pt-6 border-t border-border">
                     <Button type='button' variant={"secondary"} onClick={onClose} size={"lg"} className=" cursor-pointer">
                         Cancelar
                     </Button>
 
-                    <Button type="submit" size={"lg"} className="cursor-pointer">Guardar producto</Button>
+                    <Button type="submit" variant={"success"} size={"lg"} className="cursor-pointer">Guardar producto</Button>
                 </div>
             </form>
         </FormProvider>

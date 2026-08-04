@@ -71,7 +71,7 @@ export default function ColumnsCat() {
                     };
 
                     return (
-                        <Badge color={getColor()} visual="flat" size="sm">
+                        <Badge color={getColor()} visual="flat" size="md">
                             {level}
                         </Badge>
                     );

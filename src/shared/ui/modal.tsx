@@ -1,6 +1,5 @@
-import React, { useEffect, useState, type ReactNode } from "react";
+import React, { useEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { Texto } from "./texto";
@@ -31,54 +30,38 @@ interface ModalProps {
     description?: string;
 }
 
+/** Duración de las transiciones en ms */
+const TRANSITION_DURATION = 250;
+
 /**
- * Variantes de animación dinámicas basadas en la posición y el dispositivo
+ * Devuelve la clase CSS correspondiente al estado "cerrado / inicial"
+ * para cada posición del modal.
  */
-const getModalVariants = (
-    position: ModalPosition,
-    isMobile: boolean,
-    mobileAsDrawer: boolean,
-): Variants => {
-    // Comportamiento de Drawer para móvil (siempre desde abajo)
-    if (isMobile && mobileAsDrawer) {
-        return {
-            initial: { y: "100%", x: 0, opacity: 1 },
-            animate: { y: 0, x: 0, opacity: 1 },
-            exit: { y: "100%", x: 0, opacity: 1 },
-        };
+function getClosedTransform(position: ModalPosition, isMobile: boolean, mobileAsDrawer: boolean): string {
+    if (isMobile && mobileAsDrawer) return "translate-y-full";
+    switch (position) {
+        case "center": return "scale-95 opacity-0";
+        case "top":    return "-translate-y-full";
+        case "bottom": return "translate-y-full";
+        case "left":   return "-translate-x-full";
+        case "right":  return "translate-x-full";
     }
+}
 
-    // Comportamientos para Desktop
-    const variants: Record<ModalPosition, Variants> = {
-        center: {
-            initial: { scale: 0.95, opacity: 0, y: 0 },
-            animate: { scale: 1, opacity: 1, y: 0 },
-            exit: { scale: 0.95, opacity: 0, y: 0 },
-        },
-        top: {
-            initial: { y: "-100%", opacity: 1 },
-            animate: { y: 0, opacity: 1 },
-            exit: { y: "-120%", opacity: 1 },
-        },
-        bottom: {
-            initial: { y: "100%", opacity: 1 },
-            animate: { y: 0, opacity: 1 },
-            exit: { y: "100%", opacity: 1 },
-        },
-        left: {
-            initial: { x: "-100%", opacity: 1 },
-            animate: { x: 0, opacity: 1 },
-            exit: { x: "-100%", opacity: 1 },
-        },
-        right: {
-            initial: { x: "100%", opacity: 1 },
-            animate: { x: 0, opacity: 1 },
-            exit: { x: "100%", opacity: 1 },
-        },
-    };
-
-    return variants[position];
-};
+/**
+ * Devuelve la clase CSS correspondiente al estado "abierto"
+ * para cada posición del modal.
+ */
+function getOpenTransform(position: ModalPosition, isMobile: boolean, mobileAsDrawer: boolean): string {
+    if (isMobile && mobileAsDrawer) return "translate-y-0";
+    switch (position) {
+        case "center": return "scale-100 opacity-100";
+        case "top":    return "translate-y-0";
+        case "bottom": return "translate-y-0";
+        case "left":   return "translate-x-0";
+        case "right":  return "translate-x-0";
+    }
+}
 
 export const Modal = ({
     isOpen,
@@ -94,8 +77,11 @@ export const Modal = ({
     description,
 }: ModalProps) => {
     const [isMobile, setIsMobile] = useState(false);
+    const [mounted, setMounted] = useState(false);
+    const [open, setOpen] = useState(false);
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    // Detectar si estamos en móvil para aplicar la lógica de Drawer
+    // Detectar si estamos en móvil
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth < 640);
         checkMobile();
@@ -103,12 +89,34 @@ export const Modal = ({
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
-    // Bloquear scroll del body cuando el modal está abierto
+    // Gestionar montaje/desmontaje con animación de entrada/salida
+    useEffect(() => {
+        if (timerRef.current) clearTimeout(timerRef.current);
+
+        if (isOpen) {
+            setMounted(true);
+            // Doble requestAnimationFrame para forzar un reflow y activar la transición CSS
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    setOpen(true);
+                });
+            });
+        } else {
+            setOpen(false);
+            timerRef.current = setTimeout(() => {
+                setMounted(false);
+            }, TRANSITION_DURATION);
+        }
+
+        return () => {
+            if (timerRef.current) clearTimeout(timerRef.current);
+        };
+    }, [isOpen]);
+
+    // Bloquear scroll del body
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "";
         }
         return () => {
             document.body.style.overflow = "";
@@ -133,12 +141,12 @@ export const Modal = ({
         "max-sm:items-end max-sm:justify-center": mobileAsDrawer,
     });
 
-    // Estilos del panel blanco
+    // Estilos del panel
     const panelStyles = cn(
-        "bg-white/99 dark:bg-modal backdrop-blur-xl shadow-xl relative flex flex-col  sm:min-w-[400px] max-h-[95vh]",
+        "bg-modal/99 dark:bg-modal backdrop-blur-xl shadow-xl relative flex flex-col sm:min-w-[400px] max-h-[95vh]",
         {
-            "rounded-2xl w-full w-auto": position === "center",
-            " rounded-b-2xl sm:rounded-2xl  w-full md:w-auto": position === "top",
+            "rounded-2xl w-auto": position === "center",
+            "rounded-b-2xl sm:rounded-2xl w-full md:w-auto": position === "top",
             "rounded-t-lg w-full max-w-2xl": position === "bottom",
             "w-full max-w-md h-full sm:rounded-r-2xl": position === "left",
             "w-full max-w-md h-full sm:rounded-l-2xl": position === "right",
@@ -149,87 +157,92 @@ export const Modal = ({
         className,
     );
 
+    // Clases para la animación del panel
+    const isDrawerOnMobile = isMobile && mobileAsDrawer;
+    const panelClosedClass = getClosedTransform(position, isMobile, mobileAsDrawer);
+    const panelOpenClass = getOpenTransform(position, isMobile, mobileAsDrawer);
+
+    if (!mounted) return null;
+
     return createPortal(
-        <AnimatePresence>
-            {isOpen && (
-                <div className="fixed inset-0 z-50 overflow-hidden">
-                    {/* Backdrop Animado */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="absolute inset-0 bg-black/30 backdrop-blur-[2px]"
-                        onClick={handleBackdropClick}
-                    />
+        <div className="fixed inset-0 z-50 overflow-hidden">
+            {/* Backdrop */}
+            <div
+                className={cn(                        "absolute inset-0 backdrop-blur-[2px] transition-opacity duration-[250ms] ease-out will-change-[opacity]",
+                    open ? "opacity-100" : "opacity-0",
+                )}
+                style={{ backgroundColor: "var(--backdrop)" }}
+                onClick={handleBackdropClick}
+            />
 
-                    {/* Wrapper de Posicionamiento */}
-                    <div className={containerAlignment} onClick={handleBackdropClick}>
-                        <motion.div
-                            variants={getModalVariants(position, isMobile, mobileAsDrawer)}
-                            initial="initial"
-                            animate="animate"
-                            exit="exit"
-                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className={panelStyles}
-                            onClick={(e) => e.stopPropagation()} // Evitar cierre al clickear dentro del modal
-                        >
-                            {/* Indicador de arrastre visual para el drawer en móvil */}
-                            {isMobile && mobileAsDrawer && (
-                                <div className="w-12 h-1.5 bg-border rounded-full mx-auto mt-3 mb-1" />
-                            )}
+            {/* Wrapper de Posicionamiento */}
+            <div className={containerAlignment} onClick={handleBackdropClick}>
+                <div
+                    className={cn(
+                        panelStyles,
+                        "transition-all duration-[250ms] ease-out will-change-[transform,opacity]",
+                        // Estado cerrado (posiciones inicial/final)
+                        panelClosedClass,
+                        // Estado abierto
+                        open && panelOpenClass,
+                    )}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    {/* Indicador de arrastre visual para el drawer en móvil */}
+                    {isDrawerOnMobile && (
+                        <div className="w-12 h-1.5 bg-border rounded-full mx-auto mt-3 mb-1" />
+                    )}
 
-                            {title && (
-                                <div className="pt-6 px-6 pb-0">
-                                    <div className="flex items-center gap-2">
-                                        {icon && icon}
-                                        <div className="flex flex-col gap-1">
-                                            <Texto className="font-bold text-xl">
-                                                {title}
-                                            </Texto>
-                                            {description && (
-                                                <Texto
-                                                    variant="small"
-                                                    className="text-xs text-foreground-2"
-                                                >
-                                                    {description}
-                                                </Texto>
-                                            )}
-                                        </div>
-                                    </div>
+                    {title && (
+                        <div className="pt-6 px-6 pb-0">
+                            <div className="flex items-center gap-2">
+                                {icon && icon}
+                                <div className="flex flex-col gap-1">
+                                    <Texto className="font-bold text-xl">
+                                        {title}
+                                    </Texto>
+                                    {description && (
+                                        <Texto
+                                            variant="small"
+                                            className="text-xs text-foreground-2"
+                                        >
+                                            {description}
+                                        </Texto>
+                                    )}
                                 </div>
-                            )}
-
-                            {showCloseButton && (
-                                <button
-                                    onClick={onClose}
-                                    className="p-2 hover:bg-accent cursor-pointer rounded-full transition-colors absolute top-2 right-2 text-gray-500 hover:text-red-500"
-                                    aria-label="Cerrar"
-                                >
-                                    <svg
-                                        className="w-6 h-6"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M6 18L18 6M6 6l12 12"
-                                        />
-                                    </svg>
-                                </button>
-                            )}
-
-                            {/* Contenido del Modal */}
-                            <div className="flex-1 overflow-y-auto p-6 text-foreground scrollmodal">
-                                {children}
                             </div>
-                        </motion.div>
+                        </div>
+                    )}
+
+                    {showCloseButton && (
+                        <button
+                            onClick={onClose}
+                            className="p-2 hover:bg-accent cursor-pointer rounded-full transition-colors absolute top-2 right-2 text-muted-foreground hover:text-destructive"
+                            aria-label="Cerrar"
+                        >
+                            <svg
+                                className="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
+                        </button>
+                    )}
+
+                    {/* Contenido del Modal */}
+                    <div className="flex-1 overflow-y-auto p-6 text-foreground scrollmodal">
+                        {children}
                     </div>
                 </div>
-            )}
-        </AnimatePresence>,
+            </div>
+        </div>,
         document.body,
     );
 };

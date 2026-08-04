@@ -1,0 +1,47 @@
+name: 🚀 Deploy React to cPanel
+
+on:
+    push:
+        branches:
+            - main
+
+concurrency:
+    group: deploy-production
+    cancel-in-progress: true
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        environment: production
+
+        steps:
+            - name: 📥 Clonar repositorio
+              uses: actions/checkout@v4
+
+            - name: 🟢 Configurar Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  cache: npm
+
+            - name: 📥 Instalar dependencias
+              run: npm ci
+
+            - name: 📝 Crear archivo .env
+              run: |
+                  cat <<EOF > .env
+                  VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}
+                  EOF
+
+            - name: 🏗️ Generar build
+              run: npm run build
+
+            - name: 📤 Subir build por FTP
+              uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+              with:
+                  server: ${{ secrets.FTP_SERVER }}
+                  port: ${{ secrets.FTP_PORT }}
+                  username: ${{ secrets.FTP_USERNAME }}
+                  password: ${{ secrets.FTP_PASSWORD }}
+                  local-dir: ./dist/
+                  server-dir: ${{ secrets.FTP_SERVER_DIR }}

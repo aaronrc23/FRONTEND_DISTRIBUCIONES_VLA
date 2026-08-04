@@ -1,0 +1,259 @@
+/* ───────────────────────────────────────────────
+   CUSTOM ANIMATIONS (reemplazan framer-motion)
+   ─────────────────────────────────────────────── */
+
+/* Entrada del modal con efecto scale + fade */
+@keyframes modal-scale-in {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Salida del modal */
+@keyframes modal-scale-out {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+}
+
+/* Slide desde arriba */
+@keyframes modal-slide-from-top {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes modal-slide-to-top {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+/* Slide desde abajo */
+@keyframes modal-slide-from-bottom {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes modal-slide-to-bottom {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(100%);
+    }
+}
+
+/* Slide desde izquierda */
+@keyframes modal-slide-from-left {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes modal-slide-to-left {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* Slide desde derecha */
+@keyframes modal-slide-from-right {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes modal-slide-to-right {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}
+
+/* ── TapeRoll ── */
+@keyframes tape-roll-in {
+    from {
+        transform: translateX(-40px) rotate(-180deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes ping-soft {
+    0% {
+        transform: scale(1);
+        opacity: 0.15;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.05;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.15;
+    }
+}
+
+/* ── TopBanner ── */
+@keyframes shimmer-slide {
+    from {
+        transform: translateX(-100%) skewX(-20deg);
+    }
+
+    to {
+        transform: translateX(400%) skewX(-20deg);
+    }
+}
+
+@keyframes banner-slide-down {
+    from {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ── WhatsApp Float Button ── */
+@keyframes whatsapp-wave {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(2.2);
+        opacity: 0;
+    }
+}
+
+@keyframes banner-slide-up {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
+}
+
+/* ───────────────────────────────────────────────
+   CARRUSEL / BANNER ANIMATIONS (CSS puro, GPU)
+   ─────────────────────────────────────────────── */
+
+/* ── Ken Burns ──
+   Zoom lento y fluido en la imagen activa del carrusel.
+   Usamos linear + una transición suave para un movimiento
+   constante sin aceleraciones bruscas.
+   scale(1) → scale(1.08) con un leve translateX para efecto cine. */
+@keyframes ken-burns {
+    0%   { transform: scale(1)     translateX(0); }
+    100% { transform: scale(1.08)  translateX(-1.5%); }
+}
+
+.carousel-image-ken {
+    animation: ken-burns 35s linear;
+    animation-fill-mode: forwards;
+    will-change: transform;
+}
+
+/* Transición suave entre slides (fade + scale ligero) */
+.carousel-slide-enter {
+    animation: carousel-fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes carousel-fade-in {
+    from {
+        opacity: 0;
+        transform: scale(1.02);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Línea decorativa */
+.carousel-line {
+    animation: carousel-line 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    transform-origin: left center;
+}
+
+/* ── Stepper paso a paso ── */
+@keyframes step-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(var(--anim-dir, 8px));
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-step-fade-in {
+    animation: step-fade-in 300ms ease-out both;
+}
