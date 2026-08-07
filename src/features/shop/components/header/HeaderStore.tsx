@@ -15,7 +15,7 @@ const NavbarBottom = lazy(() => import("../../../../shared/components/shop/heade
 export default function HeaderStore({ className }: any) {
     const navigate = useNavigate();
     const handleHome = () => navigate('/');
-    const { toggle, isOpen } = useMobileMenuStore();
+    const { toggle, isOpen, close } = useMobileMenuStore();
     const cartModal = useModal("md-carrito");
     const totalItems = useCartStore((state) => state.items.reduce((acc, item) => acc + item.cantidad, 0));
     const [scrolled, setScrolled] = useState(() => window.scrollY > 10);
@@ -73,7 +73,9 @@ export default function HeaderStore({ className }: any) {
 
                             {/* Menu button */}
                             <Button
-                                aria-label="menu"
+                                aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+                                aria-expanded={isOpen}
+                                aria-controls="mobile-menu"
                                 className="p-2 text-shopheader-foreground"
                                 variant="outline"
                                 onClick={toggle}
@@ -89,10 +91,22 @@ export default function HeaderStore({ className }: any) {
 
                     </div>
                 </div>
+                {/* Menú móvil: dropdown de ancho completo anclado debajo del header */}
+                <MobileMenu />
             </nav>
 
-            {/* Mobile menu drawer - fuera del nav para evitar problemas con el overlay */}
-            <MobileMenu />
+            {/* Overlay que oscurece el contenido debajo del header mientras el menú está abierto */}
+            <div
+                className={`md:hidden fixed inset-0 z-30 bg-black/40 backdrop-blur-[2px]
+                    transition-opacity duration-300
+                    ${isOpen
+                        ? "opacity-100 pointer-events-auto"
+                        : "opacity-0 pointer-events-none"
+                    }
+                `}
+                onClick={close}
+                aria-hidden={!isOpen}
+            />
         </>
     );
 }

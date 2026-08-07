@@ -13,34 +13,37 @@ import { ImageOff } from "lucide-react";
 function HeroSection() {
   const { data: banners, isLoading } = useActiveBanners();
 
+  // La imagen del banner es 1600×800 (relación 2:1). Para que se vea completa y
+  // nítida en desktop sin agrandarse ni recortarse, el carrusel se limita al ancho
+  // del contenido (max-w-6xl) y la altura se deriva de la relación de aspecto.
   const bannerSlides: CarouselSlide[] = (banners ?? []).map((b: any) => ({
     id: b.id,
     image: b.url_imagen,
-    imageSizes: "100vw",
+    imageSizes: "(min-width: 768px) 1152px, 100vw",
     link: b.enlace || "/catalogo",
   }));
 
   return (
-    <section className="w-full px-4">
-      <div className="max-w-6xl mx-auto">
+    <section className="w-full">
+      <div className="w-full max-w-6xl mx-auto px-1 sm:px-4">
         {isLoading ? (
-          <div className="h-[40vh] sm:h-[50vh] md:h-[55vh] lg:h-[65vh] flex items-center justify-center bg-slate-100 rounded-xl">
+          <div className="aspect-[16/10] sm:aspect-[16/9] md:aspect-[2/1] flex items-center justify-center bg-slate-100 rounded-xl">
             <Icon icon="fontisto:spinner-refresh" className="animate-spin text-4xl text-orange-400" />
           </div>
         ) : bannerSlides.length === 0 ? (
-          <div className="h-[40vh] sm:h-[50vh] md:h-[55vh] lg:h-[65vh] flex items-center justify-center bg-slate-100 rounded-xl">
+          <div className="aspect-[16/10] sm:aspect-[16/9] md:aspect-[2/1] flex items-center justify-center bg-slate-100 rounded-xl">
             <p className="text-slate-400 text-lg">Próximamente</p>
           </div>
         ) : (
           <ReusableCarousel
             slides={bannerSlides}
             variant="banner"
-            bannerHeight="h-[40vh] sm:h-[50vh] "
+            bannerHeight="aspect-[16/10] sm:aspect-[16/9] md:aspect-[2/1]"
             autoplay
             autoplayDelay={6000}
             showArrows
             showDots
-            className="w-full rounded-xl overflow-hidden"
+            className="w-full overflow-hidden"
           />
         )}
       </div>
@@ -183,7 +186,7 @@ function FeaturedProductsSection() {
 /* ─── Página principal ─── */
 export default function LytHome() {
   return (
-    <div className="w-full h-full flex flex-col sm:p-12">
+    <div className="w-full h-full flex flex-col">
       <HeroSection />
       <MenssageBienvenida />
       <CategoriasSection />

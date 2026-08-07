@@ -207,10 +207,11 @@
    Zoom lento y fluido en la imagen activa del carrusel.
    Usamos linear + una transición suave para un movimiento
    constante sin aceleraciones bruscas.
-   scale(1) → scale(1.08) con un leve translateX para efecto cine. */
+   scale(1) → scale(1.04) con un leve translateX para efecto cine.
+   (Zoom reducido para no agrandar ni recortar el contenido del banner). */
 @keyframes ken-burns {
     0%   { transform: scale(1)     translateX(0); }
-    100% { transform: scale(1.08)  translateX(-1.5%); }
+    100% { transform: scale(1.04)  translateX(-0.5%); }
 }
 
 .carousel-image-ken {

@@ -265,7 +265,7 @@ export default function ReusableCarousel({
                     className={cn(
                       "absolute inset-0",
                       slide.overlayClassName ??
-                      "bg-linear-to-r from-blue-900/10 via-blue-900/20 to-blue-900/10"
+                      "bg-linear-to-r from-blue-900/10 via-blue-900/10 to-blue-900/5"
                     )}
                   />
 
